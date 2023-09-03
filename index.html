@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Stories</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            margin: 0;
+            background-color: black;
+            height: 100vh; /* Ensure the body takes up the full viewport height */
+        }
+    
+        #logo {
+            width: 35%;
+            height: 70%;
+        }
+    
+        #tag {
+            font-family: "Nunito";
+            color:whitesmoke;
+            font-size: 40px;
+            text-align: center;
+        }
+
+        #btn{
+            border-radius: 50px;
+            border: 1px solid whitesmoke;
+            background-color: transparent;
+            color: whitesmoke;
+            font-family: "Nunito";
+            font-size: 25px;
+            padding:1%;
+            margin-top: 5%;
+        }
+    
+        /* Center the content vertically within the div */
+        /* #major{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        } */
+
+    /* Media query for smaller screens */
+    @media screen and (max-width: 768px) {
+        body{
+            display:grid;
+            place-items: center;
+            padding:5%;
+        }
+        #logo {
+            width: 70%; /* Adjust the logo size for smaller screens */
+        }
+
+        #tag {
+            font-size: 28px; /* Decrease font size for smaller screens */
+        }
+    }
+    /* Media query for even smaller screens */
+    @media screen and (max-width: 480px) {
+        body{
+            display:grid;
+            place-items: center;
+            padding: 5%;
+        }
+        #logo {
+            width: 90%; /* Further adjust the logo size for very small screens */
+        }
+
+        #tag {
+            font-size: 24px; /* Decrease font size for very small screens */
+        }
+    }
+    </style>
+
+    <script>
+      $(document).ready(function() {
+    var text = "We turn your dreams into beautiful reality !!";
+    var tag = document.getElementById("tag");
+    var i = 0;
+
+    function type() {
+        if (i < text.length) {
+            tag.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, 30); // Delay before typing the next character
+        }
+    }
+
+    type();
+});
+
+    </script>
+    
+</head>
+<body style="background-color:black;">
+
+        <img src="logo3-removebg-preview.png" id="logo">
+        <div id="tag"></div>
+
+        <!-- <button id="btn">Explore</button> -->
+</body>
+</html>
