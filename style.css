@@ -280,8 +280,12 @@ background: #b6b6b68f;
 
 .column:hover{
     background: #ebebeb;
-    box-shadow: 0 0 15px rgb(0, 0, 0);
+    box-shadow: 0 0 20px rgb(0, 0, 0),0 0 20px rgb(59, 59, 59) inset;
+    transform: scale(1.05);
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
+
 
 .service-figure {
     width:60%;
