@@ -133,4 +133,96 @@ function Sign() {
         confirm_pwd_warn.innerHTML = "*Confirm password not matching"
     }
 }
+const packageWrapper = document.querySelector(".package-wrapper");
+const packageCarousel = document.querySelector(".package-carousel");
+const packageFirstCardWidth = packageCarousel.querySelector(".package-card").offsetWidth;
+const packageArrowBtns = document.querySelectorAll(".package-wrapper i");
+const packageCarouselChildrens = [...packageCarousel.children];
 
+let packageIsDragging = false, packageIsAutoPlay = true, packageStartX, packageStartScrollLeft, packageTimeoutId;
+
+// Get the number of cards that can fit in the carousel at once
+let packageCardPerView = Math.round(packageCarousel.offsetWidth / packageFirstCardWidth);
+
+// Insert copies of the last few cards to beginning of carousel for infinite scrolling
+packageCarouselChildrens.slice(-packageCardPerView).reverse().forEach(card => {
+    packageCarousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+});
+
+// Insert copies of the first few cards to end of carousel for infinite scrolling
+packageCarouselChildrens.slice(0, packageCardPerView).forEach(card => {
+    packageCarousel.insertAdjacentHTML("beforeend", card.outerHTML);
+});
+
+// Scroll the carousel at appropriate postition to hide first few duplicate cards on Firefox
+packageCarousel.classList.add("no-transition");
+packageCarousel.scrollLeft = packageCarousel.offsetWidth;
+packageCarousel.classList.remove("no-transition");
+
+// Add event listeners for the arrow buttons to scroll the carousel left and right
+packageArrowBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+        packageCarousel.scrollLeft += btn.id == "package-left" ? -packageFirstCardWidth : packageFirstCardWidth;
+    });
+});
+const packageDragStart = (e) => {
+    packageIsDragging = true;
+    packageCarousel.classList.add("dragging");
+    // Records the initial cursor and scroll position of the carousel
+    packageStartX = e.pageX;
+    packageStartScrollLeft = packageCarousel.scrollLeft;
+}
+
+const packageDragging = (e) => {
+    if(!packageIsDragging) return; // if packageIsDragging is false return from here
+    // Updates the scroll position of the carousel based on the cursor movement
+    packageCarousel.scrollLeft = packageStartScrollLeft - (e.pageX - packageStartX);
+}
+
+const packageDragStop = () => {
+    packageIsDragging = false;
+    packageCarousel.classList.remove("dragging");
+}
+
+const packageInfiniteScroll = () => {
+    // If the carousel is at the beginning, scroll to the end
+    if(packageCarousel.scrollLeft === 0) {
+        packageCarousel.classList.add("no-transition");
+        packageCarousel.scrollLeft = packageCarousel.scrollWidth - (2 * packageCarousel.offsetWidth);
+        packageCarousel.classList.remove("no-transition");
+    }
+    // If the carousel is at the end, scroll to the beginning
+    else if(Math.ceil(packageCarousel.scrollLeft) === packageCarousel.scrollWidth - packageCarousel.offsetWidth) {
+        packageCarousel.classList.add("no-transition");
+        packageCarousel.scrollLeft = packageCarousel.offsetWidth;
+        packageCarousel.classList.remove("no-transition");
+    }
+
+    // Clear existing timeout & start autoplay if mouse is not hovering over carousel
+    clearTimeout(packageTimeoutId);
+    if(!packageWrapper.matches(":hover")) autoPlay();
+}
+
+const autoPlay = () => {
+    if(window.innerWidth < 80 || !packageIsAutoPlay) return; // Return if window is smaller than 800 or packageIsAutoPlay is false
+    // Autoplay the carousel after every 2500 ms
+    packageTimeoutId = setTimeout(() => packageCarousel.scrollLeft += packageFirstCardWidth, 2500);
+}
+autoPlay();
+
+packageCarousel.addEventListener("mousedown", packageDragStart);
+packageCarousel.addEventListener("mousemove", packageDragging);
+document.addEventListener("mouseup", packageDragStop);
+packageCarousel.addEventListener("scroll", packageInfiniteScroll);
+packageWrapper.addEventListener("mouseenter", () => clearTimeout(packageTimeoutId));
+packageWrapper.addEventListener("mouseleave", autoPlay);
+
+$(document).ready(function() {
+    $("a").click(function(event) {
+      var $this = $(this),
+        url = $this.data("url");
+
+      $(document.body).load(url);
+      event.preventDefault();
+    });
+  });
