@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System</title>
+    <link rel="icon" type="image-icon" href="images/logo.ico">
+    <!-------------Bootstrap CSS------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-------------jQuery-------------------->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <!-------------Bootstrap js-------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <!--------------Icons-------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/photographer_details.css">
+</head>
+
+<body>
+    <header class="header">
+
+        <div class="fa fa-bars" id="menu-btn" onclick="navBarToggle()"></div>
+
+        <a href="Ems.html" class="navbar-logo"><img src="images/logo.png" alt="" width="100%" height="100%"></a>
+
+
+
+        <div class="user-btn dropdown" id="user-btn">
+            <i class="fa fa-user user-icon" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+        </div>
+    </header>
+
+    <nav aria-label="breadcrumb" class="page-location">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/photographers">photographer</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><%= photographer.name %></li>
+        </ol>
+    </nav>
+
+    <div class="two-column-view frow main-container">
+
+        <div class="brief-main">
+            <div class="photographer-head">
+
+                <div class="info-box">
+
+                    <div class="frow1 row">
+
+                        <div class="fcol1 photographer-brief col-md-6 col-sm-12">
+                            <div class="main-profile-pic">
+                                <img id="vendor-profile-pic"
+                                    src="images/<%=photographer.profilePhoto%>"
+                                    alt="
+                                    <%= photographer.name%>" class="profile-pic">
+                                <img class="membership-tag pointer"
+                                    src="https://image.wedmegood.com/resized/26X/uploads/icons/handpicked-web.png"
+                                    alt="Handpicked">
+                            </div>
+                            <div class="photographer-details">
+                                <div class="photographer-details-inner">
+                                    <div class="title">
+                                        <h4 class="">
+                                            <%= photographer.name%>
+                                        </h4>
+                                        <span class="StarRating"><i class="fa fa-star"
+                                                style="color:rgb(255, 255, 255); margin-right: 5px;"></i><%= photographer.rating %></span>
+
+                                    </div>
+                                    <div class="location">
+                                        <i class="fa fa-map-marker h6"></i>
+                                        <h6 class="location-text"><span><%= photographer.address%></span>
+                                            <a href="https://maps.app.goo.gl/6ZZSFdKSu9gEfZA96">(View on map)</a>
+                                        </h6>
+                                    </div>
+
+
+                                    <div class="links">
+                                        <div class="photos" style="border-right: 1px solid rgb(204, 204, 204);"><i
+                                                class="fa fa-image"></i>
+                                            <!-- -->262
+                                            Photos
+                                        </div>
+                                        <div class="favourite"><i class="fa fa-heart-o" aria-hidden="true"></i>
+                                            <!-- -->Shortlist</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="works">
+                                <div class="work" id="project">Projects</div>
+                                <div class="work" id="about">About</div>
+                            </div>
+
+                            <div class="portfolio-links">
+                                <div class="MuiTabs-flexContainer-11" role="tablist">
+                                    <button class="portfolio-links-button active-custom" tabindex="0" type="button" role="tab"
+                                        aria-selected="true">
+                                        <span>Portfolio</span>
+                                    </button>
+                                    <button class="portfolio-links-button" tabindex="0" type="button" role="tab"
+                                        aria-selected="false">
+                                        <span>Albums</span>
+                                    </button>
+                                    <button class="portfolio-links-button" tabindex="0" type="button" role="tab"
+                                        aria-selected="false">
+                                        <span>Videos</span>
+                                    </button>
+                                </div><span class="jss33 jss35 MuiTabs-indicator jss1639"
+                                    style="left: 0px; width: 160px;"></span>
+
+                            </div>
+
+                            <div class="TabViews fcol f-space-between">
+                                <div class="Portfolio ">
+                                    <div class="row">
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-0"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="https://image.wedmegood.com/resized/450X/uploads/project/255460/1689259534_000__5_.jpg?crop=10,92,2028,1141"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-1"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688976459__I1A3938.jpg"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-2"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385440_000__13_.jpg"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-3"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688384403_The_Wedding_Scenario_Candid_Photography_Vadodara__28_.jpg"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-4"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385474_000__27_.jpg"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-5"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688384372_The_Wedding_Scenario_Candid_Photography_Vadodara__6_.jpg"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-6"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1689164615_VTP00208.jpg"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-7"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385501_000__37_.jpg"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="ViewAll">
+                                    <div class="more-content h-center"><a class="h6 text-primary view-all-btn v-center"
+                                            href="/profile/The-Wedding-Scenario-926496/portfolio">View <!-- -->
+                                            more</a></div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="AboutSection bg-white shadow-light radius protected-content jsEvent-onCopy">
+                                <h3 class="title-bar">About <!-- -->The Wedding
+                                    Scenario<!-- --> - <!-- -->Wedding Photographers, <!-- -->
+                                    <span>&nbsp;<!-- -->Babajipura<!-- -->,&nbsp;</span> <!-- -->Vadodara
+                                </h3>
+                                <div class="about-body border-t">
+                                    <div class=""><%= photographer.about %>
+                                    </div>
+                                    <hr>
+                                    <div class="container">
+                                        <div class="row rowa">
+                                            <div class="col-md-6">
+                                                <h6><span>Been on
+                                                    </span><span><span class="text" style="color: rgb(250, 40, 75);">
+                                                            Dream Stories</span></span><span> Since</span></h6>
+                                                <p class="text-tertiary" style="width:230px"><%= photographer.since %>
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <h6>Albums</h6>
+                                                <p class="text-tertiary" style="width:230px"><i
+                                                        class="fa fa-inr margin-r-5 text-tertiary"></i><%= photographer.albums %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row rowb">
+                                            <div class="col-md-6">
+                                                <h6>Services offered
+                                                </h6>
+                                                <p class="text-tertiary" style="width:230px"><%= photographer.services %></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Payment terms</h6>
+                                                <p class="text-tertiary" style="width:230px"><%= photographer.paymentTerms %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row rowc">
+                                            <div class="col-md-6">
+                                                <h6>Travel Cost</h6>
+                                                <p class="text-tertiary" style="width:230px"><%= photographer.travelCost %></p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Budget (Photo
+                                                    Package)
+                                                </h6>
+                                                <p class="text-tertiary" style="width:230px"><%= photographer.photo %>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row rowd">
+                                            <div class="col-md-6">
+                                                <h6>Budget (Photo +
+                                                    Video)
+                                                </h6>
+                                                <p class="text-tertiary" style="width:230px"><%= photographer.photoVideo %>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Most Booked Package
+                                                </h6>
+                                                <p class="text-tertiary" style="width:230px"><%= photographer.mostBooked %></p>
+                                            </div>
+                                        </div>
+                                        <div class="row rowe">
+                                            <div class="col-md-6">
+                                                <h6>Small Function
+                                                    Photography Price (Photo &amp; Video)</h6>
+                                                <p class="text-tertiary" style="width:230px"><%= photographer.smallFunction %>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h6>Delivery Time</p>
+                                                    <p class="text-tertiary" style="width:230px"><%= photographer.deliveryTime %>
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="price-details-form fcol2 col-md-6 col-sm-12">
+                            <div class="pricing-style"></div>
+                            <div class="check-availibility"></div>
+
+                            <div class="right-section sc-jTzLTM dCKAkt">
+                                <div class="VendorPricing bg-white shadow-light radius margin-t-20">
+                                    <div class="protected-content jsEvent-onCopy">
+                                        <div class="f-space-between f-sb-bw h-50 padding-h-20 v-center" style="margin-left: 1.5rem;">
+                                            <h6 class="h6 text-bold">Per Day Price Estimate</h6>
+
+                                        </div>
+                                        <div class="f-space-between sc-jzJRlG emSbxZ">
+                                            <div style="width:100%" class="main-packages">
+                                                <div>
+                                                    <div class="f-space-between f-sb-bw 
+                                                         f-wrap v-center">
+                                                        <div class="text-primary d-flex w-100">
+                                                            <div class="frow v-center d-flex f-wrap w-100"><i
+                                                                    class="fa fa-inr margin-r-5 "></i>
+                                                                <p class=" "><%= photographer.photo %></p>
+                                                                <p class="regular">&nbsp;<!-- -->per day</p>
+                                                                <h6 class="regular text-secondary v-center "
+                                                                    style="margin-left:auto"> <!-- -->Photo Package</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div>
+                                                    <div
+                                                        class="f-space-between f-sb-bw h-50 padding-h-20 f-wrap v-center">
+                                                        <div class="text-primary d-flex w-100">
+                                                            <div class="d-flex w-100"><i
+                                                                    class="fa fa-inr margin-r-5 h5"></i>
+                                                                <p class="h5 "><%= photographer.photoVideo %></p>
+                                                                <p class="regular">&nbsp;<!-- -->per day</p>
+                                                                <h6 class="regular text-secondary v-center "
+                                                                    style="margin-left:auto"> <!-- -->Photo + Video</h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div
+                                            class="pricing-breakup padding-h-20 padding-t-10 padding-b-20 border-t bg-light-gray hidden">
+                                            <div class="row row1">
+                                                <div class="col-md-6">
+                                                    <p class="text-bold margin-t-10">Candid Photography</p><i
+                                                        class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                        class="text-tertiary"><%= photographer.candid %><!-- -->&nbsp;<!-- -->per day</span>
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <p class="text-bold margin-t-10">Cinematography</p><i
+                                                        class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                        class="text-tertiary"><%= photographer.cinematography %><!-- -->&nbsp;<!-- -->per day</span>
+
+                                                </div>
+                                            </div>
+                                            <div class="row row2">
+                                                <div class="col-md-6">
+                                                    <p class="text-bold margin-t-10">Studio Photography</p><i
+                                                        class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                        class="text-tertiary"><%= photographer.studio %><!-- -->&nbsp;<!-- -->per day</span>
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <p class="text-bold margin-t-10">Pre-Wedding Shoot</p><i
+                                                        class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                        class="text-tertiary"><%= photographer.preWedding %><!-- -->&nbsp;<!-- -->per day</span>
+
+                                                </div>
+                                            </div>
+                                            <div class="row row3">
+                                                <div class="col-md-6">
+                                                    <p class="text-bold margin-t-10">Albums</p><i
+                                                        class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                        class="text-tertiary"><%= photographer.albums %><!-- -->&nbsp;<!-- -->per 40
+                                                        pages</span>
+                                                </div>
+
+                                                <div class="col-md-6">
+
+                                                    <p class="text-bold margin-t-10">Traditional Videography</p><i
+                                                        class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                        class="text-tertiary"><%= photographer.videography %><!-- -->&nbsp;<!-- -->per day</span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="hr"></p>
+
+                                    </div>
+                                </div>
+                                <div id="send-enquiry-tracker-desktop">
+                                    <div class="SendEnquiry margin-t-20 bg-white radius shadow-light fcol ">
+
+                                        <div class="enquiries-per-week center margin-b-20 v-center">
+                                            <div class="">In High Demand
+                                            </div>
+                                            <div class="text-secondary">5 enquiries last week</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
