@@ -168,7 +168,7 @@ background: #b6b6b68f;
     justify-content: center;
     padding: 0;
     margin: 0;
-    background:url(images/bg22.jpg);
+    background:url('/images/bg22.jpg');
     background-size: cover;
     opacity:0.9;
     height: 100vh; /* Ensure the body takes up the full viewport height */
@@ -280,8 +280,12 @@ background: #b6b6b68f;
 
 .column:hover{
     background: #ebebeb;
-    box-shadow: 0 0 15px rgb(0, 0, 0);
+    box-shadow: 0 0 20px rgb(0, 0, 0),0 0 20px rgb(59, 59, 59) inset;
+    transform: scale(1.05);
+    transition: 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+
+
 
 .service-figure {
     width:60%;
@@ -625,7 +629,7 @@ background: #b6b6b68f;
 .form {
     padding: 25px;
     border-radius: 12px;
-    background-image: url(images/signup_bg1.jpg);
+    background-image: url('/images/signup_bg1.jpg');
     font-family: 'Poppins', sans-serif;
     box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.1);
     transition: all 0.5s ease out;

@@ -1,0 +1,278 @@
+body {
+    margin: 0;
+    padding: 50px;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+.header{
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    z-index: 999;
+    background: #000000af;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2px 8%;
+}
+
+.header .navbar-logo{
+    width: 6%;
+}
+
+
+.header .navbar a{
+    font-size: 100%;
+    margin: 0 0.4rem;
+    color: white;
+    font-weight: bold;
+    transition: all 0.5s ease;
+    padding: 7px;
+    border-radius: 3px;
+    transition: all 0.5s ease;
+
+}
+
+.header .navbar a:hover{
+    background: linear-gradient(violet,purple,violet);
+    box-shadow: 1px 1px 5px white;
+}
+
+.header .user-btn .user-icon{
+font-size: 1.5rem;
+color: rgb(255, 255, 255);
+cursor: pointer;
+margin-right: 1rem;
+}
+
+#menu-btn{
+    font-size: 1.5rem;
+    color: rgb(214, 214, 214);
+    cursor: pointer;
+    margin-left: 1rem;
+  display: none;
+}
+
+.dropdown_menu{
+    box-shadow: 1px 1px 20px black;
+}
+
+.dropdown_menu a{
+    font-size: 1rem;
+}
+.dropdown_menu a i{
+    margin-right: 0.5rem;
+}
+
+
+.dropdown_menu a:hover{
+background: #b6b6b68f;
+}
+
+
+
+
+@media(max-width:991px){
+
+    .header{
+        font-size: 80%;
+        padding: 0.5px;
+
+    }
+    .header .navbar-logo{
+        width: 10%;
+    }
+}
+
+
+@media(max-width:768px){
+ 
+    #menu-btn{
+    display: block;
+    }
+
+    .header .user-btn .user-icon{
+        display: block;
+        }
+
+    .header .user-btn .login-btn{
+        display: none;
+    }
+
+    .header .navigation-bar{
+        display: none;
+    }
+
+    .header .navbar-active{
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        top: 99%;left: 0; right: 0;
+        background: #1a1a1a;
+        border-top: 1px solid rgb(167, 167, 167);
+        clip-path: polygon(0 0,100% 0,100% 100%,0% 100%);
+    }
+
+    .header .navbar a{
+        display: block;
+        padding: 1rem 3rem;
+        margin: 0.1rem;
+        font-size: 1rem;
+        transition: all 0.5s ease;
+        border-bottom: 1px solid rgba(141, 141, 141, 0.356);
+    }
+
+    .header .navbar a:hover{
+        box-shadow: 1px 1px 5px white;
+    }
+
+}
+
+.main-container{
+    margin-top: 3%;
+}
+
+.brief-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.frow1 {
+    display: flex;
+}
+
+.photographer-brief{
+    display: flex;
+    flex-direction: column;
+}
+.profile-pic {
+    width: 100%;
+    height: 100%;
+}
+
+.photographer-details-inner {
+    margin: 0 20px 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    background: #ffffff;
+    padding: 1rem;
+    border-bottom: 1px solid rgb(214, 214, 214);
+    border-left: 1px solid rgb(168, 168, 168);
+    border-right: 1px solid rgb(214, 214, 214);
+    box-shadow: 0px 1px 5px rgb(172, 172, 172);
+    overflow: hidden;
+}
+
+.photographer-details {
+    position: relative;
+    margin-top: -10%;
+    width: 100%;
+    z-index: 0;
+
+}
+
+.title,
+.location,
+.links {
+    display: flex;
+}
+
+.StarRating {
+    margin-left: 10rem;
+    background: #3ef737;
+    color: white;
+    padding: 0.5rem;
+    width: 20%;
+    height: 100%;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.location {
+    margin: 15px 20px 10px 5px;
+}
+
+.location-text {
+    margin: 0 20px 0 5px;
+    color: gray;
+}
+
+.location a {
+    color: rgb(165, 164, 164);
+}
+
+.links {
+    margin-top: 12px;
+}
+
+.links div {
+    padding: 1rem;
+}
+
+.works {
+    position: relative;
+    margin-top: 5%;
+    display: flex;
+    box-shadow: 0px 1px 5px rgb(160, 160, 160);
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+#project{
+    border-right: 1px solid rgb(172, 169, 169);
+    padding: 10px;
+}
+
+#about{
+    padding: 10px;
+}
+
+.portfolio-links{
+    margin-top: 20px;
+    box-shadow: 0px 1px 5px rgb(160, 160, 160);
+}
+.portfolio-links-button{
+    border: none;
+    background-color: #ffffff;
+    margin-right: 20px;
+    padding: 0.5rem;
+    font-weight: 500;
+    font-size: 100%;
+    color: rgb(155, 155, 155);
+}
+
+.active-custom{
+color: rgb(211, 57, 83);
+border-bottom: 3px solid rgb(211, 57, 83);
+}
+
+.container{
+    margin-top: 30px;
+}
+.main-packages{
+    margin-left: 1.5rem;
+}
+.row1, .row2, .row3{
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+    border: 1px solid rgba(207, 207, 207, 0.473);
+}
+
+.row1 p,.row2 p, .row3 p{
+  margin-bottom: 0;
+}
+
+.text-tertiary{
+    color: gray;
+}
+
+.fcol1{
+border-right: 1px solid gray;
+}
