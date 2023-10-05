@@ -6,7 +6,42 @@ const Photographer = require('../models/Photographer');
  * 
 */
 exports.homepage = async(req,res)=>{
-  res.render('index')
+  try {
+    const limitNumber = 10;
+    const packages = await Packages.find({}).limit(limitNumber);
+    res.render('index', {  packages } );
+  } catch (error) {
+    res.satus(500).send({message: error.message || "Error Occured" });
+  }
+}
+
+/**
+ * GET / packages
+ * 
+*/
+exports.explorePackages = async(req, res) => {
+    
+  Packages.find({}).then(packages => {
+      res.render('index',
+          {
+              packagesList: packages
+          })
+      }
+)} 
+
+/**
+ * GET /package name 
+ *
+ */
+exports.packageName=async (req, res)=>{
+try {
+  let packageId=req.params.id;
+  const packages = await Packages.findById(packageId);
+  res.render('packages',
+          {packages });
+} catch (error) {
+  res.satus(500).send({message: error.message || "Error Occured" });  
+}
 }
 
 /**
