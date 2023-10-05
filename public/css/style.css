@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora&display=swap');
 
 body {
     margin: 0px;
@@ -168,7 +169,7 @@ background: #b6b6b68f;
     justify-content: center;
     padding: 0;
     margin: 0;
-    background:url('/images/bg22.jpg');
+    background:url('../images/bg22.jpg');
     background-size: cover;
     opacity:0.9;
     height: 100vh; /* Ensure the body takes up the full viewport height */
@@ -356,6 +357,50 @@ background: #b6b6b68f;
 
 
 /* --------------------------------------------Gallery------------------------------------------- */
+
+.gallery-container{
+    width:100%;
+    height:30%;
+    background:#000;
+    background-size: cover;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 5%;
+}
+
+#gallery-title{
+    color:whitesmoke;
+    font-size: 35px;
+    background-color: #000;
+    width: 100%;
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 0;
+    padding:20px;
+    font-family: 'Lora', serif;
+}
+
+.gallery-container .gallery-carousel{
+
+    width:300px;
+    margin:80px;
+    overflow: visible;
+}
+
+.gallery-container .gallery-carousel .image{
+    width:400px;
+    height:300px;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+.gallery-container .gallery-carousel img{
+    -webkit-box-reflect: below 8% linear-gradient(rgba(255,255,255,0),rgba(255,255,255,0.3));
+}
+
+
 /* -------------------------------------------------------------------------------------------------- */
 
 
