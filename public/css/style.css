@@ -403,8 +403,164 @@ background: #b6b6b68f;
 
 /* -------------------------------------------------------------------------------------------------- */
 
-
-
+/*---------------------------------------------Packages--------------------------------------------*/
+#package{
+    background:linear-gradient( #2c003d, #9c00c4);
+    text-align: center;
+    margin-top: 50px;
+  }
+  #package-main{
+    display: flex;
+    padding: 0 35px;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  
+  }
+  .package-wrapper {
+    max-width: 1100px;
+    width: 100%;
+    position: relative;
+  }
+  .package-wrapper i {
+    top: 50%;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    font-size: 1.25rem;
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+    transform: translateY(-50%);
+    transition: transform 0.1s linear;
+    z-index: 5;
+  }
+  .package-wrapper i:active{
+    transform: translateY(-50%) scale(0.85);
+  }
+  .package-wrapper i:first-child{
+    left: -22px;
+  }
+  .package-wrapper i:last-child{
+    right: -22px;
+  }
+  .package-wrapper .package-carousel{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 3;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    border-radius: 8px;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .package-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  .package-carousel.no-transition {
+    scroll-behavior: auto;
+  }
+  .package-carousel.dragging {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+  }
+  .package-carousel.dragging .package-card {
+    cursor: grab;
+    user-select: none;
+  }
+  .package-carousel :where(.package-card, .img) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .package-carousel .package-card {
+    scroll-snap-align: start;
+    height: 28rem;
+    width: 22rem;
+    list-style: none;
+    background: #fff;
+    padding-bottom: 15px;
+    flex-direction: column;
+    border-radius: 8px;
+  }
+  .package-card ul{
+    list-style: disc;
+    font-size: 1rem;
+    margin-bottom: -2px;
+  }
+  #package-heading{
+    color: #f9d5a9;
+    font-size: 3rem;
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: -50px;
+    font-family: Kalam;
+  }
+  .package-card h3{
+    font-size: 1.5rem;
+    margin: 5px;
+    color: rgba(24, 24, 24, 0.83);
+  }
+  .package-card{
+    /*background: url(/images/Birthday.jpg);
+    background-size: cover;*/
+    position: relative;
+    text-align: center;
+  }
+  .package-card div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  #package-farewell h3{
+    background: #fff;
+    border-radius: 20px;
+  }
+  .package-btn{
+    width: 100%;
+    margin: 0.5rem;
+    padding: 0.1rem;
+    cursor:pointer;
+    background: darkslategray;
+    border-radius:  100px;
+    border: 1px solid darkslategray;
+    font-size: 1.4em;
+    color: #fff;
+    box-shadow: 2px 3px 5px darkslategray;
+    transition: all 400ms ease-in 5ms;
+  }
+  .package-btn:hover{
+    transform: scale(1.2);
+  }
+  #package-button{
+    text-align: center;
+    position: relative;
+    top: -6rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    padding: 1rem;
+    cursor: pointer;
+    background: rgba(24, 24, 24, 0.83);
+    border: 1px solid rgba(24, 24, 24, 0.83);
+    box-shadow: 2px 3px 5px rgba(24, 24, 24, 0.83);
+    color: #fff;
+  }
+  @media screen and (max-width: 900px) {
+    .package-wrapper .package-carousel {
+      grid-auto-columns: 2;
+    }
+  }
+  
+  @media screen and (max-width: 600px) {
+    .package-wrapper .package-carousel {
+      grid-auto-columns: 1;
+    }
+  }
 /*-------------------------------------Ratings---------------------------------------------------------*/
 
 .ratings {
@@ -657,6 +813,112 @@ background: #b6b6b68f;
 
 
 /*--------------------------------------Reviews--------------------------------------------------*/
+#review{
+    background: linear-gradient(160deg, #d367fd, #e9c8f1 ,#9e49c0);
+    margin:50px 1px;
+    padding: 1px;
+   }
+   .review-heading{
+    text-align: center;
+    padding: 5px;
+    color: #3a2509;
+    font-size: 3rem;
+    font-family: Kalam;
+   }
+   .review-title{
+    color: #7f5114;
+    text-align: center;
+    font-size:1.2rem;
+    margin-top: -15px;
+   }
+   .review-box-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 2rem 0;
+   }
+   .review-box{
+    width: 22rem;
+    text-align: center;
+    padding: 0 2rem;
+    margin: 5rem 1.5rem;
+    background: #6666;
+    box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.3);
+   }
+   .review-box i{
+    font-size: 6rem;
+    margin-top: -3rem;
+    color: var(--red);
+    opacity: 0.4;
+   }
+   .review-box p{
+    color: 666;
+    font-size: 1rem;
+    padding: 2rem 0;
+    height: 17em;
+   }
+   .review-user{
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 1rem 0;
+    border-top: 0.1rem solid #3334;
+   }
+   .review-user img{
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: -1rem 1rem;
+   }
+   .review-info h3{
+    color: var(--red);
+    font-size: 1.8rem;
+    margin-left: 2rem;
+   }
+   .review-info span{
+    color: #666;
+    margin: 0 2rem;
+    font-size: 1.5rem;
+   }
+   .review {
+      position: relative;
+      width: 10%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-gap: .5rem;
+      font-size: 0.2rem;
+      color:yellow;
+      margin-left: 40em;
+      margin-top: 10em;
+      padding-bottom: 0;
+  }
+  .review i {
+      font-size: 7em;
+      opacity: 1;
+  }
+  #review .review-link{
+      width: 10.5em;
+      border: 10px;
+      border-radius: 10px;
+      background: #6666;
+      font-size: 1.6em;
+      float: right;
+      margin-top: -3em;
+      margin-right: 7em;
+      padding: 0.2em;
+      box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+  }
+  #review .review-link:hover{
+      background: #aaaa;
+  }
+  #review .review-link a{
+      color: black;
+      text-decoration: none;
+  }
+
 /*-----------------------------------------------------------------------------------------------------*/
 
 /*---------------------------------------Footer--------------------------------------------------------*/
