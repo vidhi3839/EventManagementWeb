@@ -2115,6 +2115,7 @@ Search Caterers
 /*
  Filter the Caterers
  */
+
  exports.filterCaterer = async (req, res) => {
   const budgetRange = req.query.budget; 
   const ratingRange = req.query.rating;
