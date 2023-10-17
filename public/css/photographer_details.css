@@ -1,18 +1,42 @@
 body {
     margin: 0;
-    padding: 50px;
 }
 
 a {
     text-decoration: none;
 }
 
+li{
+    list-style-type: none;
+}
+
+
+hr{
+   color: black;
+}
+
+.button{
+    border: none;
+    background: #6B00F5;
+    padding: 6px 20px 4px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+
+.button:hover {
+    background: #5815AE;
+  }
+/*-----------------------------------------header----------------------------------------------*/
 
 .header{
-    position: absolute;
+    position: sticky;
     top: 0; left: 0; right: 0;
     z-index: 999;
-    background: #000000af;
+    background: #000000cc;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,8 +61,7 @@ a {
 }
 
 .header .navbar a:hover{
-    background: linear-gradient(violet,purple,violet);
-    box-shadow: 1px 1px 5px white;
+    box-shadow: 0 0 10px black, 0 0 10px white inset;
 }
 
 .header .user-btn .user-icon{
@@ -131,7 +154,11 @@ background: #b6b6b68f;
 
 }
 
+/*------------------------------main block--------------------------------------------*/
+
+
 .main-container{
+    margin: 0 50px 0 50px;
     margin-top: 3%;
 }
 
@@ -225,6 +252,21 @@ background: #b6b6b68f;
     font-size: 1rem;
 }
 
+
+.works {
+    position: relative;
+    margin-top: 5%;
+    display: flex;
+    box-shadow: 0px 1px 5px rgb(160, 160, 160);
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+}
+
+.works a{
+    color: black;
+}
+
 #project{
     border-right: 1px solid rgb(172, 169, 169);
     padding: 10px;
@@ -261,8 +303,6 @@ border-bottom: 3px solid rgb(211, 57, 83);
 }
 .row1, .row2, .row3{
     margin-bottom: 1rem;
-    margin-left: 1rem;
-    border: 1px solid rgba(207, 207, 207, 0.473);
 }
 
 .row1 p,.row2 p, .row3 p{
@@ -276,3 +316,245 @@ border-bottom: 3px solid rgb(211, 57, 83);
 .fcol1{
 border-right: 1px solid gray;
 }
+
+.page-location{
+    margin: 3% 50px 0 50px;
+}
+
+.main-prices {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgb(252, 31, 68);
+}
+
+.rupees {
+    margin-top: 0.3rem;
+}
+
+.more-details-columns {
+    margin-bottom: 1rem;
+}
+
+.more-details p {
+    margin-bottom: 0;
+}
+.pricing-breakup p{
+    font-weight: 500;
+    color: #414141;
+}
+
+
+
+/*-----------------------------------------Venue------------------------------------*/
+
+/*edited*/
+.venue-profile-pic {
+    width: 100%;
+    height: 70%;
+}
+
+
+.venue-details {
+    position: relative;
+    margin-top: -35%;
+    width: 100%;
+    z-index: 0;
+
+}
+
+.below {
+    position: relative;
+    border-bottom: 1px solid rgb(231, 46, 119);
+}
+
+.below::after {
+    position: absolute;
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-left: 1px solid rgb(231, 46, 119);
+    border-bottom: 1px solid rgb(231, 46, 119);
+    background: rgb(255, 255, 255);
+    transform: rotate(-45deg);
+    top: -4px;
+    left: 150px;
+    transition: left 0.05s ease-in 0s;
+}
+
+.availability-row{
+    margin-bottom: 1rem;
+}
+
+.availability-row p{
+    font-weight: 500;
+}
+
+input[type=radio]:hover{
+    cursor: pointer;
+}
+
+.input-text {
+    padding: 0.3rem;
+    width: 90%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgb(201, 201, 201);
+}
+
+.input-text:hover{
+    border: none;
+    outline: none;
+    border-bottom: 1px solid grey;
+    background:  rgba(201, 201, 201, 0.288);
+}
+
+.availability-row:nth-child(5){
+    text-align: center;
+}
+
+.check-btn, .book-btn{
+    width: 50%;
+}
+
+
+
+/*--------------------------------book-------------------------------------------*/
+.form{
+    height: 100%;
+}
+
+
+  .menu-item-heading {
+    font-size: 18px;
+    margin: 10px 0 12px;
+  }
+  
+
+.package-col{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+.ratings-body-column-2{
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 0 10px black inset;
+}
+
+
+.ratings-body-column-2 .star-widget input {
+    display: none;
+}
+.star-widget input{
+    position: relative;
+    width: 1%;
+    border: none;
+    padding: 0%;
+}
+
+.star-widget i{
+    position: relative;
+    margin-top: 0.5rem;
+    font-size: 100%;
+    width: 100%;
+}
+
+
+.star-widget {
+    position: relative;
+    width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-gap: .5rem;
+	font-size: 2rem;
+	color:rgb(88, 88, 88);
+	margin-bottom: 0.5rem;
+}
+.star-widget .star {
+	cursor: pointer;
+}
+.star-widget .star.active {
+	opacity: 0;
+	animation: animate .5s calc(var(--i) * .1s) ease-in-out forwards;
+}
+
+@keyframes animate {
+	0% {
+		opacity: 0;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.2);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.star-solid{
+    color: yellow;
+}
+
+.star-widget .star:hover {
+	transform: scale(1.1);
+}
+
+.rate-5{
+    text-shadow: 0px 0px 5px rgb(0, 0, 0);
+}
+
+.form-1{
+    width: 100%;
+    position: relative;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.post-btn{
+    position: relative;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+#post {
+    position: relative;
+    border: none;
+    font-size: 100%;
+    font-weight: 500;
+    background: #555555;
+    color: white;
+    border-radius: 3px;
+    padding: 2%;
+    margin: 0.5rem;
+    transition: all .2s ease;
+    border: 1px solid  #555555;
+}
+
+#post:hover {
+    background: #616161ee;
+    box-shadow: 0 0 10px rgb(0, 0, 0) inset;
+}
+
+
+@media only screen and (max-width:598px) {
+    .star-widget i,.rating-summary-header,.rate-us-header,.rating-avg{
+        overflow: hidden;
+    }
+}
+/*-----------------------------------------------------------------------------------------------------*/

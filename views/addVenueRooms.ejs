@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-------------Bootstrap CSS------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-------------jQuery-------------------->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.flipster/1.1.5/jquery.flipster.min.js"></script>
+    <!-------------Bootstrap js-------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <!--------------Icons-------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/details_form.css">
+
+</head>
+
+
+<body>
+    <div class="container">
+       <form action="" method="post" enctype="multipart/form-data">
+        <div class="container">
+            <div>
+                <div style="display: flex; align-items: center; justify-content: center;">
+
+                    <h3>ADD ROOMS TO EXISTING LIST</h3>
+                </div>
+            </div>
+         
+            <div class="row rows prow"  style="text-align: center;  background: #000000; color: white;">
+                <div class="col-md-6 col-sm-6 pcolumns">
+                    <h6>ROOM TYPE/NAME</h6>
+                </div>
+                <div class="col-md-6 col-sm-6 pcolumns">
+                    <h6>PRICE PER DAY (INR)</h6>
+                </div> 
+            </div>
+            <div class="row rows rrow form-control" style="background: #adadadb4; border-radius: 0; width: 102%;">
+                <%if(venue.rooms !='' ){%>
+                    <%venue.rooms.forEach(room=>{%>
+                <div class="col-sm-6 col-md-6"><input value="<%=room.room_name%>" type="text" class="form-control" name="room_name" title="Type/Name" size="65px" disabled>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" name="room_price" value="<%=room.room_price%>"
+                        class="form-control" title="Type_price" size="25px" disabled>
+                </div>
+                <%})%>
+                <%}%>
+            </div>
+            <div class="row rows rrow">
+            <div class="add-more-room-price">
+                <div class="add-more-room-division"  style="width: 102%;">
+                    <div class="row rows rrow form-control" style="background: #adadadb4; border-radius: 0;">
+                        <div class="col-sm-6 col-md-6"><input type="text" class="form-control" name="room_name" title="Type/Name" size="65px">
+                        </div>
+                        <div class="col-sm-6 col-md-6"><input type="text" class="form-control" name="room_price" title="Price" size="65px">
+                        </div>
+                        
+                    </div>
+                </div></div>
+            </div>
+            <div class="row rows" style="text-align: center;">
+              <div class="col-12">
+
+                    <button type="button" class="button add-button" id="add-more-room-button">Add more +</button>
+                </div>
+            </div>
+            <div class="row rows urow">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-4"> <button class="button" id="submit" type="submit">Submit</button></div>
+            </div>
+
+        </div>
+       </form>
+    </div>
+    <script>
+ 
+ let addMoreRoomButton = document.querySelector("#add-more-room-button");
+    let addMoreRoom = document.querySelector('.add-more-room-price');
+    let addMoreRoomDivision = document.querySelectorAll('.add-more-room-division')[0];
+
+    addMoreRoomButton.addEventListener('click', function () {
+        let newItem = addMoreRoomDivision.cloneNode(true);
+        let input = newItem.getElementsByTagName('input')[0];
+        input.value = '';
+        addMoreRoom.appendChild(newItem);
+    });
+
+    </script>
+</body>
+
+</html>

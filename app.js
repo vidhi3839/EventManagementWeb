@@ -1,9 +1,9 @@
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
 const fileUpload = require('express-fileupload');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
+const passport = require('passport')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,10 +16,13 @@ app.use(express.static('public'));
 app.use(cookieParser('DreamStoriesSecure'));
 app.use(session({
   secret: 'DreamStoriesSecretSession',
+  cookie: {maxAge: 3600000},
   saveUninitialized: true,
   resave: true
 }));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session())
 app.use(fileUpload());
 
 app.set('view engine', 'ejs');

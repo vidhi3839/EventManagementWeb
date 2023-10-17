@@ -882,9 +882,9 @@ background: #b6b6b68f;
 /*---------------------------------------Signup-------------------------------------------------------*/
 
 
-
-.signed_in{
-    display: none;
+.form-container{
+    margin-top: 3%;
+    width: 500px;
 }
 
 
@@ -949,10 +949,6 @@ background: #b6b6b68f;
 .input-field input:focus {
     background: #ffffff;
 }
-/*
-.input-field #password:focus ~p.password_condition{
-     content: '*Atleast 8 characters, one uppercase, one lower case, one special character, one digit necessary';
-}*/
 
 .input-field span{
     margin: 2px 0px 2px 0px;
@@ -1019,69 +1015,6 @@ background: #b6b6b68f;
     text-decoration: underline;
 }
 
-.line {
-    position: relative;
-    height: 1px;
-    width: 100%;
-    margin: 36px 0;
-    background-color: #c0c0c0;
-}
-
-.line::before {
-    content: 'Or';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #FFF;
-    color: #8b8b8b;
-    padding: 0 15px;
-}
-.media-options{
-    width: 100%;
-}
-
-.media-options a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.media-options span{
-    margin-left: 10px;
-}
-
-a.facebook {
-    color: #fff;
-    background-color: #4267b2;
-}
-
-.facebook-icon {
-    height: 28px;
-    width: 28px;
-    color: #0171d3;
-    font-size: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-}
-
-img.google-icon {
-    object-fit: cover;
-}
-
-a.google {
-    border: 1px solid #CACACA;
-    background-color: #fffffff5;
-}
-
-a.google span {
-    font-weight: 500;
-    opacity: 0.6;
-    color: #232836;
-}
 
 @media screen and (max-width: 400px) {
     .form {

@@ -3,13 +3,7 @@ navbar = document.querySelector(".navbar");
 var main = document.querySelector(".main"),
 
     rate = document.getElementsByName("rate"),
-    header1 = document.querySelector(".form-header"),
     home = document.querySelector(".home"),
-    formContent = document.querySelector(".form-content"),
-    formClose = document.querySelector(".form-close"),
-    login = document.querySelector("#login"),
-    signup = document.querySelector("#signup"),
-    signup1 = document.querySelector("#signup1"),
     pwdShowHide = document.querySelectorAll(".pw_hide");
 
 
@@ -99,40 +93,7 @@ pwdShowHide.forEach((icon) => {
     })
 });
 
-function Sign() {
-    let email = document.querySelector("#email").value,
-        password = document.querySelector("#password").value,
-        confirm_password = document.querySelector("#confirm_password").value,
-        signedin = document.querySelector("#signed_in"),
-        pwd_cond = document.querySelector(".password_condition"),
-        email_warn = document.querySelector(".email_warning"),
-        confirm_pwd_warn = document.querySelector(".confirm_pwd_warn");
 
-    var reg_pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$^&*()_-]).{8,}$/,
-        reg_mail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,63})$/
-
-    if (reg_pwd.test(password)) {
-        signedin.style.display = 'block'
-    }
-    else {
-        pwd_cond.innerHTML = "*Password condition is not satisfied";
-        pwd_cond.style.fontSize = '15px'
-    }
-
-    if (reg_mail.test(email)) { signedin.style.display = 'block' }
-    else {
-        email_warn.innerHTML = "*Email is not valid"
-        email_warn.style.display = 'block'
-        email_warn.style.fontSize = '15px'
-    }
-
-    if (password == confirm_password) {
-        signedin.style.display = 'block'
-    }
-    else {
-        confirm_pwd_warn.innerHTML = "*Confirm password not matching"
-    }
-}
 const packageWrapper = document.querySelector(".package-wrapper");
 const packageCarousel = document.querySelector(".package-carousel");
 const packageFirstCardWidth = packageCarousel.querySelector(".package-card").offsetWidth;

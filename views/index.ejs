@@ -27,8 +27,6 @@
 </head>
 <body>
 <!-- ----------------------------------Header---------------------------------- -->
-
-
 <header class="header">
 
     <div class="fa fa-bars" id="menu-btn" onclick="navBarToggle()"></div>
@@ -53,7 +51,7 @@
         aria-haspopup="true" aria-expanded="false"></i>
 
         <div class="dropdown-menu dropdown_menu text-center" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#" id="signup" data-bs-toggle="modal" data-bs-target="#signupModal"><i class="fa fa-sign-in"></i>Signup</a>
+            <a class="dropdown-item" href="/signup" id="signup"><i class="fa fa-sign-in"></i>Signup</a>
 
             <a class="dropdown-item" href="#"><i class="fa fa-user"></i> My Profile</a>
             <a class="dropdown-item" href="#"><i class="fa fa-shopping-bag"></i> Events
@@ -64,16 +62,14 @@
         </div>
     </div>
 </header>
-
-
 <!-- -------------------------------------------------------------------------- -->
-<!-- ----------------------------------Home---------------------------------- -->
 
+
+<!-- ----------------------------------Home---------------------------------- -->
 <div class="home-container" id="home">
     <img src="images/logo3-removebg-preview.png" id="logo" draggable="false">
     <div id="tag"></div>
 </div>
-
 <!-- -------------------------------------------------------------------------- -->
 
 
@@ -81,10 +77,7 @@
 <!-- -------------------------------------------------------------------------- -->
 
 
-
 <!-- ----------------------------------Services---------------------------------- -->
-
-
 <section class="services" id="services">
     <div class="service-head"
         style="align-items: center; justify-content: center; display: flex; flex-direction: column;">
@@ -98,12 +91,12 @@
             <div class="col-md-4 col-sm-2 column">
                 <figure class="service-figure">
                     <img src="images/location.gif" alt="" class="services-img">
-                    <figcaption class="service-figurecaption"><a href="venue.html">
+                    <figcaption class="service-figurecaption"><a href="/venues">
                             <h6>Venues</h6>
                         </a></figcaption>
                 </figure>
                 <div class="service-brief">
-                    <a href="venue.html">
+                    <a href="/venues">
                         <h5>Venues</h5>
                     </a>
                     <span style="background: #666666; height: 2px; width: 50px; margin: 5px; border: none;"></span>
@@ -128,7 +121,7 @@
             <div class="col-md-4 col-sm-2 column">
                 <figure class="service-figure">
                     <img src="/images/photos.gif" alt="" class="services-img">
-                    <figcaption class="service-figurecaption"><a href="">
+                    <figcaption class="service-figurecaption"><a href="/photographers">
                             <h6>Photoshoots</h6>
                         </a></figcaption>
                 </figure>
@@ -144,12 +137,12 @@
             <div class="col-md-4 col-sm-2 column">
                 <figure class="service-figure">
                     <img src="images/entertainment.gif" alt="" class="services-img">
-                    <figcaption class="service-figurecaption"><a href="">
+                    <figcaption class="service-figurecaption"><a href="/entertainers">
                             <h6>Entertainment</h6>
                         </a></figcaption>
                 </figure>
                 <div class="service-brief">
-                    <a href="">
+                    <a href="/entertainers">
                         <h5>Entertainment</h5>
                     </a>
                     <span style="background: #666666; height: 2px; width: 50px; margin: 5px; border: none;"></span>
@@ -189,8 +182,6 @@
         </div>
     </div>
 </section>
-
-
 <!-- -------------------------------------------------------------------------- -->
 
 
@@ -235,10 +226,8 @@
   </section>
 <!-- -------------------------------------------------------------------------- -->
 
+
 <!-- ----------------------------------Ratings---------------------------------- -->
-
-
-
 <section class="ratings" id="ratings">
     <div class="rating-head"
         style="position: relative; align-items: center; justify-content: center; display: flex; flex-direction: column; margin-bottom: 10px;">
@@ -331,8 +320,6 @@
         </div>
     </div>
 </section>
-
-
 <!-- -------------------------------------------------------------------------- -->
 
 
@@ -412,76 +399,6 @@
 <!-- ----------------------------------Footer---------------------------------- -->
 <!-- -------------------------------------------------------------------------- -->
 
-
-<!-- ----------------------------------Sign up---------------------------------- -->
-
-
-<div class="modal" id="signupModal" tabindex="-1" aria-labelledby="signupLabel" aria-hidden="true">
-    <div class="modal-dialog form">
-        <div class="modal-content form-content">
-            <div class="modal-header">
-                <h5 class="modal-title form-title" id="exampleModalLabel">Sign Up</h5>
-                <button type="button" class="btn-close form-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body" style="display: flex; flex-direction: column;">
-                <form action="#">
-                    <div class="field input-field">
-                        <input type="email" id="email" placeholder="Email" class="form-input">
-                        <span class="email_warning" style="display: none; color: white;"></span>
-                        <i class="fa fa-envelope email"></i>
-                    </div>
-
-                    <div class="field input-field">
-                        <input type="password" id="password" placeholder="Create password" class="form-password">
-                        <p class="password_condition" style="font-size: 10px; color: white;"></p>
-                        <i class="fa fa-lock pw_lock"></i>
-                        <i class="fa fa-eye-slash pw_hide"></i>
-                    </div>
-
-                    <div class="field input-field">
-                        <input type="password" id="confirm_password" placeholder="Confirm password"
-                            class="form-password">
-                        <span class="confirm_pwd_warn"
-                            style="display: none; color: white; font-weight: 500;"></span>
-                        <i class="fa fa-lock pw_lock"></i>
-                        <i class="fa fa-eye-slash pw_hide"></i>
-                    </div>
-
-                    <div class="field button-field">
-                        <button id="signup1" onclick="Sign()">Signup</button>
-                    </div>
-                </form>
-                <div class="form-link">
-                    <span>Already have an account? <a href="#" class="link login-link" id="login">Login</a></span>
-                </div>
-
-                <div class="line"></div>
-
-                <div class="media-options">
-                    <a href="#" class="field google">
-                        <img src="images/google_icon.png" alt="" width="30px" height="30px" class="google-icon">
-                        <span>Login with Google</span>
-                    </a>
-                </div>
-                <div class="media-options">
-                    <a href="#" class="field facebook">
-                        <i class='fa fa-facebook facebook-icon'></i>
-                        <span>Login with Facebook</span>
-                    </a>
-                </div>
-
-
-            </div>
-            <div class="modal-footer" style="display: flex; flex-direction: column;">
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- -------------------------------------------------------------------------- -->
 <script src="/js/script.js"></script>
 </body>
 </html>
