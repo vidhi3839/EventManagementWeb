@@ -980,7 +980,8 @@ background: #b6b6b68f;
 }
 
 .input-field input,
-.button-field button {
+.button-field button,
+.input-field select {
     background: #ffffffd3;
     height: 100%;
     width: 100%;
@@ -1011,13 +1012,17 @@ background: #b6b6b68f;
 }
 
 .input-field i.email,
-.input-field i.pw_lock {
+.input-field i.pw_lock,
+.input-field i.user,
+.input-field i.role {
     left: 5px;
     color: gray;
 }
 
 .input-field input:focus~i.email,
-.input-field input:focus~i.pw_lock {
+.input-field input:focus~i.pw_lock,
+.input-field input:focus~i.user,
+.input-field input:focus~i.role{
     color: rgb(173, 1, 173);
 }
 
@@ -1136,3 +1141,23 @@ a.google span {
 }
 
 /*-----------------------------------------------------------------------------------------------------*/
+
+/*-------------------------------------Admin Dashboard--------------------------------------------------*/
+
+.adminhead{
+    background-color: #16001f;
+    color:white;
+    font-family: 'Nunito';
+    font-size:30px;
+    padding:20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+.adminhead a:link{
+    color: white;
+}
+
+/*-------------------------------------------Admin Dashboard------------------------------------------*/
