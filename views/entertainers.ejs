@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System</title>
+    <link rel="icon" type="image-icon" href="/images/logo.ico">
+    <!-------------Bootstrap CSS------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-------------jQuery-------------------->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <!-------------Bootstrap js-------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <!--------------Icons-------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/venue.css">
+</head>
+
+<body>
+    <header class="header">
+
+        <div class="fa fa-bars" id="menu-btn" onclick="navBarToggle()"></div>
+
+        <a href="/" class="navbar-logo"><img src="/images/logo.png" alt="" width="100%" height="100%"></a>
+
+        <nav class="navbar navigation-bar">
+            <a href="/venues"><i class="fa fa-map-marker"></i>Venues</a>
+            <a href="#"><i class="fa fa-glass"></i>Food & Beverages</a>
+            <a href="/photographer"><i class="fa fa-image"></i>Photographers</a>
+            <a href="#"><i class="fa fa-star"></i>Decoraters</a>
+            <a href="#" style="border: none;"><i class="fa fa-gift"></i>e-Invitaton Card</a>
+
+        </nav>
+
+        <div class="user-btn" id="user-btn">
+            <div class="user-btn dropdown" id="user-btn">
+                <i class="fa fa-user user-icon" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-location">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">entertainers</li>
+            </ol>
+        </nav>
+        <div class="filter-search">
+            <div class="input-group">
+                <form action="" method="get" enctype="multipart/form-data">
+                    <input class="form-control me-2 search-input" name="search" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-secondary search-btn" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="user-btn" id="user-btn">
+                <button class="button btn login-btn" data-bs-toggle="modal" data-bs-target="#filterModal"><i class="fa fa-sliders"></i> &nbsp;<span>Filter</span></button>
+
+            </div>
+        </div>
+    </div>
+
+    <div class=" venue-container">
+
+        <div class="row box1">
+            <% if(entertainerList !='' ) { %>
+                <%entertainerList.forEach(entertainers=>{%>
+            <div class="col-md-4 col-sm-2 column">
+                <div class="service-figure">
+                    <img src="/uploads/<%= entertainers.profilePhoto%>" alt="" class="services-img">
+                    <button onclick="favourite()"><i class="fa fa-heart favourites"></i></button>
+                </div>
+                <div class="service-brief">
+
+                    <div class="venue-description venue-name" id="venue-name">
+                        <div>
+                            <a target="_blank" title="<%= entertainers.name %>" href="/entertainers/<%= entertainers._id%>">
+                                <h5>
+                                    <%= entertainers.name %>
+                                </h5>
+                            </a>
+                        </div>
+                        <div><span><i class="fa fa-star"></i>
+                                <%= entertainers.rating %>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="venue-description venue-location" id="venue-location"><a
+                            href="/entertainers/<%= entertainers._id%>">
+                            <div class="location">
+                                <span><img
+                                        src="https://images.wedmegood.com/react-frontend-v4/static/media/location.417064ed.svg"
+                                        alt="Location" width="10.62" height="17"></span>
+                                <p title=" <%= entertainers.address %>"><span>
+                                        <%= entertainers.address %>
+                                    </span> </p>
+                            </div>
+
+                            <div class="location">
+                                <img src="https://images.wedmegood.com/react-frontend-v4/static/media/ResortIcon.00b02371.svg"
+                                    alt="Venue" width="17" height="20">
+                                <p title="Banquet Halls, Lawns / Farmhouses">
+                                    <%= entertainers.location%></p>
+                            </div>
+                        </a>
+
+                    </div>
+
+                    <div class="venue-description venue-price" id="venue-price">
+                        <div>
+                            <span class="veg-food-price">
+                                Starting at <i class="fa fa-inr"></i><span>
+                                    <%= entertainers.budget %>
+                                </span></span>
+
+                        </div>
+                        <div>
+                            <button class="explore"><a href="/entertainers/<%= entertainers._id%>">Explore More</a></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%})%>
+            <% } %>
+
+            <% if(entertainerList == '') { %>
+                <div class="row box1" style="margin: 100px 200px 100px 600px;">
+                    <p>Oops! No result found</p>
+                </div>
+                <% } %>   
+
+        </div>
+    </div>
+
+    <div class="modal" id="filterModal" tabindex="-1" aria-labelledby="filterLabel" aria-hidden="true">
+        <div class="modal-dialog form modal-xl">
+            <div class="modal-content form-content">
+                <div class="modal-header">
+                    <h5 class="modal-title form-title" id="filterModalLabel">Filter</h5>
+                    <button type="button" class="btn-close form-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <form action="" method="get" enctype="multipart/form-data">
+                    <div class="modal-body row filter-body">
+                        <div class="filter-topics col-lg-3  col-sm-6">
+                            <h5>Event Type</h5>
+                            <div class="options">
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="wedding" value="Wedding"></div>
+                                    <div class="col-5">Wedding</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="birthday" value="Birthday"></div>
+                                    <div class="col-5">Birthday</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="ringceremony" value="Ring Ceremony">
+                                    </div>
+                                    <div class="col-5">Ring Ceremony</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="babyshower" value="Baby Shower">
+                                    </div>
+                                    <div class="col-5">Baby Shower</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="freshers_farewell" value="Freshers/Farewell">
+                                    </div>
+                                    <div class="col-5">Freshers/Farewell</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="corporate" value="Corporate">
+                                    </div>
+                                    <div class="col-5">Corporate</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="business" value="Business Party">
+                                    </div>
+                                    <div class="col-5">Business Party</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="product_promo" value="Product Promo">
+                                    </div>
+                                    <div class="col-5">Product Promo</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="festival" value="Festival">
+                                    </div>
+                                    <div class="col-5">Festival</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="services"
+                                            id="concert" value="Concert">
+                                    </div>
+                                    <div class="col-5">Concert</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-topics col-md-6">
+                            <h5>Budget</h5>
+                            <div class="options">
+                                <div class="row filter-rows">
+                                    <div class="col-2"><input type="radio" name="budget" id="lt-50000" value="lte-50000"></div>
+                                    <div class="col-7">&lt= <i class="fa fa-inr"></i> 50000</div>
+                                </div>
+                                <div class="row filter-rows"> 
+                                    <div class="col-2"><input type="radio" name="budget" id="twofive-fifty-thousand" value="50000-100000"></div>
+                                    <div class="col-7"><i class="fa fa-inr"></i>50000-<i class="fa fa-inr"></i>100000</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-2"><input type="radio" name="budget" id="fifty-one-lakh" value="100000-150000">
+                                    </div>
+                                    <div class="col-7"><i class="fa fa-inr"></i>100000-<i class="fa fa-inr"></i>150000
+                                    </div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-2"><input type="radio" name="budget" id="one-two-lakh" value="150000-200000">
+                                    </div>
+                                    <div class="col-7"><i class="fa fa-inr"></i>100000-<i class="fa fa-inr"></i>200000
+                                    </div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-2"><input type="radio" name="budget" id="two-five-lakh" value="200000-500000">
+                                    </div> 
+                                    <div class="col-7"><i class="fa fa-inr"></i>200000-<i class="fa fa-inr"></i>5000000
+                                    </div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-2"><input type="radio" name="budget" id="more-than-five-lakh" value="500000-gte">
+                                    </div>
+                                    <div class="col-7">&gt  <i class="fa fa-inr"></i>500000</div>
+                                </div>
+                            </div>
+                        </div>    
+                        <div class="filter-topics  col-lg-3   col-sm-6">
+                            <h5>Experience</h5>
+                            <div class="options">
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience"
+                                            id="lt-3" value="lte-3"></div>
+                                    <div class="col-5">&lt 3</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience"
+                                            id="gt-3" value="3-gte"></div>
+                                    <div class="col-5">3+</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience"
+                                            id="five" value="5">
+                                    </div>
+                                    <div class="col-5">5</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience"
+                                            id="gte-5" value="5-gte">
+                                    </div>
+                                    <div class="col-5">5+</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience"
+                                            id="gt-10" value="10-gte">
+                                    </div>
+                                    <div class="col-5">10+</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-topics col-md-6">
+                            <h5>Rating</h5>
+                            <div class="options">
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="averageRating"
+                                            id="lt-4" value="lte-4"></div>
+                                    <div class="col-5">Rated &lt 4</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="averageRating"
+                                            id="four-plus" value="4-gte"></div>
+                                    <div class="col-5"> Rated 4+</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="averageRating"
+                                            id="four-point-five-plus" value="4.5-gte">
+                                    </div>
+                                    <div class="col-5">Rated 4.5+</div>
+                                </div>
+                                <div class="row filter-rows">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="averageRating"
+                                            id="four-point-eight-plus" value="4.8-gte">
+                                    </div>
+                                    <div class="col-5">Rated 4.8+</div>
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="display: flex; flex-direction: column;">
+                        <button class="filter-result-btn" id="filter-result" type="submit">View Result</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+            $(".carousel").owlCarousel({
+                margin: 20,
+                loop: true,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                autoplayHoverPause: true,
+                responsive: {
+                    0: {
+                        items: 1,
+                        nav: false
+                    },
+                    600: {
+                        items: 3,
+                        nav: false
+                    },
+                    1000: {
+                        items: 6,
+                        nav: false
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

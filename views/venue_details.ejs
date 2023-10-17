@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management System</title>
+    <link rel="icon" type="image-icon" href="images/logo.ico">
+    <!-------------Bootstrap CSS------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-------------jQuery-------------------->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <!-------------Bootstrap js-------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <!--------------Icons-------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/photographer_details.css">
+</head>
+
+<body>
+    <header class="header">
+
+        <div class="fa fa-bars" id="menu-btn" onclick="navBarToggle()"></div>
+
+        <a href="/" class="navbar-logo"><img src="/images/logo.png" alt="" width="100%" height="100%"></a>
+
+        <nav class="navbar navigation-bar">
+            <a href="#about-section">About</a>
+            <a href="#address">Address</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#projects-section">Projects</a>
+            <a href="#ratings" style="border: none;">Ratings</a>
+
+        </nav>
+
+        <div class="user-btn dropdown" id="user-btn">
+            <a> <i class="fa fa-user user-icon"></i></a>
+        </div>
+    </header>
+
+    <nav aria-label="breadcrumb" class="page-location">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="/venues">venues</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <%= venue.name %>
+            </li>
+        </ol>
+    </nav>
+
+    <div class="two-column-view frow main-container">
+
+        <div class="brief-main">
+            <div class="photographer-head">
+
+                <div class="info-box">
+
+                    <div class="frow1 row">
+
+                        <div class="fcol1 photographer-brief col-md-6 col-sm-12">
+                            <div class="main-profile-pic">
+                                <img id="vendor-profile-pic" src="/uploads/<%= venue.profilePhoto%>" alt="<%= venue.name%>"
+                                    class="profile-pic venue-profile-pic">
+
+                            </div>
+                            <div class="venue-details">
+                                <div class="photographer-details-inner">
+                                    <div class="title">
+                                        <h4 class="">
+                                            <%= venue.name%>
+                                        </h4>
+                                        <span class="StarRating"><i class="fa fa-star"
+                                                style="color:rgb(255, 255, 255); margin-right: 5px;"></i>
+                                            <%= avgRating%>
+                                        </span>
+
+                                    </div>
+                                    <div class="location">
+                                        <i class="fa fa-map-marker h6"></i>
+                                        <h6 class="location-text"><span>
+                                                <%= venue.location%>
+                                            </span>
+                                        </h6>
+                                    </div>
+
+                                    <div class="links">
+                                        <div class="photos" style="border-right: 1px solid rgb(204, 204, 204);"><i
+                                                class="fa fa-check"></i>
+                                            <!-- -->
+                                            <%= venue.eventManage%>
+                                                Events Managed Successfully
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="address-container" id="address" style="margin: 2rem;">
+                                    <div class="row">
+                                        <h6>Address:</h6>
+                                        <div class="url row" style="display: flex; text-align: center;">
+                                            <div class="col-md-6">
+                                                <div style="display: flex; text-align: center; margin-top: 3rem;"> <i
+                                                        class="fa fa-map-marker"></i>
+                                                    <p>
+                                                        <%= venue.address%>
+                                                    </p>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 "><iframe src="<%= venue.addressUrl%>" width="100"
+                                                    height="100" style="border:1px solid gray;" allowfullscreen=""
+                                                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <h6>Contact:</h6>
+                                        <div>
+                                            <p>
+                                                <%= venue.contact%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <h6>Instagram:</h6>
+                                        <div><a href="<%= venue.instaUrl%>">
+                                                <%= venue.instaUrl%>
+                                            </a></div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <h6>Facebook</h6>
+                                        <div><a href="<%= venue.fbUrl%>">
+                                                <%= venue.fbUrl%>
+                                            </a></div>
+                                    </div>
+                                    <hr id="ratings">
+                                    <div class="row" style="background: rgb(204, 204, 204);">
+                                        <div class="ratings-body-column-2"
+                                            style="display: flex; flex-direction: column;">
+                                            <div class="rate-us-header">
+                                                <h5>Rate your experience</h5>
+                                                <span
+                                                    style="background: #ffe600; height: 2px; width: 50px; margin: 5px; border: none;"></span>
+                                            </div>
+                                            <form action="" method="post" name="form-1" class="form-1">
+                                                <div class="star-widget stars">
+                                                    <input type="number" name="rating" hidden>
+                                                    <i class='fa fa-star star' style="--i: 0;"></i>
+                                                    <i class='fa fa-star star' style="--i: 1;"></i>
+                                                    <i class='fa fa-star star' style="--i: 2;"></i>
+                                                    <i class='fa fa-star star' style="--i: 3;"></i>
+                                                    <i class='fa fa-star star' style="--i: 4;"></i>
+                                                </div>
+
+                                                <div class="post-btn">
+                                                    <button type="submit" value="POST" id="post"
+                                                        placeholder="POST">POST</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="price-details-form fcol2 col-md-6 col-sm-12" id="pricing">
+                            <hr>
+                            <div class="heading">
+                                <h5>Pricing Details</h5>
+                            </div>
+                            <div class="right-section sc-jTzLTM dCKAkt">
+                                <div class="vendorPricing bg-white shadow-light radius margin-t-20">
+
+                                    <div
+                                        class="pricing-breakup padding-h-20 padding-t-10 padding-b-20 border-t bg-light-gray hidden">
+                                        <%if(venue.food_price !='' ){%>
+                                            <div class="f-space-between f-sb-bw h-50 padding-h-20 v-center"
+                                                style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                                                <h5 class="h5 text-bold">Per Plate Estimate</h5>
+
+                                            </div>
+
+                                            <div class="row row1">
+                                                <%venue.food_price.forEach(food=>{%>
+                                                    <div class="col-md-6">
+                                                        <p class="text-bold margin-t-10">
+                                                            <%= food.food_type %>
+                                                        </p><i class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                            class="text-tertiary">
+                                                            <%= food.food_price %><!-- -->&nbsp;<!-- -->per
+                                                                plate
+                                                        </span>
+                                                    </div>
+                                                    <%})%>
+                                            </div>
+
+                                    </div>
+                                    <%}%>
+                                        <hr>
+                                        <div
+                                            class="pricing-breakup padding-h-20 padding-t-10 padding-b-20 border-t bg-light-gray hidden">
+                                            <div class="f-space-between f-sb-bw h-50 padding-h-20 v-center"
+                                                style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                                                <h5 class="h5 text-bold">Prices for Halls</h5>
+
+                                            </div>
+                                            <div class="row row1">
+                                                <%if(venue.halls !='' ){%>
+                                                    <%venue.halls.forEach(hall=>{%>
+                                                        <div class="col-md-6">
+                                                            <p class="text-bold margin-t-10">
+                                                                <%= hall.hall_name %>
+                                                            </p><i class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                                class="text-tertiary">
+                                                                <%= hall.hall_price %><!-- -->&nbsp;<!-- -->per
+                                                                    hour
+                                                            </span>
+                                                        </div>
+                                                        <%})%>
+                                                            <%}%>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div
+                                            class="pricing-breakup padding-h-20 padding-t-10 padding-b-20 border-t bg-light-gray hidden">
+                                            <div class="f-space-between f-sb-bw h-50 padding-h-20 v-center"
+                                                style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                                                <h5 class="h5 text-bold">Prices for Rooms</h5>
+                                            </div>
+
+                                            <div class="row row1">
+                                                <%if(venue.rooms !='' ){%>
+                                                    <%venue.rooms.forEach(room=>{%>
+                                                        <div class="col-md-6">
+                                                            <p class="text-bold margin-t-10">
+                                                                <%= room.room_name %>
+                                                            </p><i class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                                class="text-tertiary">
+                                                                <%= room.room_price %><!-- -->&nbsp;<!-- -->per
+                                                                    day
+                                                            </span>
+                                                        </div>
+                                                        <%})%>
+                                                            <%}%>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+                                        <div
+                                            class="pricing-breakup padding-h-20 padding-t-10 padding-b-20 border-t bg-light-gray hidden">
+                                            <div class="f-space-between f-sb-bw h-50 padding-h-20 v-center"
+                                                style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                                                <h5 class="h5 text-bold">Prices for Decor</h5>
+
+                                            </div>
+                                            <div class="row row1">
+                                                <%if(venue.decor !='' ){%>
+                                                    <%venue.decor.forEach(decor=>{%>
+                                                        <div class="col-md-6">
+                                                            <p class="text-bold margin-t-10">
+                                                                <%= decor.event %>
+                                                            </p><i class="fa fa-inr margin-r-5 text-tertiary"></i><span
+                                                                class="text-tertiary">
+                                                                <%= decor.decor_price %><!-- -->&nbsp;<!-- -->per
+                                                                    day
+                                                            </span>
+                                                        </div>
+                                                        <%})%>
+                                                            <%}%>
+                                            </div>
+
+                                        </div>
+                                </div>
+                                <hr>
+                                <div class="check-availibility">
+                                    <div>
+                                        <h5>Enquire</h5>
+                                        <div class="below"></div>
+                                    </div> <br>
+                                    <form action="/venues/enquire/<%= venue._id%>" method="post"
+                                        enctype="multipart/form-data">
+
+                                        <div class="row availability-row">
+                                            <div class="col-sm-6">
+                                                <label for="start_date">Function start date</label>
+                                                <input class="form-control input-date" type="date"
+                                                    placeholder="Function date" name="start_date" id="start-input-date">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="end_date">Function end date</label>
+                                                <input class="form-control input-date" type="date"
+                                                    placeholder="Function date" name="end_date" id="end-input-date">
+                                            </div>
+                                        </div>
+                                        <div class="row availability-row">
+                                            <div class="col-sm-6">
+                                                <label for="start_time">Function start time</label>
+                                                <input class="form-control" type="time" placeholder="Function date"
+                                                    name="start_time">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="end_time">Function end time</label>
+                                                <input class="form-control" type="time" placeholder="Function date"
+                                                    name="end_time">
+                                            </div>
+                                        </div>
+                                        <div class="row availability-row">
+                                            <div class="col-md-3 col-sm-3">
+                                                <label for="type">Function Type: </label>
+                                            </div>
+                                            <div class="col-md-9 col-sm-9">
+                                                <%if(venue.services !='' ){%>
+
+                                                    <select name="type" id="type" class="form-control">
+                                                        <%venue.services.forEach(service=>{%>
+                                                            <option value="<%=service%>">
+                                                                <%= service%>
+                                                            </option>
+                                                            <%})%>
+                                                    </select>
+
+                                                    <%}%>
+                                            </div>
+
+                                        </div>
+                                        <div class="row availability-row">
+                                            <div class="col-sm-6">
+                                                <label for="guests">Number of guests: </label>
+                                                <input class="form-control" type="number" placeholder="Number of guests"
+                                                    name="guests" id="guests">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="rooms">Number of rooms needed:</label>
+                                                <input class="form-control" type="number"
+                                                    placeholder="Number of rooms needed" name="rooms" id="rooms">
+                                            </div>
+                                        </div>
+                                        <div class="row availability-row">
+                                        <div class="col-sm-6">
+                                            <label for="hall">Desired hall type (if any):</label>
+                                            <input class="form-control" type="text" placeholder="Desired hall name"
+                                                name="hall" id="hall">
+                                        </div>
+                                        </div>
+                                        <br>
+                                        <div class="row availability-row">
+
+                                            <div class="col-sm-12" style="text-align: center;"> <button
+                                                    class="button check-btn" id="check" type="submit">Send
+                                                    Message</button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="area-available bg-white radius sc-jTzLTM eFjHCd">
+                        <div id="7-tracker-desktop">
+                            <div class="AreasAvailable fcol shadow-light">
+                                <div class="title-bar v-center padding-h-20" style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                                    
+                                    <h4 class="h4">Areas Available (<!-- -->
+                                        <%= venue.halls.length%><!-- -->)
+                                    </h4>
+                                </div>
+                                <div class="row">
+                                    <% if( venue.halls !='' ) { %>
+                                        <%venue.halls.forEach(hall=>{%>
+                                            <div class="Banquet col-md-3 col-sm-3" style="align-items: center; text-align: center;">
+                                                <div class="section-left">
+                                                    <div class="margin-r-20"><img
+                                                            src="https://images.wedmegood.com/images/indoor.svg"
+                                                            alt="1">
+                                                        <div class="small capitalize help-text">
+                                                            <%= hall.hall_space%>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="section-right">
+                                                    <h6 class="h6"><span>
+                                                            <%= hall.hall_seating%><!-- --> Seating 
+                                                        </span><br><span>
+                                                            <%= hall.hall_floating%><!-- -->
+                                                                Floating
+                                                        </span></h6>
+                                                    <p>
+                                                        <%= hall.hall_name%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <%})%>
+                                                <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr id="about-section">
+                    <div class="AboutSection bg-white shadow-light radius protected-content jsEvent-onCopy" >
+                        <h2 class="title-bar padding-h-20 h-50 v-center h4"  style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">About <!-- -->
+                            <%= venue.name%>, <!-- -->
+                                <!-- --> <span>&nbsp;<!-- -->
+                                    <%= venue.address%>
+                                </span>
+                        </h2>
+                        <div class="about-body border-t">
+                            <div class="info padding-h-20 padding-v-20">
+                                <p>
+                                    <%= venue.about%>
+                                </p>
+
+                                <hr>
+                                <div class="container-fluid">
+                                <div class="row more-details" >
+                                    <h2 class="title-bar padding-h-20 h-50 v-center h4"  style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                                    Features
+                                    </h2>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6> <span>Been on
+                                            </span><span><span class="text" style="color: rgb(250, 40, 75);">
+                                                    Dream Stories</span></span><span> Since</span></h6>
+                                        <p class="text-tertiary margin-r-10" style="width:230px">
+                                            <%= venue.since%>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>Parking</h6>
+                                        <p class="text-tertiary" style="width:230px">
+                                            <%= venue.parking%>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>Small Party
+                                            Venue</h6>
+                                        <p class="text-tertiary" style="width:230px">
+                                            <%= venue.smallpartyvenue%>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>Features</h6>
+                                        <p class="text-tertiary" style="width:230px">
+                                            <%= venue.features%>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>Space</h6>
+                                        <p class="text-tertiary" style="width:230px">
+                                            <%= venue.space%>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>Room Count</h6>
+                                        <p class="text-tertiary" style="width:230px">
+                                            <%= venue.space%>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>Catering policy</h6>
+
+                                        <p class="text-tertiary " style="width:230px">
+                                            <%= venue.catering_policy%>/p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>Decor Policy
+                                        </h6>
+                                        <p class="text-tertiary " style="width:230px">
+                                            <%= venue.decor_policy%>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>Outside Alcohol</h6>
+
+                                        <p class="text-tertiary" style="width:230px">
+                                            <%= venue.outside_alcohol%>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 more-details-columns">
+                                        <h6>DJ Policy</h6>
+                                        <p class="text-tertiary " style="width:230px">
+                                            <%= venue.dj_policy%>
+                                        </p>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="portfolio-links" id="projects-section">
+                        <div class="MuiTabs-flexContainer-11" role="tablist">
+                            <button class="portfolio-links-button active-custom" tabindex="0" type="button" role="tab"
+                                aria-selected="true">
+                                <span>Portfolio</span>
+                            </button>
+                        </div><span class="jss33 jss35 MuiTabs-indicator jss1639"
+                            style="left: 0px; width: 160px;"></span>
+
+                        <div class="TabViews fcol f-space-between">
+                            <div class="Portfolio ">
+                                <div class="row">
+                                    <div class="col-md-3"><img id="vendor-portfolio-pic-0"
+                                            class="img-thumbnail images-thumbnail"
+                                            src="https://image.wedmegood.com/resized/450X/uploads/project/255460/1689259534_000__5_.jpg?crop=10,92,2028,1141"
+                                            alt="portfolio-pic" loading="lazy">
+                                    </div>
+                                    <div class="col-md-3"><img id="vendor-portfolio-pic-1"
+                                            class="img-thumbnail images-thumbnail"
+                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688976459__I1A3938.jpg"
+                                            alt="portfolio-pic" loading="lazy">
+                                    </div>
+                                    <div class="col-md-3"><img id="vendor-portfolio-pic-2"
+                                            class="img-thumbnail images-thumbnail"
+                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385440_000__13_.jpg"
+                                            alt="portfolio-pic" loading="lazy">
+                                    </div>
+                                    <div class="col-md-3"><img id="vendor-portfolio-pic-3"
+                                            class="img-thumbnail images-thumbnail"
+                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688384403_The_Wedding_Scenario_Candid_Photography_Vadodara__28_.jpg"
+                                            alt="portfolio-pic" loading="lazy">
+                                    </div>
+                                    <div class="col-md-3"><img id="vendor-portfolio-pic-4"
+                                            class="img-thumbnail images-thumbnail"
+                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385474_000__27_.jpg"
+                                            alt="portfolio-pic" loading="lazy">
+                                    </div>
+                                    <div class="col-md-3"><img id="vendor-portfolio-pic-5"
+                                            class="img-thumbnail images-thumbnail"
+                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688384372_The_Wedding_Scenario_Candid_Photography_Vadodara__6_.jpg"
+                                            alt="portfolio-pic" loading="lazy">
+                                    </div>
+                                    <div class="col-md-3"><img id="vendor-portfolio-pic-6"
+                                            class="img-thumbnail images-thumbnail"
+                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1689164615_VTP00208.jpg"
+                                            alt="portfolio-pic" loading="lazy">
+                                    </div>
+                                    <div class="col-md-3"><img id="vendor-portfolio-pic-7"
+                                            class="img-thumbnail images-thumbnail"
+                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385501_000__37_.jpg"
+                                            alt="portfolio-pic" loading="lazy">
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            var dtToday = new Date();
+
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+
+            var maxDate = year + '-' + month + '-' + day;
+            $('#start-input-date').attr('min', maxDate);
+            $('#end-input-date').attr('min', maxDate);
+        });
+
+
+        const rate = document.getElementsByName("rate"),
+            header1 = document.querySelector(".form-header");
+        const allStar = document.querySelectorAll('.star-widget .star')
+        const ratingValue = document.querySelector('.star-widget input')
+
+        allStar.forEach((item, idx) => {
+            item.addEventListener('click', function () {
+                let click = 0
+                ratingValue.value = idx + 1
+
+                allStar.forEach(i => {
+                    i.classList.remove('star-solid')
+                    i.classList.remove('active')
+                })
+                for (let i = 0; i <= allStar.length; i++) {
+                    allStar[i].classList.remove('rate-5')
+                    if (i <= idx) {
+                        allStar[i].classList.add('star-solid')
+                        allStar[i].classList.add('active')
+                        allStar[i].classList.add('rate-5')
+                        if (i == 0)
+                            header1.innerHTML = "I hate it 🤮";
+                        if (i == 1)
+                            header1.innerHTML = "I dont like it 😒";
+                        if (i == 2)
+                            header1.innerHTML = "I just like it 😄";
+                        if (i == 3)
+                            header1.innerHTML = "It is awesome 😎";
+                        if (i == 4)
+                            header1.innerHTML = "I love it 😍";
+
+                    } else {
+                        allStar[i].style.setProperty('--i', click)
+                        click++
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

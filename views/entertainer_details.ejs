@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Management System</title>
-    <link rel="icon" type="image-icon" href="images/logo.ico">
+    <link rel="icon" type="image-icon" href="/images/logo.ico">
     <!-------------Bootstrap CSS------------->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -27,11 +27,10 @@
         <div class="fa fa-bars" id="menu-btn" onclick="navBarToggle()"></div>
 
         <a href="/" class="navbar-logo"><img src="/images/logo.png" alt="" width="100%" height="100%"></a>
-
         <nav class="navbar navigation-bar">
             <a href="#about-section">About</a>
             <a href="#address">Address</a>
-            <a href="#pricing">Prices</a>
+            <a href="#pricing">Pricing</a>
             <a href="#projects-section">Projects</a>
             <a href="#features" style="border: none;">Features</a>
 
@@ -42,15 +41,17 @@
         </div>
     </header>
 
+    
     <nav aria-label="breadcrumb" class="page-location">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="/photographers">photographer</a></li>
+            <li class="breadcrumb-item"><a href="/entertainers">entertainer</a></li>
             <li class="breadcrumb-item active" aria-current="page">
-                <%= photographer.name %>
+                <%= entertainer.name %>
             </li>
         </ol>
     </nav>
+
 
     <div class="two-column-view frow main-container">
 
@@ -58,21 +59,20 @@
             <div class="photographer-head">
 
                 <div class="info-box">
-
                     <div class="frow1 row">
 
-                        <div class="fcol1 photographer-brief col-md-6 col-sm-12">
+                        <div  style="box-shadow: 0 0 5px rgb(165, 165, 165);" class="fcol1 photographer-brief col-md-6 col-sm-12">
                             <hr>
                             <div class="main-profile-pic">
-                                <img id="vendor-profile-pic" src="images/<%=photographer.profilePhoto%>" alt="
-                                    <%= photographer.name%>" class="profile-pic">
+                                <img id="vendor-profile-pic" src="images/<%=entertainer.profilePhoto%>" alt="
+                                    <%= entertainer.name%>" class="profile-pic">
 
                             </div>
-                            <div class="photographer-details"  style="box-shadow: 0 0 5px gray;">
+                            <div class="photographer-details">
                                 <div class="photographer-details-inner">
                                     <div class="title">
                                         <h4 class="">
-                                            <%= photographer.name%>
+                                            <%= entertainer.name%>
                                         </h4>
                                         <span class="StarRating"><i class="fa fa-star"
                                                 style="color:rgb(255, 255, 255); margin-right: 5px;"></i>
@@ -83,7 +83,7 @@
                                     <div class="location">
                                         <i class="fa fa-map-marker h6"></i>
                                         <h6 class="location-text"><span>
-                                                <%= photographer.location%>
+                                                <%= entertainer.location%>
                                             </span>
                                         </h6>
                                     </div>
@@ -91,14 +91,12 @@
                                     <div class="links">
                                         <div class="photos" style="border-right: 1px solid rgb(204, 204, 204);"><i
                                                 class="fa fa-check"></i>
-                                            <!-- -->
-                                            <%= photographer.eventManage%>
-                                                Events Managed Successfully
+                                            <!-- --><%= entertainer.eventManage%>
+                                            Events Managed Successfully
                                         </div>
 
                                     </div>
                                 </div>
-                                <hr>
                                 <div class="address-container" id="address" style="margin: 2rem;">
                                     <div class="row">
                                         <h6>Address:</h6>
@@ -107,12 +105,12 @@
                                                 <div style="display: flex; text-align: center; margin-top: 3rem;"> <i
                                                         class="fa fa-map-marker"></i>
                                                     <p>
-                                                        <%= photographer.address%>
+                                                        <%= entertainer.address%>
                                                     </p>
                                                     <hr>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 "><iframe src="<%= photographer.addressUrl%>" width="100"
+                                            <div class="col-md-6 "><iframe src="<%= entertainer.addressUrl%>" width="100"
                                                     height="100" style="border:1px solid gray;" allowfullscreen=""
                                                     loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                             </div>
@@ -123,22 +121,22 @@
                                         <h6>Contact:</h6>
                                         <div>
                                             <p>
-                                                <%= photographer.contact%>
+                                                <%= entertainer.contact%>
                                             </p>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <h6>Instagram:</h6>
-                                        <div><a href="<%= photographer.instaUrl%>">
-                                                <%= photographer.instaUrl%>
+                                        <div><a href="<%= entertainer.instaUrl%>">
+                                                <%= entertainer.instaUrl%>
                                             </a></div>
                                     </div>
                                     <hr>
                                     <div class="row">
                                         <h6>Facebook</h6>
-                                        <div><a href="<%= photographer.fbUrl%>">
-                                                <%= photographer.fbUrl%>
+                                        <div><a href="<%= entertainer.fbUrl%>">
+                                                <%= entertainer.fbUrl%>
                                             </a></div>
                                     </div>
                                     <hr id="ratings">
@@ -169,79 +167,35 @@
                                     </div>
                                 </div>
 
-
                             </div>
                         </div>
 
 
                         <div  style="box-shadow: 0 0 5px gray;" class="price-details-form fcol2 col-md-6 col-sm-12" id="pricing">
                             <hr>
-                            <div class="heading"  style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                            <div class="heading" style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
                                 <h5>Pricing Details</h5>
                             </div>
                             <div class="right-section sc-jTzLTM dCKAkt">
                                 <div class="VendorPricing bg-white shadow-light radius margin-t-20">
                                     <div class="protected-content jsEvent-onCopy">
-                                        <div class="f-space-between v-center"
-                                            style=" background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
-                                            <h6 class="h6 text-bold">Per Day Price Estimate</h6>
-                                            <p>Main packages</p>
-                                        </div>
-                                        <div class="f-space-between sc-jzJRlG emSbxZ">
-                                            <div style="width:100%" class="sc-jzJRlG lkyfDq">
-                                                <div>
-                                                    <div class="f-space-between f-sb-bw 
-                                                                                     f-wrap v-center">
-                                                        <div class="text-primary d-flex w-100">
-                                                            <div class="frow v-center d-flex f-wrap w-100"><i
-                                                                    class="fa fa-inr margin-r-5 "></i>
-                                                                <p class=" ">
-                                                                    <%= photographer.photo%>
-                                                                </p>
-                                                                <p class="regular">&nbsp;<!-- -->per day</p>
-                                                                <h6 class="regular text-secondary v-center "
-                                                                    style="margin-left:auto"> <!-- -->Photo Package</h6>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div>
-                                                    <div
-                                                        class="f-space-between f-sb-bw h-50 padding-h-20 f-wrap v-center">
-                                                        <div class="text-primary d-flex w-100">
-                                                            <div class="d-flex w-100"><i
-                                                                    class="fa fa-inr margin-r-5 h5"></i>
-                                                                <p class="h5 ">
-                                                                    <%=photographer.photoVideo %>
-                                                                </p>
-                                                                <p class="regular">&nbsp;<!-- -->per day</p>
-                                                                <h6 class="regular text-secondary v-center "
-                                                                    style="margin-left:auto"> <!-- -->Photo + Video</h6>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <hr>
                                         <div
                                             class="pricing-breakup padding-h-20 padding-t-10 padding-b-20 border-t bg-light-gray hidden">
                                             <div class="f-space-between v-center"
                                                 style="background-color: rgba(175, 175, 175, 0.466); padding: 5px; text-align: center; margin-bottom: 10px;">
-                                                <h6 class="h6 text-bold">Add On Packages</h6>
+                                                <h6 class="h6 text-bold">Prices based on Events per hour</h6>
 
                                             </div>
                                             <div class="row row1">
-                                                <%if(photographer.packages !='' ){%>
-                                                    <%photographer.packages.forEach(package=>{%>
+                                                <%if(entertainer.prices !='' ){%>
+                                                    <%entertainer.prices.forEach(entertainer=>{%>
                                                         <div class="col-md-6">
                                                             <p class="text-bold margin-t-10">
-                                                                <%= package.package_name %>
+                                                                <%= entertainer.event %>
                                                             </p><i class="fa fa-inr margin-r-5 text-tertiary"></i><span
                                                                 class="text-tertiary">
-                                                                <%= package.package_price %><!-- -->&nbsp;<!-- -->per
-                                                                    day
+                                                                <%= entertainer.price %><!-- -->&nbsp;<!-- -->per
+                                                                    hour
                                                             </span>
                                                         </div>
                                                         <%})%>
@@ -259,7 +213,7 @@
                                         <h5>Enquire</h5>
                                         <div class="below"></div>
                                     </div> <br>
-                                    <form action="/photographers/<%= photographer._id%>" method="get"
+                                    <form action="/entertainers/<%= entertainer._id%>" method="get"
                                         enctype="multipart/form-data">
 
                                         <div class="row availability-row">
@@ -291,17 +245,21 @@
                                                 <label for="type">Function Type: </label>
                                             </div>
                                             <div class="col-md-9 col-sm-9">
-                                                <%if(photographer.services !='' ){%>
-
-                                                    <select name="type" id="type" class="form-control">
-                                                        <%photographer.services.forEach(service=>{%>
-                                                            <option value="<%=service%>">
-                                                                <%= service%>
-                                                            </option>
-                                                            <%})%>
-                                                    </select>
-
-                                                    <%}%>
+                                                <select name="type" id="type" class="form-control">
+                                                    <option value="wedding">Wedding</option>
+                                                    <option value="birthday">Birthday</option>
+                                                    <option value="ring-ceremony">Ring Ceremony</option>
+                                                    <option value="conference">Conference</option>
+                                                    <option value="workshop">Workshop</option>
+                                                    <option value="freshers/farewell">Freshers/Farewell</option>
+                                                    <option value="concert">Concert</option>
+                                                    <option value="babyshower">Baby Shower</option>
+                                                    <option value="promo">Product Promo</option>
+                                                    <option value="business-party">Business Party</option>
+                                                    <option value="pre-wedding">Pre-wedding</option>
+                                                    <option value="reality-shows">Reality Shows Auditions</option>
+                                                    <option value="festival">Festival</option>
+                                                </select>
                                             </div>
 
                                         </div>
@@ -314,6 +272,14 @@
                                             </div>
 
                                         </div>
+
+                                        <div class="row availability-row">
+
+                                            <div class="col-sm-12" style="text-align: center;"> <button
+                                                    class="button book-btn" id="book" type="button"
+                                                    data-bs-toggle="modal" data-bs-target="#bookModal">Call</button>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
 
@@ -321,19 +287,17 @@
                             </div>
                         </div>
 
-                        <div  style="box-shadow: 0 0 5px gray;" class="AboutSection bg-white shadow-light radius protected-content jsEvent-onCopy" id="about-section">
-                            <hr>
-                            <h3 class="title-bar"  style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">About <!-- -->
-                                <%= photographer.name%> <!-- -->
-                                    <span>&nbsp;<!-- -->
-                                        <%= photographer.location%>
-                            </h3>
+                        <div style="box-shadow: 0 0 5px gray;" class="AboutSection bg-white shadow-light radius protected-content jsEvent-onCopy" id="about-section">
+                       
+                            <h3 class="title-bar" style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">About <!-- --><%= entertainer.name%><!-- -->
+                                <span>&nbsp;<!-- --><%= entertainer.location%>                            </h3>
                             <div class="about-body border-t">
                                 <div class="">
-                                   <p> <%= photographer.about %></p>
+                                    <p><%= entertainer.about %></p>
                                 </div>
-                                <div class="container-fluid">
-                                    <div class="row more-details" id="features">
+                                <hr>
+                                <div class="container-fluid" id="features">
+                                    <div class="row more-details">
                                         <h2 class="title-bar padding-h-20 h-50 v-center h4"  style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
                                             Features
                                             </h2>
@@ -342,74 +306,40 @@
                                                 </span><span><span class="text" style="color: rgb(250, 40, 75);">
                                                         Dream Stories</span></span><span> Since</span></h6>
                                             <p class="text-tertiary" style="width:230px">
-                                                <%= photographer.since %>
+                                                <%= entertainer.since %>
                                             </p>
                                         </div>
 
                                         <div class="col-md-3 col-sm-6 more-details-columns">
-                                            <h6>Albums</h6>
+                                            <h6>Event</h6>
                                             <p class="text-tertiary" style="width:230px"><i
                                                     class="fa fa-inr margin-r-5 text-tertiary"></i>
-                                                <%= photographer.albums %>
+                                                <%= entertainer.services %>
                                             </p>
                                         </div>
-                                        <div class="col-md-3 col-sm-6 more-details-columns">
-                                            <h6>Services offered
-                                            </h6>
-                                            <p class="text-tertiary" style="width:230px">
-                                                <%= photographer.services %>
-                                            </p>
-                                        </div>
+                                        
                                         <div class="col-md-3 col-sm-6 more-details-columns">
                                             <h6>Payment terms</h6>
                                             <p class="text-tertiary" style="width:230px">
-                                                <%= photographer.paymentTerms %>
+                                                <%= entertainer.payment_terms %>
                                             </p>
                                         </div>
+
                                         <div class="col-md-3 col-sm-6 more-details-columns">
                                             <h6>Travel Cost</h6>
                                             <p class="text-tertiary" style="width:230px">
-                                                <%= photographer.travelCost %>
+                                                <%= entertainer.travelCost %>
                                             </p>
                                         </div>
+
                                         <div class="col-md-3 col-sm-6 more-details-columns">
-                                            <h6>Budget (Photo
-                                                Package)
-                                            </h6>
-                                            <p class="text-tertiary" style="width:230px">
-                                                <%= photographer.photo %>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 more-details-columns">
-                                            <h6>Budget (Photo +
-                                                Video)
-                                            </h6>
-                                            <p class="text-tertiary" style="width:230px">
-                                                <%= photographer.photoVideo %>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 more-details-columns">
-                                            <h6>Most Booked Package
-                                            </h6>
-                                            <p class="text-tertiary" style="width:230px">
-                                                <%= photographer.mostBooked %>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 more-details-columns">
-                                            <h6>Small Function
-                                                Photography Price (Photo &amp; Video)</h6>
-                                            <p class="text-tertiary" style="width:230px">
-                                                <%= photographer.smallFunction %>
-                                            </p>
-                                        </div>
-                                        <div class="col-md-3 col-sm-6 more-details-columns">
-                                            <h6>Delivery Time</p>
+                                            <h6>Experience</p>
                                                 <p class="text-tertiary" style="width:230px">
-                                                    <%= photographer.deliveryTime %>
+                                                    <%= entertainer.experience %>
                                             </h6>
                                         </div>
                                     </div>
-                               </div>
+                                </div>
                             </div>
                         </div>
 
@@ -472,6 +402,11 @@
 
                                     </div>
                                 </div>
+                                <div class="ViewAll">
+                                    <div class="more-content h-center"><a class="h6 text-primary view-all-btn v-center"
+                                            href="/profile/The-Wedding-Scenario-926496/portfolio">View <!-- -->
+                                            more</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -479,56 +414,55 @@
                 </div>
             </div>
         </div>
+
     </div>
 
+    
     <script>
+      $(function(){
+    var dtToday = new Date();
 
-        $(function () {
-            var dtToday = new Date();
-
-            var month = dtToday.getMonth() + 1;
-            var day = dtToday.getDate();
-            var year = dtToday.getFullYear();
-            if (month < 10)
-                month = '0' + month.toString();
-            if (day < 10)
-                day = '0' + day.toString();
-
-            var maxDate = year + '-' + month + '-' + day;
-            $('#start-input-date').attr('min', maxDate);
-            $('#end-input-date').attr('min', maxDate);
-        });
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var maxDate = year + '-' + month + '-' + day;
+    $('#start-input-date').attr('min', maxDate);
+    $('#end-input-date').attr('min', maxDate);
+});
 
 
-        const rate = document.getElementsByName("rate"),
-            header1 = document.querySelector(".form-header");
-        const allStar = document.querySelectorAll('.star-widget .star')
-        const ratingValue = document.querySelector('.star-widget input')
+ const   rate = document.getElementsByName("rate"),
+ header1 = document.querySelector(".form-header");
+const allStar = document.querySelectorAll('.star-widget .star')
+const ratingValue = document.querySelector('.star-widget input')
 
-        allStar.forEach((item, idx) => {
-            item.addEventListener('click', function () {
-                let click = 0
-                ratingValue.value = idx + 1
+allStar.forEach((item, idx) => {
+    item.addEventListener('click', function () {
+        let click = 0
+        ratingValue.value = idx + 1
 
-                allStar.forEach(i => {
-                    i.classList.remove('star-solid')
-                    i.classList.remove('active')
-                })
-                for (let i = 0; i <= allStar.length; i++) {
-                    allStar[i].classList.remove('rate-5')
-                    if (i <= idx) {
-                        allStar[i].classList.add('star-solid')
-                        allStar[i].classList.add('active')
-                        allStar[i].classList.add('rate-5')
-                    } else {
-                        allStar[i].style.setProperty('--i', click)
-                        click++
-                    }
-                }
-            })
+        allStar.forEach(i => {
+            i.classList.remove('star-solid')
+            i.classList.remove('active')
         })
-
-
+        for (let i = 0; i <= allStar.length; i++) {
+            allStar[i].classList.remove('rate-5')
+            if (i <= idx) {
+                allStar[i].classList.add('star-solid')
+                allStar[i].classList.add('active')
+                allStar[i].classList.add('rate-5')
+            } else {
+                allStar[i].style.setProperty('--i', click)
+                click++
+            }
+        }
+    })
+})
     </script>
 </body>
 
