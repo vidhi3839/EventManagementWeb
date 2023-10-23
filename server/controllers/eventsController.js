@@ -204,7 +204,7 @@ exports.loginnew = async (req, res) => {
       {
         return res.redirect('/');
       }
-
+ 
   } catch (err) {
       console.error(err.message);
       return res.status(500).redirect('/login');
