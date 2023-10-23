@@ -9,7 +9,7 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
 const Entertainer = require('../models/entertainer');
 const Venue = require('../models/venues');
-
+const User = require('../models/User');
 
 /**
  * GET /
@@ -71,40 +71,55 @@ exports.signup = async (req, res) => {
 
 // Signup Function
 exports.signupnew = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-  }
+  // const errors = validationResult(req);
+  // if (!errors.isEmpty()) {
+  //     return res.status(400).json({ errors: errors.array() });
+  // }
 
   const { username, email, password , role , confirm_password } = req.body;
 
   try {
-
+    let errors = [];
     if (!username || !email || !password || !role || !confirm_password) {
       // Data is missing, set a flash message and redirect
-      req.flash('infoErrors', 'Please fill in all the required fields.');
-      return res.redirect('/signup');
+      // req.flash('infoErrors', 'Please fill in all the required fields.');
+      // return res.redirect('/signup');
+      errors.push('Please Fill in All Required Fields');
     }
 
     var reg_pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$^&*()_-]).{8,}$/;
- 
+
+    
+
+    let user = await User.findOne({ email });
+
+      if (user) {
+        // req.flash('infoErrors', 'User already exists.');
+        // return res.redirect('/signup');
+        errors.push('User Already Exists');
+      }
+      console.log(errors);
+
       // Check if the email already exists
       
       if (!reg_pwd.test(password)) {
-        req.flash('infoErrors', 'Password should contain at least 8 characters including one lowercase letter, one uppercase letter, one digit, one special character.');
-        return res.redirect('/signup');
+        // req.flash('infoErrors', 'Password should contain at least 8 characters including one lowercase letter, one uppercase letter, one digit, one special character.');
+        // return res.redirect('/signup');
+        errors.push('Password should contain at least 8 characters including one lowercase letter, one uppercase letter, one digit, one special character.')
       }
       if (password != confirm_password) {
-        req.flash('infoErrors', 'Password and confirm password do not match.');
+        // req.flash('infoErrors', 'Password and confirm password do not match.');
+        // return res.redirect('/signup');
+        errors.push('Password and confirm password do not match.');
+      }
+console.log(errors);
+      if(errors.length > 0)
+      {
+        req.flash('infoErrors',errors);
+        console.log(errors);
         return res.redirect('/signup');
       }
-
-      let user = await User.findOne({ email });
-
-      if (user) {
-        req.flash('infoErrors', 'User already exists.');
-        return res.redirect('/signup');
-      }
+      
 
       user = new User({
           username,
@@ -124,6 +139,7 @@ exports.signupnew = async (req, res) => {
 
   } catch (err) {
     req.flash('infoErrors', err);
+    console.log(err);
     return res.status(500).redirect('/signup');
   }
 };
@@ -2900,6 +2916,7 @@ exports.searchDecor = async(req,res) => {
      "$or":[
        {"dname":{"$regex":searchtext , $options : 'i'}},
        {"dlocation":{"$regex":searchtext , $options : 'i'}},
+       {"dservicetype":{"$regex":searchtext , $options : 'i'}},
      ]
    }).then(decorators => {
      res.render('decorators',{
@@ -3310,6 +3327,11 @@ exports.searchCaterer = async(req,res) => {
      "$or":[
        {"cname":{"$regex":searchtext , $options : 'i'}},
        {"clocation":{"$regex":searchtext , $options : 'i'}},
+       {"cuisines":{"$regex":searchtext , $options : 'i'}},
+       {"ccaterertype":{"$regex":searchtext , $options : 'i'}},
+       {"cvegonly":{"$regex":searchtext , $options : 'i'}},
+       {"cmincapacity":{"$regex":searchtext , $options : 'i'}},
+       {"cmaxcapacity":{"$regex":searchtext , $options : 'i'}},
      ]
    }).then(caterers => {
      res.render('caterers',{
@@ -3759,6 +3781,10 @@ exports.searchInvite = async(req,res) => {
     "$or":[
       {"iname":{"$regex":searchtext , $options : 'i'}},
       {"ilocation":{"$regex":searchtext , $options : 'i'}},
+      {"iservicetype":{"$regex":searchtext , $options : 'i'}},
+      {"ispeciality":{"$regex":searchtext , $options : 'i'}},
+      {"ishipping":{"$regex":searchtext , $options : 'i'}},
+      {"iminorder":{"$regex":searchtext , $options : 'i'}},
     ]
   }).then(invitations => {
     res.render('invitations',{

@@ -26,7 +26,7 @@ router.get('/logout',eventsController.logout);
 router.get('/register-venue', eventsController.registerVenue);
 router.post('/register-venue',eventsController.registerVenueOnPost);
 // explore venue
-router.get('/venues', eventsController.exploreVenues );
+router.get('/venues',isAuth, eventsController.exploreVenues );
 router.get('/venues/search/:searchInput', eventsController.searchVenue);
 router.get('/venues/service-events/:events', eventsController.eventVenue);
 router.get('/venues/:id', eventsController.exploreVenue);
@@ -59,7 +59,7 @@ router.get('/delete-venue/:id', eventsController.deleteVenue);
 router.get('/register-photographer', eventsController.registerPhotographer);
 router.post('/register-photographer',eventsController.registerPhotographerOnPost);
 // Explore photographer
-router.get('/photographers', eventsController.explorePhotographers );
+router.get('/photographers',isAuth, eventsController.explorePhotographers );
 router.get('/photographers/search/:searchInput', eventsController.searchPhotographer);
 router.get('/photographers/:id', eventsController.explorePhotographer );
 router.post('/photographers/:id', eventsController.ratePhotographer);
@@ -83,7 +83,7 @@ router.get('/delete-photographer/:id', eventsController.deletePhotographer);
 router.get('/register-entertainer', eventsController.registerEntertainer);
 router.post('/register-entertainer',eventsController.registerEntertainerOnPost);
 // Explore entertainer
-router.get('/entertainers', eventsController.exploreEntertainers );
+router.get('/entertainers',isAuth, eventsController.exploreEntertainers );
 router.get('/entertainers/search/:searchInput', eventsController.searchEntertainer);
 router.get('/entertainers/type/:type', eventsController.eventEntertainer);
 router.get('/entertainers/:id', eventsController.exploreEntertainer);

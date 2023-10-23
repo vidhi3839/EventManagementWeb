@@ -442,7 +442,7 @@ background: #b6b6b68f;
     margin-top: 5%;
     margin-bottom: 0;
     padding:20px;
-    font-family: 'Lora', serif;
+    font-family: 'nunito';
 }
 
 .gallery-container .gallery-carousel{
@@ -1137,23 +1137,3 @@ background: #b6b6b68f;
 }
 
 /*-----------------------------------------------------------------------------------------------------*/
-
-/*-------------------------------------Admin Dashboard--------------------------------------------------*/
-
-.adminhead{
-    background-color: #16001f;
-    color:white;
-    font-family: 'Nunito';
-    font-size:30px;
-    padding:20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 50px;
-}
-
-.adminhead a:link{
-    color: white;
-}
-
-/*-------------------------------------------Admin Dashboard------------------------------------------*/

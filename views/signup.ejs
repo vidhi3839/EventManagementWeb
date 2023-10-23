@@ -223,13 +223,24 @@
 
                     </div>
                     <div class="field input-field">
-                        <input type="text" id="name" placeholder="Name" name="name" class="form-input">
+                        <input type="text" id="username" placeholder="Name" name="username" class="form-input">
                         <i class="fa fa-user name"></i>
                     </div>
                     <div class="field input-field">
                         <input type="text" id="email" placeholder="Email" name="email" class="form-input">
                         <i class="fa fa-envelope email"></i>
                     </div>
+
+                    <div class="field input-field">
+                        <select id="role" name="role" class="form-input">
+                            <option value="" disabled selected>Role</option>
+                            <option value="user">User</option>
+                            <option value="vendor">Vendor</option>
+                        </select>
+                        <p class="role_warning" style=" display:block;color: white;"></p>
+                        <i class="fa fa-solid fa-plus role"></i>
+                    </div>
+    
 
                     <div class="field input-field">
                         <input type="password" id="password" name="password" placeholder="Create password"
