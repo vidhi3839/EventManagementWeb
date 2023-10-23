@@ -62,13 +62,14 @@
                     <div class="frow1 row">
 
                         <div class="fcol1 photographer-brief col-md-6 col-sm-12">
+                            <hr>
                             <div class="main-profile-pic">
-                                <img id="vendor-profile-pic" src="/uploads/<%= venue.profilePhoto%>" alt="<%= venue.name%>"
-                                    class="profile-pic venue-profile-pic">
+                                <img id="vendor-profile-pic" src="/uploads/<%= venue.profilePhoto%>"
+                                    alt="<%= venue.name%>" class="profile-pic venue-profile-pic">
 
                             </div>
                             <div class="venue-details">
-                                <div class="photographer-details-inner">
+                                <div class="photographer-details-inner" style="box-shadow: 0 0 5px gray;">
                                     <div class="title">
                                         <h4 class="">
                                             <%= venue.name%>
@@ -99,43 +100,38 @@
                                 </div>
                                 <div class="address-container" id="address" style="margin: 2rem;">
                                     <div class="row">
-                                        <h6>Address:</h6>
-                                        <div class="url row" style="display: flex; text-align: center;">
-                                            <div class="col-md-6">
-                                                <div style="display: flex; text-align: center; margin-top: 3rem;"> <i
-                                                        class="fa fa-map-marker"></i>
+                                        <div class="col-md-2 col-sm-2"><i class="fa fa-map-marker"></i></div>
+                                            <div class="col-md-5 col-sm-5">
                                                     <p>
                                                         <%= venue.address%>
                                                     </p>
-                                                    <hr>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 "><iframe src="<%= venue.addressUrl%>" width="100"
+                                            
+                                            <div class="col-md-5 col-sm-5 "><iframe src="<%= venue.addressUrl%>" width="100"
                                                     height="100" style="border:1px solid gray;" allowfullscreen=""
                                                     loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                             </div>
                                         </div>
-                                    </div>
                                     <hr>
                                     <div class="row">
-                                        <h6>Contact:</h6>
-                                        <div>
+                                        <div class="col-md-2 col-sm-2"><i class="fa fa-phone"></i></div>
+                                        <div class="col-md-6 col-sm-6">
                                             <p>
-                                                <%= venue.contact%>
+                                                <a href=""><%= venue.contact%></a>
                                             </p>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <h6>Instagram:</h6>
-                                        <div><a href="<%= venue.instaUrl%>">
+                                        <div class="col-md-2 col-sm-2"><i class="fa fa-instagram"></i></div>
+                                        <div class="col-md-6 col-sm-6"><a href="<%= venue.instaUrl%>">
                                                 <%= venue.instaUrl%>
                                             </a></div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <h6>Facebook</h6>
-                                        <div><a href="<%= venue.fbUrl%>">
+                                        <div class="col-md-2 col-sm-2"><i class="fa fa-facebook"></i></div>
+                                        <div class="col-md-6 col-sm-6"><a href="<%= venue.fbUrl%>">
                                                 <%= venue.fbUrl%>
                                             </a></div>
                                     </div>
@@ -166,14 +162,57 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div style="box-shadow: 0 0 5px gray;"
+                                    class="area-available bg-white radius sc-jTzLTM eFjHCd">
+                                    <div id="7-tracker-desktop">
+                                        <div class="AreasAvailable fcol shadow-light">
+                                            <div class="title-bar v-center padding-h-20"
+                                                style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
 
+                                                <h4 class="h4">Areas Available (<!-- -->
+                                                    <%= venue.halls.length%><!-- -->)
+                                                </h4>
+                                            </div>
+                                            <div class="row">
+                                                <% if( venue.halls !='' ) { %>
+                                                    <%venue.halls.forEach(hall=>{%>
+                                                        <div class="Banquet col-md-6 col-sm-6"
+                                                            style="align-items: center; text-align: center;">
+                                                            <div class="section-left">
+                                                                <div class="margin-r-20"><img
+                                                                        src="https://images.wedmegood.com/images/indoor.svg"
+                                                                        alt="1">
+                                                                    <div class="small capitalize help-text">
+                                                                        <%= hall.hall_space%>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="section-right">
+                                                                <h6 class="h6"><span>
+                                                                        <%= hall.hall_seating%><!-- --> Seating
+                                                                    </span><br><span>
+                                                                        <%= hall.hall_floating%><!-- -->
+                                                                            Floating
+                                                                    </span></h6>
+                                                                <p>
+                                                                    <%= hall.hall_name%>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <%})%>
+                                                            <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+</div>
 
-
-                        <div class="price-details-form fcol2 col-md-6 col-sm-12" id="pricing">
+                        <div style="box-shadow: 0 0 5px gray;" class="price-details-form fcol2 col-md-6 col-sm-12"
+                            id="pricing">
                             <hr>
-                            <div class="heading">
+                            <div class="heading"
+                                style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
                                 <h5>Pricing Details</h5>
                             </div>
                             <div class="right-section sc-jTzLTM dCKAkt">
@@ -285,31 +324,62 @@
                                         <h5>Enquire</h5>
                                         <div class="below"></div>
                                     </div> <br>
-                                    <form action="/venues/enquire/<%= venue._id%>" method="post"
+                                    <form action="/venues/<%= venue._id%>/enquire" method="post"
                                         enctype="multipart/form-data">
+                                        <div class="row availability-row">
+                                            <div class="col-12">
+                                                <% if(infoSubmitObj !='' ) { %>
+                                                    <div class="col-sm-6 alert alert-success"
+                                                        style="text-align: center;">
+                                                        <%= infoSubmitObj %>
+                                                    </div>
+                                                    <% } %>
+                                            </div>
+                                            <div class="col-12">
+                                                <% if(infoErrorsObj !='' ) { %>
+                                                    <div class="col-12 alert alert-danger" role="alert">
+                                                        <%= infoErrorsObj[0].message %>
+                                                    </div>
+                                                    <% } %>
+                                            </div>
 
+                                        </div>
+                                        <div class="row availability-row">
+                                            <div class="col-sm-6">
+                                                <label for="name">Your Name:</label>
+                                                <input class="form-control input-name" type="text"
+                                                    placeholder="Your Name" name="name" id="name" required>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="contact">Contact:</label>
+                                                <input class="form-control input-contact" type="text"
+                                                    placeholder="Contact" name="contact" id="contact" required>
+                                            </div>
+                                        </div>
                                         <div class="row availability-row">
                                             <div class="col-sm-6">
                                                 <label for="start_date">Function start date</label>
                                                 <input class="form-control input-date" type="date"
-                                                    placeholder="Function date" name="start_date" id="start-input-date">
+                                                    placeholder="Function date" name="start_date" id="start-input-date"
+                                                    required>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="end_date">Function end date</label>
                                                 <input class="form-control input-date" type="date"
-                                                    placeholder="Function date" name="end_date" id="end-input-date">
+                                                    placeholder="Function date" name="end_date" id="end-input-date"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="row availability-row">
                                             <div class="col-sm-6">
                                                 <label for="start_time">Function start time</label>
                                                 <input class="form-control" type="time" placeholder="Function date"
-                                                    name="start_time">
+                                                    name="start_time" required>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="end_time">Function end time</label>
                                                 <input class="form-control" type="time" placeholder="Function date"
-                                                    name="end_time">
+                                                    name="end_time" required>
                                             </div>
                                         </div>
                                         <div class="row availability-row">
@@ -319,7 +389,7 @@
                                             <div class="col-md-9 col-sm-9">
                                                 <%if(venue.services !='' ){%>
 
-                                                    <select name="type" id="type" class="form-control">
+                                                    <select name="type" id="type" class="form-control" required>
                                                         <%venue.services.forEach(service=>{%>
                                                             <option value="<%=service%>">
                                                                 <%= service%>
@@ -335,20 +405,21 @@
                                             <div class="col-sm-6">
                                                 <label for="guests">Number of guests: </label>
                                                 <input class="form-control" type="number" placeholder="Number of guests"
-                                                    name="guests" id="guests">
+                                                    name="guests" id="guests" required>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="rooms">Number of rooms needed:</label>
                                                 <input class="form-control" type="number"
-                                                    placeholder="Number of rooms needed" name="rooms" id="rooms">
+                                                    placeholder="Number of rooms needed" name="rooms" id="rooms"
+                                                    required>
                                             </div>
                                         </div>
                                         <div class="row availability-row">
-                                        <div class="col-sm-6">
-                                            <label for="hall">Desired hall type (if any):</label>
-                                            <input class="form-control" type="text" placeholder="Desired hall name"
-                                                name="hall" id="hall">
-                                        </div>
+                                            <div class="col-sm-6">
+                                                <label for="hall">Desired hall type (if any):</label>
+                                                <input class="form-control" type="text" placeholder="Desired hall name"
+                                                    name="hall" id="hall" required>
+                                            </div>
                                         </div>
                                         <br>
                                         <div class="row availability-row">
@@ -364,198 +435,137 @@
 
                             </div>
                         </div>
-                    </div>
-                    <hr>
-                    <div class="area-available bg-white radius sc-jTzLTM eFjHCd">
-                        <div id="7-tracker-desktop">
-                            <div class="AreasAvailable fcol shadow-light">
-                                <div class="title-bar v-center padding-h-20" style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
-                                    
-                                    <h4 class="h4">Areas Available (<!-- -->
-                                        <%= venue.halls.length%><!-- -->)
-                                    </h4>
-                                </div>
-                                <div class="row">
-                                    <% if( venue.halls !='' ) { %>
-                                        <%venue.halls.forEach(hall=>{%>
-                                            <div class="Banquet col-md-3 col-sm-3" style="align-items: center; text-align: center;">
-                                                <div class="section-left">
-                                                    <div class="margin-r-20"><img
-                                                            src="https://images.wedmegood.com/images/indoor.svg"
-                                                            alt="1">
-                                                        <div class="small capitalize help-text">
-                                                            <%= hall.hall_space%>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="section-right">
-                                                    <h6 class="h6"><span>
-                                                            <%= hall.hall_seating%><!-- --> Seating 
-                                                        </span><br><span>
-                                                            <%= hall.hall_floating%><!-- -->
-                                                                Floating
-                                                        </span></h6>
-                                                    <p>
-                                                        <%= hall.hall_name%>
-                                                    </p>
-                                                </div>
+
+                        <hr>
+
+
+                        <hr>
+
+                        <div style="box-shadow: 0 0 5px gray;" id="about-section"
+                            class="AboutSection bg-white shadow-light radius protected-content jsEvent-onCopy">
+                            <h2 class="title-bar"
+                                style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                                About <!-- -->
+                                <%= venue.name%>, <!-- -->
+                                    <!-- --> <span>&nbsp;<!-- -->
+                                        <%= venue.address%>
+                                    </span>
+                            </h2>
+                            <div class="about-body border-t">
+                                <div class="info padding-h-20 padding-v-20">
+                                    <p>
+                                        <%= venue.about%>
+                                    </p>
+
+                                    <hr>
+                                    <div class="container-fluid">
+                                        <div class="row more-details">
+                                            <h2 class="title-bar padding-h-20 h-50 v-center h4"
+                                                style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
+                                                Features
+                                            </h2>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6> <span>Been on
+                                                    </span><span><span class="text" style="color: rgb(250, 40, 75);">
+                                                            Dream Stories</span></span><span> Since</span></h6>
+                                                <p class="text-tertiary margin-r-10" style="width:230px">
+                                                    <%= venue.since%>
+                                                </p>
                                             </div>
-                                            <%})%>
-                                                <% } %>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr id="about-section">
-                    <div class="AboutSection bg-white shadow-light radius protected-content jsEvent-onCopy" >
-                        <h2 class="title-bar padding-h-20 h-50 v-center h4"  style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">About <!-- -->
-                            <%= venue.name%>, <!-- -->
-                                <!-- --> <span>&nbsp;<!-- -->
-                                    <%= venue.address%>
-                                </span>
-                        </h2>
-                        <div class="about-body border-t">
-                            <div class="info padding-h-20 padding-v-20">
-                                <p>
-                                    <%= venue.about%>
-                                </p>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>Parking</h6>
+                                                <p class="text-tertiary" style="width:230px">
+                                                    <%= venue.parking%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>Small Party
+                                                    Venue</h6>
+                                                <p class="text-tertiary" style="width:230px">
+                                                    <%= venue.smallpartyvenue%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>Features</h6>
+                                                <p class="text-tertiary" style="width:230px">
+                                                    <%= venue.features%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>Space</h6>
+                                                <p class="text-tertiary" style="width:230px">
+                                                    <%= venue.space%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>Room Count</h6>
+                                                <p class="text-tertiary" style="width:230px">
+                                                    <%= venue.space%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>Catering policy</h6>
 
-                                <hr>
-                                <div class="container-fluid">
-                                <div class="row more-details" >
-                                    <h2 class="title-bar padding-h-20 h-50 v-center h4"  style="box-shadow: 0 0 5px black inset; background-color: rgba(175, 175, 175, 0.466); padding: 3px; text-align: center; margin-bottom: 10px;">
-                                    Features
-                                    </h2>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6> <span>Been on
-                                            </span><span><span class="text" style="color: rgb(250, 40, 75);">
-                                                    Dream Stories</span></span><span> Since</span></h6>
-                                        <p class="text-tertiary margin-r-10" style="width:230px">
-                                            <%= venue.since%>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>Parking</h6>
-                                        <p class="text-tertiary" style="width:230px">
-                                            <%= venue.parking%>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>Small Party
-                                            Venue</h6>
-                                        <p class="text-tertiary" style="width:230px">
-                                            <%= venue.smallpartyvenue%>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>Features</h6>
-                                        <p class="text-tertiary" style="width:230px">
-                                            <%= venue.features%>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>Space</h6>
-                                        <p class="text-tertiary" style="width:230px">
-                                            <%= venue.space%>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>Room Count</h6>
-                                        <p class="text-tertiary" style="width:230px">
-                                            <%= venue.space%>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>Catering policy</h6>
+                                                <p class="text-tertiary " style="width:230px">
+                                                    <%= venue.catering_policy%>/p>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>Decor Policy
+                                                </h6>
+                                                <p class="text-tertiary " style="width:230px">
+                                                    <%= venue.decor_policy%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>Outside Alcohol</h6>
 
-                                        <p class="text-tertiary " style="width:230px">
-                                            <%= venue.catering_policy%>/p>
+                                                <p class="text-tertiary" style="width:230px">
+                                                    <%= venue.outside_alcohol%>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-3 col-sm-6 more-details-columns">
+                                                <h6>DJ Policy</h6>
+                                                <p class="text-tertiary " style="width:230px">
+                                                    <%= venue.dj_policy%>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>Decor Policy
-                                        </h6>
-                                        <p class="text-tertiary " style="width:230px">
-                                            <%= venue.decor_policy%>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>Outside Alcohol</h6>
-
-                                        <p class="text-tertiary" style="width:230px">
-                                            <%= venue.outside_alcohol%>
-                                        </p>
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 more-details-columns">
-                                        <h6>DJ Policy</h6>
-                                        <p class="text-tertiary " style="width:230px">
-                                            <%= venue.dj_policy%>
-                                        </p>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="portfolio-links" id="projects-section">
-                        <div class="MuiTabs-flexContainer-11" role="tablist">
-                            <button class="portfolio-links-button active-custom" tabindex="0" type="button" role="tab"
-                                aria-selected="true">
-                                <span>Portfolio</span>
-                            </button>
-                        </div><span class="jss33 jss35 MuiTabs-indicator jss1639"
-                            style="left: 0px; width: 160px;"></span>
-
-                        <div class="TabViews fcol f-space-between">
-                            <div class="Portfolio ">
-                                <div class="row">
-                                    <div class="col-md-3"><img id="vendor-portfolio-pic-0"
-                                            class="img-thumbnail images-thumbnail"
-                                            src="https://image.wedmegood.com/resized/450X/uploads/project/255460/1689259534_000__5_.jpg?crop=10,92,2028,1141"
-                                            alt="portfolio-pic" loading="lazy">
-                                    </div>
-                                    <div class="col-md-3"><img id="vendor-portfolio-pic-1"
-                                            class="img-thumbnail images-thumbnail"
-                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688976459__I1A3938.jpg"
-                                            alt="portfolio-pic" loading="lazy">
-                                    </div>
-                                    <div class="col-md-3"><img id="vendor-portfolio-pic-2"
-                                            class="img-thumbnail images-thumbnail"
-                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385440_000__13_.jpg"
-                                            alt="portfolio-pic" loading="lazy">
-                                    </div>
-                                    <div class="col-md-3"><img id="vendor-portfolio-pic-3"
-                                            class="img-thumbnail images-thumbnail"
-                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688384403_The_Wedding_Scenario_Candid_Photography_Vadodara__28_.jpg"
-                                            alt="portfolio-pic" loading="lazy">
-                                    </div>
-                                    <div class="col-md-3"><img id="vendor-portfolio-pic-4"
-                                            class="img-thumbnail images-thumbnail"
-                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385474_000__27_.jpg"
-                                            alt="portfolio-pic" loading="lazy">
-                                    </div>
-                                    <div class="col-md-3"><img id="vendor-portfolio-pic-5"
-                                            class="img-thumbnail images-thumbnail"
-                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688384372_The_Wedding_Scenario_Candid_Photography_Vadodara__6_.jpg"
-                                            alt="portfolio-pic" loading="lazy">
-                                    </div>
-                                    <div class="col-md-3"><img id="vendor-portfolio-pic-6"
-                                            class="img-thumbnail images-thumbnail"
-                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1689164615_VTP00208.jpg"
-                                            alt="portfolio-pic" loading="lazy">
-                                    </div>
-                                    <div class="col-md-3"><img id="vendor-portfolio-pic-7"
-                                            class="img-thumbnail images-thumbnail"
-                                            src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385501_000__37_.jpg"
-                                            alt="portfolio-pic" loading="lazy">
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
 
-                    </div>
+                        <hr>
 
+                        <div class="portfolio-links" id="projects-section">
+                            <div class="MuiTabs-flexContainer-11" role="tablist">
+                                <button class="portfolio-links-button active-custom" tabindex="0" type="button"
+                                    role="tab" aria-selected="true">
+                                    <span>Portfolio</span>
+                                </button>
+                            </div><span class="jss33 jss35 MuiTabs-indicator jss1639"
+                                style="left: 0px; width: 160px;"></span>
+
+                            <div class="TabViews fcol f-space-between">
+                                <div class="Portfolio "> 
+                                    <%if(venue.photos.length > 0){%>
+                                      
+                                    <div class="row">
+                                        <%venue.photos.forEach(photo=>{%>
+                                        <div class="col-md-3"><img id="vendor-portfolio-pic-0"
+                                                class="img-thumbnail images-thumbnail"
+                                                src="/uploads/<%= photo%>"
+                                                alt="portfolio-pic" loading="lazy">
+                                        </div>
+                                        <%})%>
+                                   
+                                    </div> <%}%>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
 

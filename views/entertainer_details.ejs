@@ -61,14 +61,14 @@
                 <div class="info-box">
                     <div class="frow1 row">
 
-                        <div  style="box-shadow: 0 0 5px rgb(165, 165, 165);" class="fcol1 photographer-brief col-md-6 col-sm-12">
+                        <div class="fcol1 photographer-brief col-md-6 col-sm-12">
                             <hr>
                             <div class="main-profile-pic">
                                 <img id="vendor-profile-pic" src="images/<%=entertainer.profilePhoto%>" alt="
                                     <%= entertainer.name%>" class="profile-pic">
 
                             </div>
-                            <div class="photographer-details">
+                            <div class="photographer-details"  style="box-shadow: 0 0 5px rgb(165, 165, 165);" >
                                 <div class="photographer-details-inner">
                                     <div class="title">
                                         <h4 class="">
@@ -118,8 +118,9 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <h6>Contact:</h6>
-                                        <div>
+                                        <div class="col-md-6 col-sm-6"><i
+                                            class="fa fa-call"></i></div>
+                                        <div class="col-md-6 col-sm-6">
                                             <p>
                                                 <%= entertainer.contact%>
                                             </p>
@@ -127,15 +128,17 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <h6>Instagram:</h6>
-                                        <div><a href="<%= entertainer.instaUrl%>">
+                                        <div class="col-md-6 col-sm-6"><i
+                                            class="fa fa-instagram"></i></div>
+                                        <div class="col-md-6 col-sm-6"><a href="<%= entertainer.instaUrl%>">
                                                 <%= entertainer.instaUrl%>
                                             </a></div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <h6>Facebook</h6>
-                                        <div><a href="<%= entertainer.fbUrl%>">
+                                        <div class="col-md-6 col-sm-6"><i
+                                            class="fa fa-facebook"></i></div>
+                                        <div class="col-md-6 col-sm-6"><a href="<%= entertainer.fbUrl%>">
                                                 <%= entertainer.fbUrl%>
                                             </a></div>
                                     </div>
@@ -213,31 +216,59 @@
                                         <h5>Enquire</h5>
                                         <div class="below"></div>
                                     </div> <br>
-                                    <form action="/entertainers/<%= entertainer._id%>" method="get"
+                                    <form action="/entertainers/<%= entertainer._id%>/enquire" method="post"
                                         enctype="multipart/form-data">
-
+                                        <div class="row availability-row">
+                                            <div class="col-12">
+                                            <% if(infoSubmitObj !='' ) { %>
+                                                <div class="col-sm-6 alert alert-success" style="text-align: center;">
+                                                    <%= infoSubmitObj %>
+                                                </div>
+                                                <% } %>
+                                            </div>
+                                            <div class="col-12">
+                                                    <% if(infoErrorsObj !='' ) { %>
+                                                        <div class="col-12 alert alert-danger" role="alert">
+                                                            <%= infoErrorsObj[0].message %>
+                                                        </div>
+                                                        <% } %>
+                                            </div>
+                        
+                                        </div>
+                                        <div class="row availability-row">
+                                            <div class="col-sm-6">
+                                                <label for="name">Your Name:</label>
+                                                <input class="form-control input-name" type="text"
+                                                    placeholder="Your Name" name="name" id="name" required>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label for="contact">Contact:</label>
+                                                <input class="form-control input-contact" type="text"
+                                                    placeholder="Contact" name="contact" id="contact" required>
+                                            </div>
+                                        </div>
                                         <div class="row availability-row">
                                             <div class="col-sm-6">
                                                 <label for="start_date">Function start date</label>
                                                 <input class="form-control input-date" type="date"
-                                                    placeholder="Function date" name="start_date" id="start-input-date">
+                                                    placeholder="Function date" name="start_date" id="start-input-date" required>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="end_date">Function end date</label>
                                                 <input class="form-control input-date" type="date"
-                                                    placeholder="Function date" name="end_date" id="end-input-date">
+                                                    placeholder="Function date" name="end_date" id="end-input-date" required>
                                             </div>
                                         </div>
                                         <div class="row availability-row">
                                             <div class="col-sm-6">
                                                 <label for="start_time">Function start time</label>
                                                 <input class="form-control" type="time" placeholder="Function date"
-                                                    name="start_time">
+                                                    name="start_time" required>
                                             </div>
                                             <div class="col-sm-6">
                                                 <label for="end_time">Function end time</label>
                                                 <input class="form-control" type="time" placeholder="Function date"
-                                                    name="end_time">
+                                                    name="end_time" required>
                                             </div>
                                         </div>
                                         <div class="row availability-row">
@@ -245,7 +276,7 @@
                                                 <label for="type">Function Type: </label>
                                             </div>
                                             <div class="col-md-9 col-sm-9">
-                                                <select name="type" id="type" class="form-control">
+                                                <select name="type" id="type" class="form-control" required>
                                                     <option value="wedding">Wedding</option>
                                                     <option value="birthday">Birthday</option>
                                                     <option value="ring-ceremony">Ring Ceremony</option>
@@ -357,55 +388,20 @@
 
 
                             <div class="TabViews fcol f-space-between">
-                                <div class="Portfolio ">
+                                <div class="Portfolio "> 
+                                    <%if(entertainer.photos.length > 0){%>
+                                      
                                     <div class="row">
+                                        <%entertainer.photos.forEach(photo=>{%>
                                         <div class="col-md-3"><img id="vendor-portfolio-pic-0"
                                                 class="img-thumbnail images-thumbnail"
-                                                src="https://image.wedmegood.com/resized/450X/uploads/project/255460/1689259534_000__5_.jpg?crop=10,92,2028,1141"
+                                                src="/uploads/<%= photo%>"
                                                 alt="portfolio-pic" loading="lazy">
                                         </div>
-                                        <div class="col-md-3"><img id="vendor-portfolio-pic-1"
-                                                class="img-thumbnail images-thumbnail"
-                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688976459__I1A3938.jpg"
-                                                alt="portfolio-pic" loading="lazy">
-                                        </div>
-                                        <div class="col-md-3"><img id="vendor-portfolio-pic-2"
-                                                class="img-thumbnail images-thumbnail"
-                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385440_000__13_.jpg"
-                                                alt="portfolio-pic" loading="lazy">
-                                        </div>
-                                        <div class="col-md-3"><img id="vendor-portfolio-pic-3"
-                                                class="img-thumbnail images-thumbnail"
-                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688384403_The_Wedding_Scenario_Candid_Photography_Vadodara__28_.jpg"
-                                                alt="portfolio-pic" loading="lazy">
-                                        </div>
-                                        <div class="col-md-3"><img id="vendor-portfolio-pic-4"
-                                                class="img-thumbnail images-thumbnail"
-                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385474_000__27_.jpg"
-                                                alt="portfolio-pic" loading="lazy">
-                                        </div>
-                                        <div class="col-md-3"><img id="vendor-portfolio-pic-5"
-                                                class="img-thumbnail images-thumbnail"
-                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688384372_The_Wedding_Scenario_Candid_Photography_Vadodara__6_.jpg"
-                                                alt="portfolio-pic" loading="lazy">
-                                        </div>
-                                        <div class="col-md-3"><img id="vendor-portfolio-pic-6"
-                                                class="img-thumbnail images-thumbnail"
-                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1689164615_VTP00208.jpg"
-                                                alt="portfolio-pic" loading="lazy">
-                                        </div>
-                                        <div class="col-md-3"><img id="vendor-portfolio-pic-7"
-                                                class="img-thumbnail images-thumbnail"
-                                                src="https://image.wedmegood.com/resized/450X/uploads/member/926496/1688385501_000__37_.jpg"
-                                                alt="portfolio-pic" loading="lazy">
-                                        </div>
+                                        <%})%>
+                                   
+                                    </div> <%}%>
 
-                                    </div>
-                                </div>
-                                <div class="ViewAll">
-                                    <div class="more-content h-center"><a class="h6 text-primary view-all-btn v-center"
-                                            href="/profile/The-Wedding-Scenario-926496/portfolio">View <!-- -->
-                                            more</a></div>
                                 </div>
                             </div>
                         </div>

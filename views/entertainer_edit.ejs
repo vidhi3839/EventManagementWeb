@@ -132,6 +132,17 @@
                         </div>
                     </div>
 
+                    <div class="row rows irow">
+                        <div class="col-sm-3">
+                            <label for="since">
+                                <h6>How long been on Dream Stories:</h6>
+                            </label>
+                        </div>
+                        <div class="col-sm-9"><input value="<%=entertainer.since%>" type="number" name="since"
+                                class="form-control" title="since" id="since">
+                        </div>
+                    </div>
+
                     <div class="row rows lrow black-white">
                         <div class="col-sm-3">
                             <h6>Event/s Hosted: </h6>
@@ -147,6 +158,10 @@
                                             name="services" class="form-control" title="Services">
 
                                     </div>
+                                    <div class="col-2"> <a
+                                            href="/entertainers/del-service/<%=entertainer._id%>/<%= service%>"><i
+                                                class="fa fa-close del-button"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -155,41 +170,61 @@
                     <div class="row rows" style="text-align: center;">
                         <div class="col-12">
 
-                            <a href="/entertainers/add-services/<%=entertainer._id%>" class="button add-button">Add more
+                            <a href="/entertainers/add-service/<%=entertainer._id%>" class="button add-button">Add more
                                 +</a>
                         </div>
                     </div>
 
-                    <div class="row rows irow">
-                        <div class="col-sm-3">
-                            <label for="since">
-                                <h6>How long been on Dream Stories:</h6>
-                            </label>
-                        </div>
-                        <div class="col-sm-9"><input value="<%=entertainer.since%>" type="number" name="since"
-                                class="form-control" title="since" id="since">
+
+                    <div class="row rows orow black-white">
+                        <div class="col-sm-12">
+                            <h4>FEATURES</h4>
                         </div>
                     </div>
 
                     <div class="row rows irow">
                         <div class="col-sm-3">
+                            <h6>How long been on Dream Stories:</h6>
+                        </div>
+                        <div class="col-sm-9"><input value="<%=entertainer.since%>" type="text" class="form-control" name="since" title="since"></div>
+
+                    </div>
+
+                    <div class="row rows krow">
+                        <div class="col-sm-6 kcolumns"
+                            style="display: flex; justify-content: center; align-items: center;">
                             <label for="budget">
                                 <h6>Budget: </h6>
-                            </label>
-
-                            <div class="col-sm-9"><input value="<%= entertainer.budget%>" type="text" name="budget"
-                                    class="form-control" title="Budget" id="budget" size="40px">
-                            </div>
+                            </label><input type="text" value="<%=entertainer.budget%>" name="budget" class="form-control" title="Budget" id="budget"
+                                size="40px">
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-6 kcolumns"
+                            style="border-right: none; display: flex; justify-content: center; align-items: center;">
                             <label for="since">
                                 <h6>Payment Terms:</h6>
-                            </label>
-                            <div class="col-sm-9"><input value="<%=entertainer.payment_terms%>" type="text"
-                                    name="payment" class="form-control" title="Payment Terms" id="payment">
-                            </div>
+                            </label><input type="text" value="<%=entertainer.payment_terms%>" name="payment" class="form-control" title="Payment Terms"
+                                id="payment">
                         </div>
                     </div>
+
+                    <div class="row rows krow">
+                        <div class="col-sm-6 kcolumns"
+                            style="display: flex; justify-content: center; align-items: center;">
+                            <label for="enteratiner_type">
+                                <h6>Entertainer Type:</h6>
+
+                            </label><input type="text" value="<%=entertainer.experience%>" name="entertainer_type" class="form-control"
+                                title="Payment Terms" id="entertainer_type">
+                        </div>
+                        <div class="col-sm-6 kcolumns"
+                            style="border-right: none; display: flex; justify-content: center; align-items: center;">
+                            <label for="eventsManaged">
+                                <h6>Events Managed: </h6>
+                            </label><input type="text" value="<%=entertainer.eventsManaged%>" name="eventsManaged" class="form-control" title="Events Managed"
+                                id="eventsManaged" size="40px">
+                        </div>
+                    </div>
+
 
                     <div class="row rows krow">
                         <div class="col-sm-6 kcolumns"
@@ -238,7 +273,7 @@
                                             <div class="col-sm-7 row"
                                                 style="justify-content: center; align-items: center;">
                                                 <div class="col-sm-11 col-md-11">
-                                                    <input type="text" name="price" value="<%=price.price%>"
+                                                    <input type="number" name="price" value="<%=price.price%>"
                                                         class="form-control" title="Type_price" size="25px">
                                                 </div>
                                                 <div class="col-sm-1 col-md-1">

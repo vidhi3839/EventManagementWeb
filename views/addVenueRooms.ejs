@@ -61,7 +61,7 @@
                     <div class="row rows rrow form-control" style="background: #adadadb4; border-radius: 0;">
                         <div class="col-sm-6 col-md-6"><input type="text" class="form-control" name="room_name" title="Type/Name" size="65px">
                         </div>
-                        <div class="col-sm-6 col-md-6"><input type="text" class="form-control" name="room_price" title="Price" size="65px">
+                        <div class="col-sm-6 col-md-6"><input type="number" class="form-control" name="room_price" title="Price" size="65px">
                         </div>
                         
                     </div>
@@ -89,8 +89,9 @@
 
     addMoreRoomButton.addEventListener('click', function () {
         let newItem = addMoreRoomDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input')[0];
-        input.value = '';
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+        input[i].value = '';}
         addMoreRoom.appendChild(newItem);
     });
 

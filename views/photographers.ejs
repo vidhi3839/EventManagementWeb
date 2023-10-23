@@ -43,10 +43,8 @@
 
         </nav>
 
-        <div class="user-btn" id="user-btn">
-            <div class="user-btn dropdown" id="user-btn">
-                <i class="fa fa-user user-icon" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-            </div>
+        <div class="user-btn dropdown" id="user-btn">
+            <a> <i class="fa fa-user user-icon"></i></a>
         </div>
     </header>
 
@@ -60,8 +58,8 @@
         </nav>
         <div class="filter-search">
             <div class="input-group">
-                <form action="" method="get" enctype="multipart/form-data">
-                    <input class="form-control me-2 search-input" type="search" name="search" placeholder="Search" aria-label="Search">
+                <form  id="searchForm"  action="/photographers/search/<%= searchInput %>" method="get" enctype="multipart/form-data">
+                    <input class="form-control me-2 search-input" id="search" type="search" name="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-secondary search-btn" type="submit" href="">Search</button>
                 </form>
             </div>
@@ -81,8 +79,7 @@
                 <%photographerList.forEach(photographers=>{%>
             <div class="col-md-4 col-sm-2 column">
                 <div class="service-figure">
-                    <img src="/uploads/<%=photographers.portfolioPhoto%>" alt="" class="services-img">
-                    <button onclick="favourite()"><i class="fa fa-heart favourites"></i></button>
+                    <img src="/uploads/<%=photographers.profilePhoto%>" alt="" class="services-img">
                 </div>
                 <div class="service-brief">
 
@@ -195,7 +192,7 @@
     <div class="modal" id="filterModal" tabindex="-1" aria-labelledby="filterLabel" aria-hidden="true">
         <div class="modal-dialog form modal-xl">
             <div class="modal-content form-content">
-                <form action="/photographer" method="get">
+                <form id="filterForm" method="get">
                 <div class="modal-header">
                     <h5 class="modal-title form-title" id="filterModalLabel"><i class="fa fa-sliders"></i> Filter</h5>
                     <button type="button" class="btn-close form-close" data-bs-dismiss="modal"
@@ -236,36 +233,36 @@
                         </div>
                     </div>
                    -->
-                    <div class="filter-topics col-md-6">
+                    <div class="filter-topics col-md-12 col-sm-12">
                         <h5>Services</h5>
                         <div class="options">
                             <div class="row filter-rows">
-                                <div class="col-md-2 col-sm-2 col-2"><input type="radio" name="services"
+                                <div class="col-3"><input type="radio" name="services_offer"
                                         id="photo-package" value="photos"></div>
-                                <div class="col-10">Photo Package</div>
+                                <div class="col-5">Photo Package</div>
                             </div>
                             <div class="row filter-rows">
-                                <div class="col-md-2 col-sm-2 col-2"><input type="radio" name="services"
+                                <div class="col-3"><input type="radio" name="services_offer"
                                         id="photo_vdo-package" value="photo + viedo"></div>
-                                <div class="col-10"> Photo + Video</div>
+                                <div class="col-5"> Photo + Video</div>
                             </div>
                             <div class="row filter-rows">
-                                <div class="col-md-2 col-sm-2 col-2"><input type="radio" name="services"
+                                <div class="col-3"><input type="radio" name="services_offer"
                                         id="pre-wedding" value="prewedding">
                                 </div>
-                                <div class="col-10">Pre-Wedding Package</div>
+                                <div class="col-5">Pre-Wedding Package</div>
                             </div>
                             <div class="row filter-rows">
-                                <div class="col-md-2 col-sm-2 col-2"><input type="radio" name="services"
+                                <div class=" col-3"><input type="radio" name="services_offer"
                                         id="studio-photo" value="Studio Photography">
                                 </div>
-                                <div class="col-10">Studio Photography</div>
+                                <div class="col-5">Studio Photography</div>
                             </div>
                             <div class="row filter-rows">
-                                <div class="col-md-2 col-sm-2 col-2"><input type="radio" name="services"
+                                <div class="col-3"><input type="radio" name="services_offer"
                                         id="cinematography" value="cinematography">
                                 </div>
-                                <div class="col-10">Cinematography</div>
+                                <div class="col-5">Cinematography</div>
                             </div>
                         </div>
                     </div>  <hr>
@@ -274,11 +271,11 @@
                         <div class="options">
                             <div class="row filter-rows">
                                 <div class="col-2"><input type="radio" name="photoVideo" id="lt-50000" value="lte-50000"></div>
-                                <div class="col-7">&lt= <i class="fa fa-inr"></i> 50000</div>
+                                <div class="col-7">&lt=<i class="fa fa-inr"></i> 50000</div>
                             </div>
                             <div class="row filter-rows"> 
                                 <div class="col-2"><input type="radio" name="photoVideo" id="twofive-fifty-thousand" value="50000-100000"></div>
-                                <div class="col-7">&gt <i class="fa fa-inr"></i>50000-<i class="fa fa-inr"></i>100000</div>
+                                <div class="col-7"><i class="fa fa-inr"></i>50000-<i class="fa fa-inr"></i>100000</div>
                             </div>
                             <div class="row filter-rows">
                                 <div class="col-2"><input type="radio" name="photoVideo" id="fifty-one-lakh" value="100000-150000">
@@ -301,7 +298,7 @@
                             <div class="row filter-rows">
                                 <div class="col-2"><input type="radio" name="photoVideo" id="more-than-five-lakh" value="500000-gte">
                                 </div>
-                                <div class="col-7">&gt  <i class="fa fa-inr"></i>500000</div>
+                                <div class="col-7">&gt=  <i class="fa fa-inr"></i>500000</div>
                             </div>
                         </div>
                     </div>
@@ -356,16 +353,32 @@
             navbar.classList.toggle('navigation-bar');
         }
 
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting in the traditional way
 
-        function favourite() {
-            var like = document.querySelector(".favourites");
-            if (like.style.color == 'red') {
-                like.style.color = 'grey'
+            const searchInput = document.getElementById('search').value; // Get the input value
+
+            // Redirect the user to the URL with the search input as a route parameter
+            window.location.href = `/photographers/search/${searchInput}`;
+        });
+
+
+         // JavaScript in the same EJS file or in a separate script file
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterForm = document.getElementById('filterForm');
+            const currentPath = window.location.pathname;
+
+            // Check the current route and update form action accordingly
+            if (currentPath.startsWith('/photographers/search/')) {
+                // If the current route is /photographer/search/:searchInput
+                const searchInput = currentPath.substring('/photographers/search/'.length);
+                filterForm.action = `/photographers/search/${searchInput}`;
+            } else {
+                // If the current route is /photographer
+                filterForm.action = '/photographers';
             }
-            else {
-                like.style.color = 'red'
-            }
-        }
+        });
+
 
         $(document).ready(function () {
             $('[data-bs-toggle="tooltip"]').tooltip();
