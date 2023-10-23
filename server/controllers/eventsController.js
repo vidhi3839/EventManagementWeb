@@ -4,7 +4,6 @@ const Packages = require('../models/Packages');
 const Decorator = require('../models/Decorator'); 
 const Caterer = require('../models/Caterer'); 
 const Invitation = require('../models/Invitation'); 
-const User = require('../models/User');
 const usermiddle = require('../middleware/user');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
@@ -13,7 +12,9 @@ const { validationResult } = require('express-validator');
 const Packages = require('../models/Packages');
 const Entertainer = require('../models/entertainer');
 const Venue = require('../models/venues');
-// const User = require('../models/user');
+
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 
 
@@ -72,7 +73,6 @@ try {
 exports.signup = async (req, res) => {
   const infoErrorsObj = req.flash('infoErrors');
   const infoSubmitObj = req.flash('infoSubmit');
-
   res.render('signup', { infoErrorsObj, infoSubmitObj })
 }
 
@@ -85,18 +85,24 @@ exports.registerUserOnPost = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email })
     var reg_pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$^&*()_-]).{8,}$/;
+    let errors = [];
 
     if (user) {
-      req.flash('infoErrors', 'User already exists.');
-      res.redirect('/signup');
+      errors.push('User already exists');
     }
+
     if (!reg_pwd.test(req.body.password)) {
-      req.flash('infoErrors', 'Password should contain at least 8 characters including one lowercase letter, one uppercase letter, one digit, one special character.');
-      res.redirect('/signup');
+      errors.push('Password should contain at least 8 characters including one lowercase letter, one uppercase letter, one digit, one special character.');
     }
+
     if (req.body.password != req.body.confirm_password) {
-      req.flash('infoErrors', 'Password and confirm password do not match.');
-      res.redirect('/signup');
+      errors.push('Password and confirm password do not match.');
+    }
+
+    if (errors.length > 0) {
+      req.flash('infoErrors', errors);
+      console.log(errors)
+      return res.redirect('/signup');
     }
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
@@ -105,17 +111,17 @@ exports.registerUserOnPost = async (req, res) => {
       email: req.body.email,
       password: hashedPassword
     });
-
-    await newUser.save();
-
+    try {
+      await newUser.save();
+    } catch (err) { console.log(err) }
     console.log("posted");
     console.log(hashedPassword);
     // req.session.user = {id: newUser._id , name: newUser.name};
+    res.redirect('/signup');
 
-    req.flash('infoSubmit', 'User has been registered.')
-    res.redirect('/');
   } catch (error) {
     req.flash('infoErrors', error);
+    console.log(error)
     res.redirect('/signup');
   }
 }
@@ -130,7 +136,7 @@ exports.registerUserOnPost = async (req, res) => {
 exports.exploreVenues = async (req, res) => {
   try {
     const queryObj = {}
-
+    const searchInput = null;
     // Handle budget range filtering
     if (req.query.guests) {
       const guestsRange = req.query.guests.split('-');
@@ -274,21 +280,7 @@ exports.exploreVenues = async (req, res) => {
       // Add budgetObject to the query object
       queryObj.averageRating = ratingObject;
     }
-    // Handle search filtering
-    if (req.query.search) {
-      const searchTerm = req.query.search;
-      const regex = new RegExp(searchTerm, 'i');
-      queryObj.$or = [
-        { name: regex }, // Search in the 'name' field
-        { location: regex }
-      ];
-    }
 
-    // Handle services filtering
-    if (req.query.services) {
-      const services = req.query.services.split(','); // assuming services are comma-separated
-      queryObj.services = { $in: services };
-    }
     // Handle space filtering
     if (req.query.space) {
       const spaces = req.query.space.split(','); // assuming services are comma-separated
@@ -304,6 +296,7 @@ exports.exploreVenues = async (req, res) => {
     await Venue.find(queryObj).then(venues => {
       res.render('venues',
         {
+          searchInput: searchInput,
           venueList: venues
         })
     })
@@ -314,6 +307,372 @@ exports.exploreVenues = async (req, res) => {
   }
 }
 
+
+exports.searchVenue = async (req, res) => {
+  try {
+    const queryObj = {}
+    const searchInput = req.params.searchInput;
+    console.log(req.params.searchInput)
+    if (req.params.searchInput) {
+      const searchTerm = req.params.searchInput;
+      const regex = new RegExp(searchTerm, 'i');
+      queryObj.$or = [
+        { name: regex },
+        { location: regex },
+        // Search in the 'name' field
+        // Add more fields for search if necessary
+      ];
+    }
+    // Handle budget range filtering
+    if (req.query.guests) {
+      const guestsRange = req.query.guests.split('-');
+      const minAmount = parseInt(guestsRange[0]);
+      const maxAmount = parseInt(guestsRange[1]);
+
+      // Create budgetObject based on input conditions
+      const guestsObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        guestsObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        guestsObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        guestsObject.$gte = minAmount;
+        guestsObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.guests = guestsObject;
+    }
+
+    if (req.query.starting_price) {
+      const priceRange = req.query.starting_price.split('-');
+      const minAmount = parseInt(priceRange[0]);
+      const maxAmount = parseInt(priceRange[1]);
+
+      // Create budgetObject based on input conditions
+      const priceObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        priceObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        priceObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        priceObject.$gte = minAmount;
+        priceObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.starting_price = priceObject;
+    }
+
+    // Handle room price range filtering
+    if (req.query.room_start_price) {
+      const roomPriceRange = req.query.room_start_price.split('-');
+      const minAmount = parseInt(roomPriceRange[0]);
+      const maxAmount = parseInt(roomPriceRange[1]);
+
+      // Create budgetObject based on input conditions
+      const roomPriceObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        roomPriceObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        roomPriceObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        roomPriceObject.$gte = minAmount;
+        roomPriceObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.room_start_price = roomPriceObject;
+    }
+
+    // Handle room count range filtering
+    if (req.query.room_count) {
+      const roomCountRange = req.query.room_count.split('-');
+      const minAmount = parseInt(roomCountRange[0]);
+      const maxAmount = parseInt(roomCountRange[1]);
+
+      // Create budgetObject based on input conditions
+      const roomCountObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        roomCountObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        roomCountObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        roomCountObject.$gte = minAmount;
+        roomCountObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.room_count = roomCountObject;
+    }
+
+    // Handle rating range filtering
+    if (req.query.averageRating) {
+      const ratingRange = req.query.averageRating.split('-');
+      const minAmount = parseInt(ratingRange[0]);
+      const maxAmount = parseInt(ratingRange[1]);
+
+      // Create budgetObject based on input conditions
+      const ratingObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        ratingObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        ratingObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        ratingObject.$gte = minAmount;
+        ratingObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.averageRating = ratingObject;
+    }
+    // Handle space filtering
+    if (req.query.space) {
+      const spaces = req.query.space.split(','); // assuming services are comma-separated
+      queryObj.space = { $in: spaces };
+    }
+
+    // Handle venue type filtering
+    if (req.query.venue_type) {
+      const venue_type = req.query.venue_type.split(','); // assuming services are comma-separated
+      queryObj.venue_type = { $in: venue_type };
+    }
+
+    await Venue.find(queryObj).then(venues => {
+      res.render('venues', { searchInput: searchInput, venueList: venues });
+    })
+  }
+  catch (err) {
+
+  }
+}
+
+exports.eventVenue = async (req, res) => {
+  try {
+    const queryObj = {}
+    const events = req.params.events;
+    const searchInput = null;
+    console.log(req.params.events)
+    if (req.params.events) {
+      // Handle services filtering
+      const services = req.params.events.split(','); // assuming services are comma-separated
+      queryObj.services = { $in: services };
+    }
+
+    if (req.query.search) {
+      const searchTerm = req.query.search;
+      const regex = new RegExp(searchTerm, 'i');
+      queryObj.$or = [
+        { name: regex },
+        { location: regex },
+        // Search in the 'name' field
+        // Add more fields for search if necessary
+      ];
+    }
+    // Handle budget range filtering
+    if (req.query.guests) {
+      const guestsRange = req.query.guests.split('-');
+      const minAmount = parseInt(guestsRange[0]);
+      const maxAmount = parseInt(guestsRange[1]);
+
+      // Create budgetObject based on input conditions
+      const guestsObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        guestsObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        guestsObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        guestsObject.$gte = minAmount;
+        guestsObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.guests = guestsObject;
+    }
+
+    if (req.query.starting_price) {
+      const priceRange = req.query.starting_price.split('-');
+      const minAmount = parseInt(priceRange[0]);
+      const maxAmount = parseInt(priceRange[1]);
+
+      // Create budgetObject based on input conditions
+      const priceObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        priceObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        priceObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        priceObject.$gte = minAmount;
+        priceObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.starting_price = priceObject;
+    }
+
+    // Handle room price range filtering
+    if (req.query.room_start_price) {
+      const roomPriceRange = req.query.room_start_price.split('-');
+      const minAmount = parseInt(roomPriceRange[0]);
+      const maxAmount = parseInt(roomPriceRange[1]);
+
+      // Create budgetObject based on input conditions
+      const roomPriceObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        roomPriceObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        roomPriceObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        roomPriceObject.$gte = minAmount;
+        roomPriceObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.room_start_price = roomPriceObject;
+    }
+
+    // Handle room count range filtering
+    if (req.query.room_count) {
+      const roomCountRange = req.query.room_count.split('-');
+      const minAmount = parseInt(roomCountRange[0]);
+      const maxAmount = parseInt(roomCountRange[1]);
+
+      // Create budgetObject based on input conditions
+      const roomCountObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        roomCountObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        roomCountObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        roomCountObject.$gte = minAmount;
+        roomCountObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.room_count = roomCountObject;
+    }
+
+    // Handle rating range filtering
+    if (req.query.averageRating) {
+      const ratingRange = req.query.averageRating.split('-');
+      const minAmount = parseInt(ratingRange[0]);
+      const maxAmount = parseInt(ratingRange[1]);
+
+      // Create budgetObject based on input conditions
+      const ratingObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        ratingObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        ratingObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        ratingObject.$gte = minAmount;
+        ratingObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.averageRating = ratingObject;
+    }
+    // Handle space filtering
+    if (req.query.space) {
+      const spaces = req.query.space.split(','); // assuming services are comma-separated
+      queryObj.space = { $in: spaces };
+    }
+
+    // Handle venue type filtering
+    if (req.query.venue_type) {
+      const venue_type = req.query.venue_type.split(','); // assuming services are comma-separated
+      queryObj.venue_type = { $in: venue_type };
+    }
+
+    await Venue.find(queryObj).then(venues => {
+      res.render('venues', { searchInput: searchInput, venueList: venues });
+    })
+  }
+  catch (err) {
+
+  }
+}
+
 /**
  * GET /venues/:id
  * Venue 
@@ -321,12 +680,14 @@ exports.exploreVenues = async (req, res) => {
 exports.exploreVenue = async (req, res) => {
   try {
     let venueId = req.params.id;
+    const infoErrorsObj = req.flash('infoErrors');
+    const infoSubmitObj = req.flash('infoSubmit');
     await Venue.findById(venueId).then(venue => {
       const ratings = venue.ratings;
       const totalRatings = ratings.reduce((sum, rating) => sum + rating.rate, 0);
       const avgRatingUnRounded = Math.round((totalRatings / ratings.length) * 10) / 10;
       const avgRating = avgRatingUnRounded.toFixed(1);
-      res.render('venue_details', { venue: venue, avgRating: avgRating });
+      res.render('venue_details', { venue: venue, avgRating: avgRating, infoErrorsObj, infoSubmitObj });
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });
@@ -366,6 +727,19 @@ exports.rateVenue = async (req, res) => {
   }
 }
 
+
+exports.enquireVenue = async (req, res) => {
+  try {
+    const venueId = req.params.id;
+
+    req.flash('infoSubmit', 'Enquiry sent successfully!')
+    res.redirect("/venues/" + `${venueId}`);
+  }
+  catch (error) {
+    req.flash('infoErrors', error);
+    res.redirect("/venues/" + `${venueId}`);
+  }
+}
 
 /**
  * GET /register-venue
@@ -469,6 +843,7 @@ exports.registerVenueOnPost = async (req, res) => {
       services: req.body.services,
       since: req.body.since,
       venue_type: req.body.venue_type,
+      eventsManaged: req.body.eventsManaged,
       parking: req.body.parking,
       smallpartyvenue: req.body.small_party,
       features: req.body.features,
@@ -529,7 +904,7 @@ exports.venuesEdit = async (req, res) => {
 exports.venuesEditPost = async (req, res) => {
   try {
     const venueId = req.params.id;
-   
+
     let imageUploadFile;
     let uploadPath;
     let newImageName;
@@ -596,6 +971,7 @@ exports.venuesEditPost = async (req, res) => {
         services: req.body.services,
         since: req.body.since,
         venue_type: req.body.venue_type,
+        eventsManaged: req.body.eventsManaged,
         parking: req.body.parking,
         smallpartyvenue: req.body.small_party,
         features: req.body.features,
@@ -629,6 +1005,65 @@ exports.venuesEditPost = async (req, res) => {
   }
   catch (err) {
     res.status(500).send(err)
+  }
+}
+
+
+exports.addVenueServices = async (req, res) => {
+  try {
+    const venueId = req.params.id;
+    const venue = await Venue.findById(venueId);
+    res.render('addVenueServices', { venue })
+  }
+  catch (error) {
+    res.send(error)
+  }
+}
+
+
+exports.delVenueService = async (req, res) => {
+  try {
+    const venueId = req.params.id;
+    const service = req.params.service;
+    const venue = await Venue.findById(venueId);
+
+    venue.services.pull(service)
+
+    await venue.save();
+
+    req.flash('infoSubmit', 'Service Deleted!')
+    res.redirect('/venues/edit/' + `${venueId}`);
+
+  }
+  catch (err) {
+    req.flash('infoErrors', err);
+    res.status(500).send(err)
+  }
+}
+
+
+exports.addVenueServicesOnPost = async (req, res) => {
+  try {
+    const venueId = req.params.id;
+
+    await Venue.findOneAndUpdate(
+      { _id: venueId },
+      {
+        $push: {
+          services: {
+            $each: req.body.services
+          }
+        }
+      }
+    );
+
+    req.flash('infoSubmit', 'Service/s Added!')
+    res.redirect('/venues/edit/' + `${venueId}`)
+
+  }
+  catch (error) {
+    req.flash('infoErrors', error);
+    res.status(500).send(error)
   }
 }
 
@@ -902,7 +1337,7 @@ exports.deleteVenue = async (req, res) => {
 exports.explorePhotographers = async (req, res) => {
   try {
     const queryObj = {}
-
+    const searchInput = null;
     // Handle budget range filtering
     if (req.query.photoVideo) {
       const budgetRange = req.query.photoVideo.split('-');
@@ -959,19 +1394,15 @@ exports.explorePhotographers = async (req, res) => {
       // Add budgetObject to the query object
       queryObj.averageRating = ratingObject;
     }
-    // Handle search filtering
-    if (req.query.search) {
-      const searchTerm = req.query.search;
-      const regex = new RegExp(searchTerm, 'i');
-      queryObj.$or = [
-        { name: regex }, // Search in the 'name' field
-        { location: regex }
-      ];
-    }
-
     if (req.query.services) {
       const services = req.query.services.split(','); // assuming services are comma-separated
       queryObj.services = { $in: services };
+    }
+
+    // Handle events type filtering
+    if (req.query.services_for) {
+      const services_for = req.query.services_for.split(','); // assuming services are comma-separated
+      queryObj.services_for = { $in: services_for };
     }
 
     console.log(req.query.search)
@@ -980,6 +1411,7 @@ exports.explorePhotographers = async (req, res) => {
     await Photographer.find(queryObj).then(photographers => {
       res.render('photographers',
         {
+          searchInput: searchInput,
           photographerList: photographers
         })
     })
@@ -989,6 +1421,93 @@ exports.explorePhotographers = async (req, res) => {
     res.status(500).send(error)
   }
 }
+
+
+exports.searchPhotographer = async (req, res) => {
+  try {
+    const queryObj = {}
+    const searchInput = req.params.searchInput;
+    console.log(req.params.searchInput)
+    if (req.params.searchInput) {
+      const searchTerm = req.params.searchInput;
+      const regex = new RegExp(searchTerm, 'i');
+      queryObj.$or = [
+        { name: regex },
+        { address: regex },
+        // Search in the 'name' field
+        // Add more fields for search if necessary
+      ];
+    }
+    // Handle budget range filtering
+    if (req.query.photoVideo) {
+      const budgetRange = req.query.photoVideo.split('-');
+      const minAmount = parseInt(budgetRange[0]);
+      const maxAmount = parseInt(budgetRange[1]);
+
+      // Create budgetObject based on input conditions
+      const budgetObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        budgetObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        budgetObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        budgetObject.$gte = minAmount;
+        budgetObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.photoVideo = budgetObject;
+    }
+    // Handle rating range filtering
+    if (req.query.averageRating) {
+      const ratingRange = req.query.averageRating.split('-');
+      const minAmount = parseInt(ratingRange[0]);
+      const maxAmount = parseInt(ratingRange[1]);
+
+      // Create budgetObject based on input conditions
+      const ratingObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        ratingObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        ratingObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        ratingObject.$gte = minAmount;
+        ratingObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.averageRating = ratingObject;
+    }
+    if (req.query.services_offer) {
+      const services_offer = req.query.services_offer.split(','); // assuming services are comma-separated
+      queryObj.services_offer = { $in: services_offer };
+    }
+
+    await Photographer.find(queryObj).then(photographers => {
+      res.render('photographers', { searchInput: searchInput, photographerList: photographers });
+    })
+  }
+  catch (err) {
+
+  }
+}
+
 /**
  * GET /photographers/:id
  * Photographer
@@ -996,12 +1515,14 @@ exports.explorePhotographers = async (req, res) => {
 exports.explorePhotographer = async (req, res) => {
   try {
     let photographerId = req.params.id;
+    const infoErrorsObj = req.flash('infoErrors');
+    const infoSubmitObj = req.flash('infoSubmit');
     await Photographer.findById(photographerId).then(photographer => {
       const ratings = photographer.ratings;
       const totalRatings = ratings.reduce((sum, rating) => sum + rating.rate, 0);
       const avgRatingUnRounded = Math.round((totalRatings / ratings.length) * 10) / 10;
       const avgRating = avgRatingUnRounded.toFixed(1);
-      res.render('photographer_details', { photographer: photographer, avgRating: avgRating });
+      res.render('photographer_details', { photographer: photographer, avgRating: avgRating, infoErrorsObj, infoSubmitObj });
     });
   } catch (error) {
     res.sttatus(500).send({ message: error.message || "Error Occured" });
@@ -1043,6 +1564,26 @@ exports.ratePhotographer = async (req, res) => {
 }
 
 
+
+exports.enquirePhotographer = async (req, res) => {
+  try {
+    const photographerId = req.params.id;
+    const contact = req.body.contact;
+    var contact_regex = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+    if (!contact_regex.test(contact)) {
+      req.flash('infoErrors', 'Invalid contact number');
+      res.redirect("/photographers/" + `${photographerId}`)
+    }
+
+    req.flash('infoSubmit', 'Enquiry sent successfully!')
+    res.redirect("/photographers/" + `${photographerId}`);
+  }
+  catch (error) {
+    req.flash('infoErrors', error);
+    res.redirect("/photographers/" + `${photographerId}`);
+  }
+}
+
 /**
  * GET /register-photographer
  * photographer-registration
@@ -1078,31 +1619,6 @@ exports.registerPhotographerOnPost = async (req, res) => {
 
     }
 
-
-    // const profileImage = req.file.image;
-    // const images = req.files.photos;
-
-    // // Handle profile image (if uploaded)
-    // let profileImageFilename = null;
-    // if (profileImage) {
-    //   profileImageFilename = profileImage.filename;
-    // }
-
-    // // Handle multiple images (if uploaded)
-    // const imageDocs = [];
-    // if (images) {
-    //   for (const image of images) {
-    //     const img = new Image({ filename: image.filename });
-    //     imageDocs.push(img);
-    //   }
-
-    //   console.log(req.headers);
-    //   console.log(req.body);
-    //   console.log(req.files);
-    // }
-
-
-
     const package_names = Array.isArray(req.body.package_name) ? req.body.package_name : [req.body.package_name];
     const package_prices = Array.isArray(req.body.package_price) ? req.body.package_price : [req.body.package_price];
 
@@ -1123,8 +1639,10 @@ exports.registerPhotographerOnPost = async (req, res) => {
       about: req.body.about,
       contact: req.body.contact,
       email: req.body.email,
+      services_offer: req.body.services_offer,
       services: req.body.services,
       since: req.body.since,
+      eventsManaged: req.body.eventsManaged,
       paymentTerms: req.body.payment,
       travelCost: req.body.travel,
       mostBooked: req.body.most_booked,
@@ -1221,8 +1739,10 @@ exports.photographersEditPost = async (req, res) => {
         about: req.body.about,
         contact: req.body.contact,
         email: req.body.email,
+        services_offer: req.body.services_offer,
         services: req.body.services,
         since: req.body.since,
+        eventsManaged: req.body.eventsManaged,
         paymentTerms: req.body.payment,
         travelCost: req.body.travel,
         mostBooked: req.body.most_booked,
@@ -1232,6 +1752,7 @@ exports.photographersEditPost = async (req, res) => {
         photo: req.body.photo,
         photoVideo: req.body.photo_vdo,
         albums: req.body.albums,
+        packages: packages,
         instaUrl: req.body.instaUrl,
         fbUrl: req.body.fbUrl,
         profilePhoto: newImageName
@@ -1247,6 +1768,64 @@ exports.photographersEditPost = async (req, res) => {
   }
   catch (err) {
     res.status(500).send(err)
+  }
+}
+
+exports.addPhotographersServices = async (req, res) => {
+  try {
+    const photographerId = req.params.id;
+    const photographer = await Photographer.findById(photographerId);
+    res.render('addPhotographerServices', { photographer })
+  }
+  catch (error) {
+    res.send(error)
+  }
+}
+
+
+exports.delPhotographersService = async (req, res) => {
+  try {
+    const photographerId = req.params.id;
+    const service = req.params.service;
+    const photographer = await Photographer.findById(photographerId);
+
+    photographer.services.pull(service)
+
+    await photographer.save();
+
+    req.flash('infoSubmit', 'Service Deleted!')
+    res.redirect('/photographers/edit/' + `${photographerId}`);
+
+  }
+  catch (err) {
+    req.flash('infoErrors', err);
+    res.status(500).send(err)
+  }
+}
+
+
+exports.addPhotographersServicesOnPost = async (req, res) => {
+  try {
+    const photographerId = req.params.id;
+
+    await Photographer.findOneAndUpdate(
+      { _id: photographerId },
+      {
+        $push: {
+          services: {
+            $each: req.body.services
+          }
+        }
+      }
+    );
+
+    req.flash('infoSubmit', 'Service/s Added!')
+    res.redirect('/photographers/edit/' + `${photographerId}`)
+
+  }
+  catch (error) {
+    req.flash('infoErrors', error);
+    res.status(500).send(error)
   }
 }
 
@@ -1360,6 +1939,248 @@ exports.deletePhotographer = async (req, res) => {
 exports.exploreEntertainers = async (req, res) => {
   try {
     const queryObj = {}
+    const searchInput = null;
+    // Handle budget range filtering
+    if (req.query.budget) {
+      const budgetRange = req.query.budget.split('-');
+      const minAmount = parseInt(budgetRange[0]);
+      const maxAmount = parseInt(budgetRange[1]);
+
+      // Create budgetObject based on input conditions
+      const budgetObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        budgetObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        budgetObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        budgetObject.$gte = minAmount;
+        budgetObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.budget = budgetObject;
+    }
+    // Handle experience filtering
+    if (req.query.experience) {
+      const experienceRange = req.query.experience.split('-');
+      const minAmount = parseInt(experienceRange[0]);
+      const maxAmount = parseInt(experienceRange[1]);
+
+      // Create budgetObject based on input conditions
+      const experienceObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        experienceObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        experienceObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        experienceObject.$gte = minAmount;
+        experienceObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.experience = experienceObject;
+    }
+    // Handle rating range filtering
+    if (req.query.averageRating) {
+      const ratingRange = req.query.averageRating.split('-');
+      const minAmount = parseInt(ratingRange[0]);
+      const maxAmount = parseInt(ratingRange[1]);
+
+      // Create budgetObject based on input conditions
+      const ratingObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        ratingObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        ratingObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        ratingObject.$gte = minAmount;
+        ratingObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.averageRating = ratingObject;
+    }
+    // Handle search filtering
+    if (req.query.search) {
+      const searchTerm = req.query.search;
+      const regex = new RegExp(searchTerm, 'i');
+      queryObj.$or = [
+        { name: regex }, // Search in the 'name' field
+        { location: regex }
+      ];
+    }
+    // Handle service events filtering
+    if (req.query.services) {
+      const services = req.query.services.split(','); // assuming services are comma-separated
+      queryObj.services = { $in: services };
+    }
+
+
+    await Entertainer.find(queryObj).then(entertainers => {
+      res.render('entertainers',
+        {
+          searchInput: searchInput,
+          entertainerList: entertainers
+        })
+    })
+  }
+
+  catch (error) {
+    res.status(500).send(error)
+  }
+}
+
+
+exports.searchEntertainer = async (req, res) => {
+  try {
+    const queryObj = {}
+    const searchInput = req.params.searchInput;
+    console.log(req.params.searchInput)
+    if (req.params.searchInput) {
+      const searchTerm = req.params.searchInput;
+      const regex = new RegExp(searchTerm, 'i');
+      queryObj.$or = [
+        { name: regex },
+        { location: regex },
+        // Search in the 'name' field
+        // Add more fields for search if necessary
+      ];
+    }
+    // Handle budget range filtering
+    if (req.query.budget) {
+      const budgetRange = req.query.budget.split('-');
+      const minAmount = parseInt(budgetRange[0]);
+      const maxAmount = parseInt(budgetRange[1]);
+
+      // Create budgetObject based on input conditions
+      const budgetObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        budgetObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        budgetObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        budgetObject.$gte = minAmount;
+        budgetObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.budget = budgetObject;
+    }
+    // Handle experience filtering
+    if (req.query.experience) {
+      const experienceRange = req.query.experience.split('-');
+      const minAmount = parseInt(experienceRange[0]);
+      const maxAmount = parseInt(experienceRange[1]);
+
+      // Create budgetObject based on input conditions
+      const experienceObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        experienceObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        experienceObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        experienceObject.$gte = minAmount;
+        experienceObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.experience = experienceObject;
+    }
+    // Handle rating range filtering
+    if (req.query.averageRating) {
+      const ratingRange = req.query.averageRating.split('-');
+      const minAmount = parseInt(ratingRange[0]);
+      const maxAmount = parseInt(ratingRange[1]);
+
+      // Create budgetObject based on input conditions
+      const ratingObject = {};
+
+      // If only gte value is given
+      if (minAmount && !maxAmount) {
+        ratingObject.$gte = minAmount;
+      }
+
+      // If only lte value is given
+      if (!minAmount && maxAmount) {
+        ratingObject.$lte = maxAmount;
+      }
+
+      // If a range value is given (both gte and lte values are available)
+      if (minAmount && maxAmount) {
+        ratingObject.$gte = minAmount;
+        ratingObject.$lte = maxAmount;
+      }
+
+      // Add budgetObject to the query object
+      queryObj.averageRating = ratingObject;
+    }
+
+    // Handle service events filtering
+    if (req.query.services) {
+      const services = req.query.services.split(','); // assuming services are comma-separated
+      queryObj.services = { $in: services };
+    }
+
+    await Entertainer.find(queryObj).then(entertainers => {
+      res.render('entertainers', { searchInput: searchInput, entertainerList: entertainers });
+    })
+  }
+  catch (err) {
+
+  }
+}
+
+exports.eventEntertainer = async (req, res) => {
+  try {
+    const queryObj = {}
+    const events = req.params.events;
+    const searchInput = null;
+    console.log(req.params.type)
+    if (req.params.type) {
+      // Handle services filtering
+      const services = req.params.type.split(','); // assuming services are comma-separated
+      queryObj.entertainer_type = { $in: services };
+    }
 
     // Handle budget range filtering
     if (req.query.budget) {
@@ -1454,7 +2275,7 @@ exports.exploreEntertainers = async (req, res) => {
         { location: regex }
       ];
     }
-
+    // Handle service events filtering
     if (req.query.services) {
       const services = req.query.services.split(','); // assuming services are comma-separated
       queryObj.services = { $in: services };
@@ -1462,15 +2283,11 @@ exports.exploreEntertainers = async (req, res) => {
 
 
     await Entertainer.find(queryObj).then(entertainers => {
-      res.render('entertainers',
-        {
-          entertainerList: entertainers
-        })
+      res.render('entertainers', { searchInput: searchInput, entertainerList: entertainers });
     })
   }
+  catch (err) {
 
-  catch (error) {
-    res.status(500).send(error)
   }
 }
 
@@ -1482,12 +2299,14 @@ exports.exploreEntertainers = async (req, res) => {
 exports.exploreEntertainer = async (req, res) => {
   try {
     let entertainerId = req.params.id;
+    const infoErrorsObj = req.flash('infoErrors');
+    const infoSubmitObj = req.flash('infoSubmit');
     await Entertainer.findById(entertainerId).then(entertainer => {
       const ratings = entertainer.ratings;
       const totalRatings = ratings.reduce((sum, rating) => sum + rating.rate, 0);
       const avgRatingUnRounded = Math.round((totalRatings / ratings.length) * 10) / 10;
       const avgRating = avgRatingUnRounded.toFixed(1);
-      res.render('entertainer_details', { entertainer: entertainer, avgRating: avgRating });
+      res.render('entertainer_details', { entertainer: entertainer, avgRating: avgRating, infoErrorsObj, infoSubmitObj });
     });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });
@@ -1524,6 +2343,19 @@ exports.rateEntertainer = async (req, res) => {
   }
 }
 
+
+exports.enquireEntertainer = async (req, res) => {
+  try {
+    const entertainerId = req.params.id;
+
+    req.flash('infoSubmit', 'Enquiry sent successfully!')
+    res.redirect("/entertainers/" + `${entertainerId}`);
+  }
+  catch (error) {
+    req.flash('infoErrors', error);
+    res.redirect("/entertainers/" + `${entertainerId}`);
+  }
+}
 
 /**
  * GET /register-entertainer
@@ -1586,6 +2418,8 @@ exports.registerEntertainerOnPost = async (req, res) => {
       email: req.body.email,
       services: req.body.services,
       since: req.body.since,
+      entertainer_type: req.body.entertainer_type,
+      eventsManaged: req.body.eventsManaged,
       payment_terms: req.body.payment,
       experience: req.body.experience,
       budget: req.body.budget,
@@ -1680,16 +2514,19 @@ exports.entertainersEditPost = async (req, res) => {
         email: req.body.email,
         services: req.body.services,
         since: req.body.since,
+        entertainer_type: req.body.entertainer_type,
+        eventsManaged: req.body.eventsManaged,
         payment_terms: req.body.payment,
         experience: req.body.experience,
         budget: req.body.budget,
         travelCost: req.body.travel,
+        prices: prices,
         instaUrl: req.body.instaUrl,
         fbUrl: req.body.fbUrl,
         profilePhoto: newImageName
       }
     },
-      { upsert: true, new:true }
+      { upsert: true, new: true }
     )
 
     req.flash('infoSubmit', 'Entertainer details Updated!')
@@ -1756,6 +2593,64 @@ exports.addEntertainerPriceOnPost = async (req, res) => {
   }
 }
 
+
+exports.addEntertainersServices = async (req, res) => {
+  try {
+    const photographerId = req.params.id;
+    const photographer = await Photographer.findById(photographerId);
+    res.render('addPhotographerServices', { photographer })
+  }
+  catch (error) {
+    res.send(error)
+  }
+}
+
+
+exports.delEntertainersService = async (req, res) => {
+  try {
+    const entertainerId = req.params.id;
+    const service = req.params.service;
+    const entertainer = await Entertainer.findById(entertainerId);
+
+    entertainer.services.pull(service)
+
+    await entertainer.save();
+
+    req.flash('infoSubmit', 'Service Deleted!')
+    res.redirect('/entertainers/edit/' + `${entertainerId}`);
+
+  }
+  catch (err) {
+    req.flash('infoErrors', err);
+    res.status(500).send(err)
+  }
+}
+
+
+exports.addEntertainersServicesOnPost = async (req, res) => {
+  try {
+    const entertainerId = req.params.id;
+
+    await Entertainer.findOneAndUpdate(
+      { _id: entertainerId },
+      {
+        $push: {
+          services: {
+            $each: req.body.services
+          }
+        }
+      }
+    );
+
+    req.flash('infoSubmit', 'Service/s Added!')
+    res.redirect('/entertainers/edit/' + `${entertainerIdt}`)
+
+  }
+  catch (error) {
+    req.flash('infoErrors', error);
+    res.status(500).send(error)
+  }
+}
 
 /**
  * POST /entertainers/del-price/:id/:pid

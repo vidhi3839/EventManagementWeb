@@ -85,11 +85,11 @@
                         </div>
                         <div class="col-sm-2"><input type="text" class="form-control" name="hall_space" title="Space" size="65px">
                         </div>
-                        <div class="col-sm-2"><input type="text" class="form-control" name="hall_seating" title="Seating" size="65px">
+                        <div class="col-sm-2"><input type="number" class="form-control" name="hall_seating" title="Seating" size="65px">
                         </div>
-                        <div class="col-sm-2"><input type="text" class="form-control" name="hall_floating" title="Floating" size="65px">
+                        <div class="col-sm-2"><input type="number" class="form-control" name="hall_floating" title="Floating" size="65px">
                         </div>
-                        <div class="col-sm-3"><input type="text" class="form-control" name="hall_price" title="Price" size="65px">
+                        <div class="col-sm-3"><input type="number" class="form-control" name="hall_price" title="Price" size="65px">
                         </div>
                     </div>
                 </div></div>
@@ -116,8 +116,9 @@
 
     addMoreButton.addEventListener('click', function () {
         let newItem = addMoreDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input')[0];
-        input.value = '';
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+        input[i].value = '';}
         addMore.appendChild(newItem);
     });
     </script>

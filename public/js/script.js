@@ -3,8 +3,7 @@ let navbar = document.querySelector(".navbar");
 var main = document.querySelector(".main"),
 
     rate = document.getElementsByName("rate"),
-    home = document.querySelector(".home"),
-    pwdShowHide = document.querySelectorAll(".pw_hide");
+    home = document.querySelector(".home");
 
 
 
@@ -103,19 +102,19 @@ signupclick.onclick = function() {
 }
 })
 
-pwdShowHide.forEach((icon) => {
-    icon.addEventListener("click", () => {
-        let getPwdInput = icon.parentElement.querySelector("input");
-        if (getPwdInput.type == "password") {
-            getPwdInput.type = "text";
-            icon.classList.replace("fa-eye-slash", "fa-eye")
-        }
-        else {
-            getPwdInput.type = "password"
-            icon.classList.replace("fa-eye", "fa-eye-slash")
-        }
-    })
-});
+
+// const togglePassword = document.querySelectorAll('.pw_hide');
+
+// togglePassword.forEach(toggle => {
+//     toggle.addEventListener('click', function() {
+//         const passwordInput = this.previousElementSibling;
+//         if (passwordInput.type === 'password') {
+//             passwordInput.type = 'text';
+//         } else {
+//             passwordInput.type = 'password';
+//         }
+//     });
+// });
 
 
 const packageWrapper = document.querySelector(".package-wrapper");

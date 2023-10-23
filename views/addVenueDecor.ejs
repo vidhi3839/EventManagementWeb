@@ -61,7 +61,7 @@
                     <div class="row rows rrow form-control" style="background: #adadadb4; border-radius: 0;">
                         <div class="col-sm-6 col-md-6"><input type="text" class="form-control" name="event" title="Type/Name" size="65px">
                         </div>
-                        <div class="col-sm-6 col-md-6"><input type="text" class="form-control" name="decor_price" title="Space" size="65px">
+                        <div class="col-sm-6 col-md-6"><input type="number" class="form-control" name="decor_price" title="Space" size="65px">
                         </div>
                         
                     </div>
@@ -90,8 +90,9 @@
 
     addMoreDecorButton.addEventListener('click', function () {
         let newItem = addMoreDecorDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input')[0];
-        input.value = '';
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+        input[i].value = '';}
         addMoreDecor.appendChild(newItem);
     }); 
 
