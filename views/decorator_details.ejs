@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Stories</title>
+    <link rel="icon" type="image-icon" href="/images/logo.ico">
+    <!-------------Bootstrap CSS------------->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-------------jQuery-------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.flipster/1.1.5/jquery.flipster.min.js"></script>
+
+    <!-------------Bootstrap js-------------->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    <!--------------Icons-------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/venue.css">
+    <link rel="stylesheet" href="/css/decorators.css">
+
+    <script>
+        
+    </script>
+</head>
+
+<body>
+
+    <nav aria-label="breadcrumb" class="decor-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Home</a></li>
+          <li class="breadcrumb-item"><a href="/decorators">Decorators</a></li>
+          <li class="breadcrumb-item active" aria-current="page"><%= decorator.dname%></li>
+        </ol>
+    </nav>
+
+    <div class="deet-container">
+        <div class="deet-content">
+            <h2><%= decorator.dname%></h2>
+        </div>
+
+        <div class="container">              
+                <ul class="nav nav-tabs">
+                  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+                  <li><a data-toggle="tab" href="#about">About</a></li>
+                  <li><a data-toggle="tab" href="#price">Price Details</a></li>
+                  <li><a data-toggle="tab" href="#portfolio">Portfolio</a></li>
+                  <li><a data-toggle="tab" href="#contact">Contact Us</a></li>
+                  <li><a data-toggle="tab" href="#rate">Rate Us</a></li>
+                </ul>
+              
+                <div class="tab-content">
+                  <div id="home" class="tab-pane fade in active">
+                    <div class="homecont">
+                        <img class="imgcont" src="/images/<%=decorator.dprofilepic %>" alt="profile picture">
+                    <div style="width:50%;">
+                        <h2><%= decorator.dname%></h2>
+                    <p><a href="#"><i class="fa fa-map-marker"></i><%= decorator.dlocation%></a></p>
+                    <p><i class="fa fa-solid fa-star" style="color: #ff0aca;"></i>&nbsp;<span id=ratingid><%=decorator.dratings%></span></p>
+                    <p>Starting Price for Decor<br><strong>&#8377; <%=decorator.dstartprice%> onwards</strong></p>
+                    </div>
+                    </div>
+                  </div>
+                  <div id="about" class="tab-pane fade">
+                    <h1>About <%=decorator.dname%></h1><br>
+                    <p><%=decorator.dabout%></p>
+                    <p><b>Been with DreamStories since :   </b> <%=decorator.dsince%></p>
+                    <p><b>Years of Operation :   </b> <%=decorator.dyearop%></p>
+                    <p><b>Service-Type :   </b> <%=decorator.dservicetype%></p>
+                  </div>
+                  <div id="price" class="tab-pane fade">
+                    <h1>Pricing Details</h1><br>
+                    <h3><b>Indoor Budget :   </b>&#8377; <%=decorator.dindoor%> </h3>
+                    <h3><b>Outdoor Budget :   </b>&#8377; <%=decorator.doutdoor%></h3><br>
+                    <h3><b>Starting At :   </b>&#8377; <%=decorator.dstartprice%> onwards</h3><br>
+
+                
+                  </div>
+                  <div id="portfolio" class="tab-pane fade">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw1.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw2.jpg" alt="portfolio iamge" class="img-responsive"></div>    
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw3.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw5.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw6.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw8.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw9.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw10.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw11.png" alt="portfolio iamge" class="img-responsive"></div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwe1.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwe2.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                        
+                        </div>
+                        
+                    </div>
+                  </div>
+                  <div id="contact" class="tab-pane fade">
+                    <h3>Contact us by sending your details to us and we will reach out to you within an hour !!!</h3>
+
+                    <br>
+                    <input type="text" placeholder="Full Name" required id="decorname">
+                    <br>
+                    <input type="text" placeholder="Contact Number" required id="decormob">
+                    <br>
+                    <br>
+                    <input type="text" placeholder="Share your requirements......" style="margin-bottom: 2%;" required id="decordesc">
+
+                    <br>
+                    <br>
+
+                    <button class="btn" style="margin-bottom: 2%;">Send Message</button> <button class="btn" style="margin-bottom: 2%;">Call Now</button>
+                
+                  </div>
+
+                  <div id="rate" class="tab-pane fade">
+                    <div class="ratecontainer">
+                      <form id="ratingForm">
+                        <header>How was your experience?</header>
+                      <div class="stars">
+                        <i class="fa fa-solid fa-star"></i>
+                        <i class="fa fa-solid fa-star"></i>
+                        <i class="fa fa-solid fa-star"></i>
+                        <i class="fa fa-solid fa-star"></i>
+                        <i class="fa fa-solid fa-star"></i>
+                      </div>
+                      <button class="btn" type="submit">Rate it</button>
+                      </form>
+                    </div>
+                    <script>
+                      const stars = document.querySelectorAll(".stars i");
+
+                      function resetStars() {
+                        stars.forEach((star) => {
+                          star.classList.remove("active");
+                        });
+                      }
+                      let index1;
+
+                      stars.forEach((star,ind) => {
+                        star.addEventListener('click',() => {
+                          index1 = ind;
+                          stars.forEach((star,index2) => {
+                            index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+                          });
+                      });
+                    });
+
+                    $('#ratingForm').submit(function (event) {
+                      event.preventDefault();
+                      const clientRating = index1 + 1;
+
+                      $.ajax({
+                        type: 'POST',
+                        url: '/decorupdateRating/<%= decorid%>',
+                        data: { clientRating },
+                        success: function (response) {
+                          $('#ratingid').text(response.updatedRating);
+
+                          resetStars();
+                        },
+                        error: function (error) {
+                          console.error('Error:', error);
+                        },
+                      });
+                    });
+
+                    </script>
+                  </div>
+                </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -13,13 +13,24 @@ require('dotenv').config();
 app.use(express.urlencoded( { extended: true } ));
 app.use(express.static('public'));
 
-app.use(cookieParser('DreamStoriesSecure'));
+
+app.use(cookieParser('DreamStoriesSecure')); 
+
+const store = new MongoDBSession({
+  uri: process.env.MONGODB_URI,
+  collection : 'MySession',
+});
+
 app.use(session({
   secret: 'DreamStoriesSecretSession',
   cookie: {maxAge: 3600000},
   saveUninitialized: true,
   resave: true
 }));
+
+
+
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session())

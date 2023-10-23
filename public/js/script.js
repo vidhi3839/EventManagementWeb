@@ -1,13 +1,12 @@
-let menu = document.querySelector("#menu-btn"),
-navbar = document.querySelector(".navbar");
+let menu = document.querySelector("#menu-btn");
+let navbar = document.querySelector(".navbar");
 var main = document.querySelector(".main"),
 
     rate = document.getElementsByName("rate"),
     home = document.querySelector(".home");
 
 
-const allStar = document.querySelectorAll('.star-widget .star')
-const ratingValue = document.querySelector('.star-widget input')
+
 
 // For navigation bar 
 
@@ -42,38 +41,65 @@ type();
 
 // For rating
 
-allStar.forEach((item, idx) => {
-    item.addEventListener('click', function () {
-        let click = 0
-        ratingValue.value = idx + 1
+$(document).ready(function(){
+    const allStar = document.querySelectorAll('.star-widget .star')
+const ratingValue = document.querySelector('.star-widget input')
+var header1 = document.querySelector(".form-header");
 
-        allStar.forEach(i => {
-            i.classList.remove('star-solid')
-            i.classList.remove('active')
-        })
-        for (let i = 0; i <= allStar.length; i++) {
-            allStar[i].classList.remove('rate-5')
-            if (i <= idx) {
-                allStar[i].classList.add('star-solid')
-                allStar[i].classList.add('active')
-                allStar[i].classList.add('rate-5')
-                if (i == 0)
-                    header1.innerHTML = "I hate it 🤮";
-                if (i == 1)
-                    header1.innerHTML = "I dont like it 😒";
-                if (i == 2)
-                    header1.innerHTML = "I just like it 😄";
-                if (i == 3)
-                    header1.innerHTML = "It is awesome 😎";
-                if (i == 4)
-                    header1.innerHTML = "I love it 😍";
-
-            } else {
-                allStar[i].style.setProperty('--i', click)
-                click++
+    allStar.forEach((item, idx) => {
+        item.addEventListener('click', function () {
+            let click = 0
+            ratingValue.value = idx + 1
+    
+            allStar.forEach(i => {
+                i.classList.remove('star-solid')
+                i.classList.remove('active')
+            })
+            for (let i = 0; i <= allStar.length; i++) {
+                allStar[i].classList.remove('rate-5')
+                if (i <= idx) {
+                    allStar[i].classList.add('star-solid')
+                    allStar[i].classList.add('active')
+                    allStar[i].classList.add('rate-5')
+                    if (i == 0)
+                        header1.innerHTML = "I hate it 🤮";
+                    if (i == 1)
+                        header1.innerHTML = "I dont like it 😒";
+                    if (i == 2)
+                        header1.innerHTML = "I just like it 😄";
+                    if (i == 3)
+                        header1.innerHTML = "It is awesome 😎";
+                    if (i == 4)
+                        header1.innerHTML = "I love it 😍";
+    
+                } else {
+                    allStar[i].style.setProperty('--i', click)
+                    click++
+                }
             }
-        }
+        })
     })
+    
+})
+
+
+// For signup form validation
+$(document).ready(function(){
+    var loginmodal = document.getElementById('loginModal');
+var signupmodal = document.getElementById('signupModal');
+
+let loginclick = document.getElementById('login-link-su');
+loginclick.onclick = function() {
+    signupmodal.style.display = 'none';
+    loginmodal.style.display = 'block';
+
+}
+
+let signupclick = document.getElementById('signup-link-lg');
+signupclick.onclick = function() {
+    loginmodal.style.display = 'none';
+    signupmodal.style.display = 'block';
+}
 })
 
 

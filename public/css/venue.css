@@ -392,7 +392,7 @@ input {
 
 
 .form-title {
-    font-size: 22px;
+    font-size: 30px;
     color: #000000;
     text-align: center;
     font-weight: bold;
@@ -402,6 +402,12 @@ input {
     transform: translateX(1500%);
     position: relative;
 }
+
+.iform-close{
+    transform: translateX(480%);
+    position: relative;
+}
+
 
 
 @media(max-width:1198px) {
