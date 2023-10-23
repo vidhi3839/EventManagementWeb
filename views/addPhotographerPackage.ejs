@@ -71,7 +71,7 @@
                                         title="Type/Name" size="65px" value="">
                                 </div>
                                 <div class="col-sm-7">
-                                    <input type="text" name="package_price" value="" class="form-control"
+                                    <input type="number" name="package_price" value="" class="form-control"
                                         title="Type_price" size="25px">
 
                                 </div>
@@ -103,8 +103,9 @@
 
     addMoreButton.addEventListener('click', function () {
         let newItem = addMoreDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input')[0];
-        input.value = '';
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+        input[i].value = '';}
         addMore.appendChild(newItem);
     });
     </script>

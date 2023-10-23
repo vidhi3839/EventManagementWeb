@@ -55,7 +55,7 @@
                 </div> 
                 <div class="row rows crow">
                     <div class="col">
-                        <h6>Date: </h6>
+                        <h6>Date: <%= new Date() %>  </h6>
                     </div>
                 </div>
                 <div class="row rows drow">
@@ -130,19 +130,11 @@
                             id="email">
                     </div>
                 </div>
-                <div class="row rows irow">
-                    <div class="col-sm-3">
-                        <label for="since">
-                            <h6>How long been on Dream Stories:</h6>
-                        </label>
-                    </div>
-                    <div class="col-sm-9"><input type="number" name="since" class="form-control" title="since"
-                            id="since">
-                    </div>
-                </div>
+             
+                
                 <div class="row rows lrow black-white">
                     <div class="col-sm-3">
-                        <h6>Services: </h6>
+                        <h4>Events: </h4>
                     </div>
                 </div>
 
@@ -166,13 +158,35 @@
                         <button type="button" class="button add-button" id="add-more-services">Add more +</button>
                     </div>
                 </div>
+                
+                <div class="row rows orow black-white">
+                    <div class="col-sm-12">
+                        <h4>FEATURES</h4> 
+                    </div>
+                </div>
 
                 <div class="row rows krow">
                     <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
-                        <label for="budget">
-                            <h6>Budget: </h6>
+                        <label for="since">
+                            <h6>How long been on Dream Stories:</h6>
+                        </label><input type="text" name="since" class="form-control" title="since"
+                            id="since">
+                    </div>
+               
+                    <div class="col-sm-6 kcolumns" style="border-right: none; display: flex; justify-content: center; align-items: center;">
+                        <label for="services_offer">
+                            <h6>Service Offered:</h6>
+                        </label><input type="text" name="services_offer" class="form-control" title="services_offer"
+                            id="services_for">
+                    </div>
+                </div>
+
+                <div class="row rows krow">
+                    <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
+                        <label for="eventsManaged">
+                            <h6>Events Managed Till Now: </h6>
                         </label>
-                        <input type="text" name="budget" class="form-control" title="budget" id="payment" size="40px">
+                        <input type="text" name="eventsManaged" class="form-control" title="Events Managed" id="eventsManaged" size="40px">
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex;  justify-content: center; align-items: center;">
@@ -184,7 +198,7 @@
                     </div>
                 </div>
 
-
+ 
 
                 <div class="row rows krow">
                     <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
@@ -237,14 +251,14 @@
 
                 <div class="row rows rrow">
                     <div class="col-sm-5"><label for="photo">Photo Package</div></label>
-                    <div class="col-sm-7"><input type="text" name="photo" class="form-control" title="Photo" id="photo"
+                    <div class="col-sm-7"><input type="number" name="photo" class="form-control" title="Photo" id="photo"
                             size="65px"></div>
 
                 </div>
 
                 <div class="row rows rrow">
                     <div class="col-sm-5"><label for="photo_video">Photo + Video</div></label>
-                    <div class="col-sm-7"><input type="text" name="photo_vdo" class="form-control" title="Photo + Video"
+                    <div class="col-sm-7"><input type="number" name="photo_vdo" class="form-control" title="Photo + Video"
                             id="photo_video" size="65px">
                     </div>
 
@@ -252,7 +266,7 @@
 
                 <div class="row rows rrow">
                     <div class="col-sm-5"><label for="albums">Albums (optional)</div></label>
-                    <div class="col-sm-7"><input type="text" name="albums" class="form-control" title="Albums"
+                    <div class="col-sm-7"><input type="number" name="albums" class="form-control" title="Albums"
                             id="albums" size="65px"></div>
 
                 </div>
@@ -265,7 +279,7 @@
                                         title="Type/Name" size="65px">
                                 </div>
                                 <div class="col-sm-7">
-                                    <input type="text" name="package_price" class="form-control" title="Type_price"
+                                    <input type="number" name="package_price" class="form-control" title="Type_price"
                                         size="25px">
 
                                 </div>

@@ -43,8 +43,8 @@
 
         </nav>
 
-        <div class="user-btn" id="user-btn">
-          
+        <div class="user-btn dropdown" id="user-btn">
+            <a> <i class="fa fa-user user-icon"></i></a>
         </div>
     </header>
 
@@ -57,18 +57,112 @@
         </nav>
         <div class="filter-search">
             <div class="input-group">
-                <form action="" method="get" enctype="multipart/form-data">
-                    <input class="form-control search-input" type="search" name="search" placeholder="Search by name, location" aria-label="Search">
+                <form id="searchForm" action="/venues/search/<%= searchInput %>" method="get"
+                    enctype="multipart/form-data">
+                    <input class="form-control search-input" id="search" type="search" name="search"
+                        placeholder="Search by name, location" aria-label="Search">
                     <button class="btn btn-outline-secondary search-btn" type="submit" href="">Search</button>
                 </form>
             </div>
             <div class="user-btn" id="user-btn">
-                <button class="button btn login-btn" data-bs-toggle="modal" data-bs-target="#filterModal"><i class="fa fa-sliders"></i> &nbsp;<span>Filter</span></button>
+                <button class="button btn login-btn" data-bs-toggle="modal" data-bs-target="#filterModal"><i
+                        class="fa fa-sliders"></i> &nbsp;<span>Filter</span></button>
 
             </div>
         </div>
     </div>
 
+    <form method="get" id="serviceForm">
+        <div class="event-type-container">
+            <div class="wrapper">
+                <div class="carousel owl-carousel">
+                    <div class="card card-1"><a href="/venues/service-events/Birthday">
+                            <div class="card-img">
+                                <img src="/images/birthday.png" alt="">
+                            </div>
+                            <input type="radio" value="Birthday" hidden>
+                            <h6>Birthday</h6>
+                        </a>
+                    </div>
+                    <div class="card card-2"><a href="/venues/service-events/Ring Ceremony">
+                            <div class="card-img">
+                                <img src="/images/ringceremony.png" alt="">
+                            </div>
+                            <input type="radio" value="Ring Ceremony" hidden>
+                            <h6>Ring Ceremony</h6>
+                        </a>
+                    </div>
+                    <div class="card card-3"><a href="/venues/service-events/Wedding">
+                            <div class="card-img">
+                                <img src="/images/wedding.png" alt="" width="10px" height="60px">
+                            </div>
+                            <input type="radio" value="Wedding" hidden>
+                            <h6>Wedding</h6>
+                        </a>
+                    </div>
+                    <div class="card card-4"><a href="/venues/service-events/Baby Shower">
+                            <div class="card-img">
+                                <img src="/images/babyshower.png" alt="" width="10px" height="60px">
+                            </div>
+                            <input type="radio" value="Baby Shower" hidden>
+                            <h6>Baby Shower</h6>
+                        </a>
+                    </div>
+                    <div class="card card-5"><a href="/venues/service-events/Festival">
+                            <div class="card-img">
+                                <img src="/images/festival.png" alt="">
+                            </div>
+                            <input type="radio" value="Festival" hidden>
+                            <h6>Festival</h6>
+                        </a>
+                    </div>
+                    <div class="card card-6"><a href="/venues/service-events/Conference">
+                            <div class="card-img">
+                                <img src="/images/conference.png" alt="">
+                            </div>
+                            <input type="radio" value="Conference" hidden>
+                            <h6>Conference</h6>
+                        </a>
+                    </div>
+                    <div class="card card-7"><a href="/venues/service-events/Concert">
+                            <div class="card-img">
+                                <img src="/images/concert.png" alt="">
+                            </div>
+                            <input type="radio" value="Concert" hidden>
+                            <h6>Concert</h6>
+                        </a>
+                    </div>
+                    <div class="card card-8"><a href="/venues/service-events/Interview">
+                            <div class="card-img">
+                                <img src="/images/interview.png" alt="">
+                            </div>
+                            <input type="radio" value="Interview" hidden>
+                            <h6>Interview</h6>
+                        </a>
+                    </div>
+                    <div class="card card-9"><a href="/venues/service-events/Freshers/Farewell">
+                            <div class="card-img">
+                                <img src="/images/freshers.png" alt="">
+                            </div>
+                            <input type="radio" value="Freshers/Farewell" hidden>
+                            <h6>Freshers/Farewell
+                            </h6>
+                        </a>
+                    </div>
+                    <div class="card card-10"><a href="/venues/service-events/Exhibition/Brand Promo">
+                            <div class="card-img">
+                                <img src="/images/exhibition.png" alt="">
+                            </div>
+                            <input type="radio" value="Exhibition/Brand Promo" hidden>
+                            <h6>Exhibition/Brand Promo
+                            </h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
 
     <div class=" venue-container">
 
@@ -134,13 +228,13 @@
                     <%})%>
                         <% } %>
 
-                        <% if(venueList == '') { %>
-                            <div class="row box1" style="margin: 100px 200px 100px 600px;">
-                                <p>Oops! No result found</p>
-                            </div>
-                            <% } %>   
+                            <% if(venueList=='' ) { %>
+                                <div class="row box1" style="margin: 100px 200px 100px 600px;">
+                                    <p>Oops! No result found</p>
+                                </div>
+                                <% } %>
         </div>
-    </div> 
+    </div>
 
 
     <div class="modal" id="filterModal" tabindex="-1" aria-labelledby="filterLabel" aria-hidden="true">
@@ -151,7 +245,7 @@
                     <button type="button" class="btn-close form-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <form action="" method="get" enctype="multipart/form-data">
+                <form id="filterForm" method="get" enctype="multipart/form-data">
                     <div class="modal-body row filter-body">
                         <div class="filter-topics col-lg-3  col-sm-6">
                             <h5>Number of Guests</h5>
@@ -226,29 +320,34 @@
                             <h5>Rental Cost</h5>
                             <div class="options">
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="room_start_price" value="lte-25000" id="less-than-25000"></div>
+                                    <div class="col-2"><input type="radio" name="room_start_price" value="lte-25000"
+                                            id="less-than-25000"></div>
                                     <div class="col-7">&lt <i class="fa fa-inr"></i> 25000</div>
                                 </div>
-                                <div class="row filter-rows"> 
-                                    <div class="col-2"><input type="radio" name="room_start_price" value="25000-50000" id="twofive-fifty-thousand">
+                                <div class="row filter-rows">
+                                    <div class="col-2"><input type="radio" name="room_start_price" value="25000-50000"
+                                            id="twofive-fifty-thousand">
                                     </div>
                                     <div class="col-7"><i class="fa fa-inr"></i>25000-<i class="fa fa-inr"></i>50000
                                     </div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="room_start_price" value="50000-100000" id="fifty-one-lakh">
+                                    <div class="col-2"><input type="radio" name="room_start_price" value="50000-100000"
+                                            id="fifty-one-lakh">
                                     </div>
                                     <div class="col-7"><i class="fa fa-inr"></i>50000-<i class="fa fa-inr"></i>100000
                                     </div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="room_start_price" id="one-two-lakh" value="100000-500000">
+                                    <div class="col-2"><input type="radio" name="room_start_price" id="one-two-lakh"
+                                            value="100000-500000">
                                     </div>
                                     <div class="col-7"><i class="fa fa-inr"></i>100000-<i class="fa fa-inr"></i>500000
                                     </div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="room_start_price" id="more-than-five-lakh" value="500000-gte">
+                                    <div class="col-2"><input type="radio" name="room_start_price"
+                                            id="more-than-five-lakh" value="500000-gte">
                                     </div>
                                     <div class="col-7">&gt= &nbsp; <i class="fa fa-inr"></i>500000</div>
                                 </div>
@@ -258,33 +357,38 @@
                             <h5>Venue Type</h5>
                             <div class="options">
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input  value="Hotel"type="radio" name="venue_type" id="indoor">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Hotel" type="radio"
+                                            name="venue_type" id="indoor">
                                     </div>
                                     <div class="col-7">Hotels</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Banquet Hall" type="radio" name="venue_type" id="outdoor">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Banquet Hall" type="radio"
+                                            name="venue_type" id="outdoor">
                                     </div>
                                     <div class="col-7">Banquet Halls</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Lawns/Farmhouse" type="radio" name="venue_type"
-                                            id="poolside">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Lawns/Farmhouse" type="radio"
+                                            name="venue_type" id="poolside">
                                     </div>
                                     <div class="col-7">Lawns/Farmhouses</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Resort" type="radio" name="venue_type" id="terrace">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Resort" type="radio"
+                                            name="venue_type" id="terrace">
                                     </div>
                                     <div class="col-7">Resorts</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Heritage Property" type="radio" name="venue_type" id="terrace">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Heritage Property" type="radio"
+                                            name="venue_type" id="terrace">
                                     </div>
                                     <div class="col-7">Heritage Property</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Restaurants" type="radio" name="venue_type" id="terrace">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Restaurants" type="radio"
+                                            name="venue_type" id="terrace">
                                     </div>
                                     <div class="col-7">Restaurants</div>
                                 </div>
@@ -294,23 +398,26 @@
                             <h5>Space</h5>
                             <div class="options">
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Indoor" type="radio" name="space" id="indoor">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Indoor" type="radio" name="space"
+                                            id="indoor">
                                     </div>
                                     <div class="col-5">Indoor</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input  value="Outdoor"type="radio" name="space" id="outdoor">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Outdoor" type="radio"
+                                            name="space" id="outdoor">
                                     </div>
                                     <div class="col-5">Outdoor</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Poolside" type="radio" name="space"
-                                            id="poolside">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Poolside" type="radio"
+                                            name="space" id="poolside">
                                     </div>
                                     <div class="col-5">Poolside</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Terrace" type="radio" name="space" id="terrace">
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Terrace" type="radio"
+                                            name="space" id="terrace">
                                     </div>
                                     <div class="col-5">Terrace</div>
                                 </div>
@@ -375,10 +482,10 @@
                                     </div>
                                     <div class="col-5">Rated 4.8+</div>
                                 </div>
-    
+
                             </div>
                         </div>
- 
+
                     </div>
                     <div class="modal-footer" style="display: flex; flex-direction: column;">
                         <button class="filter-result-btn" id="filter-result" type="submit">View Result</button>
@@ -402,30 +509,75 @@
         }
 
 
-        $(document).ready(function () {
-            $('[data-bs-toggle="tooltip"]').tooltip();
-            $(".carousel").owlCarousel({
-                margin: 20,
-                loop: true,
-                autoplay: true,
-                autoplayTimeout: 2000,
-                autoplayHoverPause: true,
-                responsive: {
-                    0: {
-                        items: 3,
-                        nav: false
-                    },
-                    600: {
-                        items: 4,
-                        nav: false
-                    },
-                    1000: {
-                        items: 6,
-                        nav: false
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+            const searchInput = document.getElementById('search').value; // Get the input value
+
+            // Redirect the user to the URL with the search input as a route parameter
+            window.location.href = `/venues/search/${searchInput}`;
+            // const searchForm = document.getElementById('searchForm');
+            // if (currentPath.startsWith('/venues/service-events/')) {
+            //     // If the current route is /photographer/search/:searchInput
+            //     const eventInput = currentPath.substring('/venues/service-events/'.length);
+            //     searchForm.action = null;
+            // }
+            // else {
+            //     // If the current route is /photographer
+            //     const eventInput = currentPath.substring('/venues/search/'.length);
+            //     searchForm.action = `/venues/search/${searchInput}`;
+            // }
+        });
+
+
+        // JavaScript in the same EJS file or in a separate script file
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterForm = document.getElementById('filterForm');
+            const currentPath = window.location.pathname;
+
+            // Check the current route and update form action accordingly
+            if (currentPath.startsWith('/venues/search/')) {
+                // If the current route is /photographer/search/:searchInput
+                const searchInput = currentPath.substring('/venues/search/'.length);
+                filterForm.action = `/venues/search/${searchInput}`;
+            }
+            if (currentPath.startsWith('/venues/service-events/')) {
+                // If the current route is /photographer/search/:searchInput
+                const eventInput = currentPath.substring('/venues/service-events/'.length);
+                filterForm.action = `/venues/service-events/${eventInput}`;
+            }
+            else {
+                // If the current route is /photographer
+                filterForm.action = '/venues';
+            }
+
+        });
+
+
+            $(document).ready(function () {
+                $('[data-bs-toggle="tooltip"]').tooltip();
+                $(".carousel").owlCarousel({
+                    margin: 20,
+                    loop: true,
+                    autoplay: true,
+                    autoplayTimeout: 2000,
+                    autoplayHoverPause: true,
+                    responsive: {
+                        0: {
+                            items: 3,
+                            nav: false
+                        },
+                        600: {
+                            items: 4,
+                            nav: false
+                        },
+                        1000: {
+                            items: 6,
+                            nav: false
+                        }
                     }
-                }
-            });
-        })
+                });
+            })
     </script>
 </body>
 

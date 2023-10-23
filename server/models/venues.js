@@ -6,15 +6,15 @@ const venueSchema = new mongoose.Schema({
   },
   name: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   address: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   location: {
     type: String,
-    required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   addressUrl: {
       type: String,
@@ -22,43 +22,56 @@ const venueSchema = new mongoose.Schema({
   },
   about: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   contact:{
-    type: Number,
-    //  required: 'This field is required.'
+    type: String,
+  //  required: 'This field is required.',
+    validate: {
+      validator: contactValidate,
+      message: props => `${props.value} Invalid contact number.`
+    }
   },
   email: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.',
+    unique: true,
+    validate: {
+      validator: emailValidate,
+      message: props => `${props.value} must have @ sign,domain must be one or more lowercase letters, numbers, underscores, dots, or hyphens.. and then another (escaped) dot, with the extension being 2 to 63 letters or dots`
+    }
   },
   services: [{
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   }],
+  eventsManaged:{
+    type: Number,
+  //  required: 'This field is required.'
+  },
   since: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   venue_type: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   parking: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   smallpartyvenue: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   features: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   space: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   room_count: {
     type: Number,
@@ -68,23 +81,23 @@ const venueSchema = new mongoose.Schema({
   },
   catering_policy: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   decor_policy: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   outside_alcohol: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   dj_policy: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   room_start_price:{
-     type: Number
-      //  required: 'This field is required.'
+     type: Number,
+    //  required: 'This field is required.'
   },
   starting_price: {
     type: Number
@@ -109,49 +122,49 @@ const venueSchema = new mongoose.Schema({
 
     hall_name: {
       type: String,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     },
     hall_space: {
       type: String,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     },
     hall_seating: {
       type: Number,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     },
     hall_floating: {
       type: Number,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     },
     hall_price: {
       type: Number,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     }
   }],
   rooms: [{
     room_name: {
       type: String,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     },
     room_price: {
       type: String,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     }
   }],
   decor: [{
     event: {
       type: String,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     },
     decor_price: {
       type: String,
-      //  required: 'This field is required.'
+    //  required: 'This field is required.'
     }
   }], 
 
   profilePhoto: {
     type: String,
-    //  required: 'This field is required.'
+  //  required: 'This field is required.'
   },
   ratings: [{
     user_id: {
@@ -170,4 +183,24 @@ const venueSchema = new mongoose.Schema({
 // venueSchema.index({ name: 'text', description: 'text' });
 // WildCard Indexing
 venueSchema.index({ "$**" : 'text' });
+
+
+
+function contactValidate(value) {
+  var contact = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+  if (!contact.test(value)) {
+    return false;
+  }
+  return true
+}
+
+function emailValidate(value) {
+  var reg_email = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,63})$/;
+
+  if (!reg_email.test(value)) {
+    return false;
+  }
+  return true
+}
+
 module.exports = mongoose.model('Venue', venueSchema);

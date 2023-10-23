@@ -41,10 +41,8 @@
 
         </nav>
 
-        <div class="user-btn" id="user-btn">
-            <div class="user-btn dropdown" id="user-btn">
-                <i class="fa fa-user user-icon" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
-            </div>
+        <div class="user-btn dropdown" id="user-btn">
+            <a> <i class="fa fa-user user-icon"></i></a>
         </div>
     </header>
 
@@ -57,8 +55,8 @@
         </nav>
         <div class="filter-search">
             <div class="input-group">
-                <form action="" method="get" enctype="multipart/form-data">
-                    <input class="form-control me-2 search-input" name="search" type="search" placeholder="Search" aria-label="Search">
+                <form id="searchForm" action="/entertainers/search/<%= searchInput %>" method="get" enctype="multipart/form-data">
+                    <input class="form-control me-2 search-input" id="search" name="search" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-secondary search-btn" type="submit">Search</button>
                 </form>
             </div>
@@ -68,6 +66,46 @@
             </div>
         </div>
     </div>
+
+    <form method="get" id="serviceForm">
+    <div class="event-type-container">
+        <div class="wrapper">
+            <div class="carousel owl-carousel">
+                <div class="card card-1"><a href="/entertainers/type/Dj">
+                    <div class="card-img">
+                        <img src="/images/dj.png" alt="DJ">
+                    </div>
+                    <h6>DJ</h6></a>
+                </div>
+                <div class="card card-2"><a href="/entertainers/type/Dancers,Choreographer">
+                    <div class="card-img">
+                        <img src="/images/dancer.png" alt="Dancers/Choreographer">
+                    </div>
+                    <h6>Dancers/Choreographer</h6></a>
+                </div>
+                <div class="card card-3"><a href="/entertainers/type/Singer,Musical Band">
+                    <div class="card-img">
+                        <img src="/images/singer.png" alt="Singer/Musical Band">
+                    </div>
+                    <h6>Singer/Musical Band</h6></a>
+                </div>
+                <div class="card card-4"><a href="/entertainers/type/Magician">
+                    <div class="card-img">
+                        <img src="/images/magician.png" alt="Magician" >
+                    </div>
+                    <h6>Magician</h6></a>
+                </div>
+                <div class="card card-5"><a href="/entertainers/type/Anchor">
+                    <div class="card-img">
+                        <img src="/images/host.png" alt="Anchor" >
+                    </div>
+                    <h6>Anchor</h6></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </form>
 
     <div class=" venue-container">
 
@@ -150,7 +188,7 @@
                     <button type="button" class="btn-close form-close" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <form action="" method="get" enctype="multipart/form-data">
+                <form id="filterForm" method="get" enctype="multipart/form-data">
                     <div class="modal-body row filter-body">
                         <div class="filter-topics col-lg-3  col-sm-6">
                             <h5>Event Type</h5>
@@ -323,6 +361,64 @@
 
 
     <script>
+
+
+let menu = document.querySelector("#menu-btn"),
+            navbar = document.querySelector(".navbar");
+        var main = document.querySelector(".main");
+
+        function navBarToggle() {
+            menu.classList.toggle('fa-window-close');
+            navbar.classList.toggle('navbar-active');
+            navbar.classList.toggle('navigation-bar');
+        }
+
+
+document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+            const searchInput = document.getElementById('search').value; // Get the input value
+
+            // Redirect the user to the URL with the search input as a route parameter
+            window.location.href = `/entertainer/search/${searchInput}`;
+            // const searchForm = document.getElementById('searchForm');
+            // if (currentPath.startsWith('/venues/service-events/')) {
+            //     // If the current route is /photographer/search/:searchInput
+            //     const eventInput = currentPath.substring('/venues/service-events/'.length);
+            //     searchForm.action = null;
+            // }
+            // else {
+            //     // If the current route is /photographer
+            //     const eventInput = currentPath.substring('/venues/search/'.length);
+            //     searchForm.action = `/venues/search/${searchInput}`;
+            // }
+        });
+
+
+        // JavaScript in the same EJS file or in a separate script file
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterForm = document.getElementById('filterForm');
+            const currentPath = window.location.pathname;
+
+            // Check the current route and update form action accordingly
+            if (currentPath.startsWith('/entertainers/search/')) {
+                // If the current route is /photographer/search/:searchInput
+                const searchInput = currentPath.substring('/venues/search/'.length);
+                filterForm.action = `/entertainers/search/${searchInput}`;
+            }
+            if (currentPath.startsWith('/entertainers/type/')) {
+                // If the current route is /photographer/search/:searchInput
+                const eventInput = currentPath.substring('/entertainers/type/'.length);
+                filterForm.action = `/venues/type/${eventInput}`;
+            }
+            else {
+                // If the current route is /photographer
+                filterForm.action = '/entertainers';
+            }
+
+        });
+
+
         $(document).ready(function () {
             $('[data-bs-toggle="tooltip"]').tooltip();
             $(".carousel").owlCarousel({

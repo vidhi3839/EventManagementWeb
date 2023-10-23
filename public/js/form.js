@@ -50,8 +50,9 @@ window.addEventListener("load", () => {
 
     addMoreButton.addEventListener('click', function () {
         let newItem = addMoreDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input')[0];
-        input.value = '';
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+            input[i].value = '';}
         addMore.appendChild(newItem);
     });
 
@@ -65,8 +66,9 @@ window.addEventListener("load", () => {
 
     addMoreFoodButton.addEventListener('click', function () {
         let newItem = addMoreFoodDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input')[0];
-        input.value = '';
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+        input[i].value = '';}
         addMoreFood.appendChild(newItem);
     });
 
@@ -81,13 +83,14 @@ window.addEventListener("load", () => {
 
     addMoreDecorButton.addEventListener('click', function () {
         let newItem = addMoreDecorDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input')[0];
-        input.value = '';
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+            input[i].value = '';}
         addMoreDecor.appendChild(newItem);
     });
 
       
-    //add more input field for event room prices
+    //add more input field for room prices
 
     
     let addMoreRoomButton = document.querySelector("#add-more-room-button");
@@ -96,52 +99,11 @@ window.addEventListener("load", () => {
 
     addMoreRoomButton.addEventListener('click', function () {
         let newItem = addMoreRoomDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input')[0];
-        input.value = '';
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+            input[i].value = '';}
         addMoreRoom.appendChild(newItem);
     });
-
-
-
-    //add more files 
-
-    const photos = document.querySelector("#photos");
-    const filewrapper = document.querySelector(".file-wrapper");
-
-
-    photos.addEventListener("change", (e) => {
-        let fileName = e.target.files[0].name;
-        let filetype = e.target.value.split(".").pop();
-        fileshow(fileName, filetype)
-    })
-
-    const fileshow = (fileName, filetype) => {
-
-        const showfilebox = document.createElement("div");
-        showfilebox.classList.add("showfilebox");
-        const leftElem = document.createElement("div");
-        leftElem.classList.add("left");
-        const fileTypeElem = document.createElement("span");
-        fileTypeElem.classList.add("filetype");
-        fileTypeElem.innerHTML = filetype;
-        leftElem.append(fileTypeElem);
-        const filetitleElem = document.createElement("h6");
-        filetitleElem.innerHTML = fileName;
-        leftElem.append(filetitleElem);
-        showfilebox.append(leftElem);
-        const rightElem = document.createElement("div"); 
-        rightElem.classList.add("right");
-        showfilebox.append(rightElem);
-        const crossElem = document.createElement("span");
-        crossElem.innerHTML = "&#215;";
-        rightElem.append(crossElem);
-        filewrapper.append(showfilebox);
-
-
-        crossElem.addEventListener("click", () => {
-            filewrapper.removeChild(showfilebox);
-        })
-    }
 
 
 })

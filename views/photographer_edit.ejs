@@ -104,15 +104,24 @@
                 </div>
                 <div class="row rows hrow">
                     <div class="col-sm-3">
+                        <h6>Contact:</h6>
+                    </div>
+                    <div class="col-sm-9"><input value="<%= photographer.contact%>" type="tel" class="form-control"
+                            name="contact" title="contact">
+                    </div>
+                </div>
+                <div class="row rows hrow">
+                    <div class="col-sm-3">
                         <h6>Email:</h6>
                     </div>
                     <div class="col-sm-9"><input class="form-control" value="<%=photographer.email%>" type="email"
                             name="email" title="email">
                     </div>
                 </div>
-                <div class="row rows lrow">
+
+                <div class="row rows lrow black-white">
                     <div class="col-sm-3">
-                        <h6>Services: </h6>
+                        <h6>Events: </h6>
                     </div>
 
                 </div>
@@ -122,9 +131,13 @@
                             <div class="row rows" style="border-radius: 0; width: 100%; justify-content: center;">
                                 <%if(photographer.services !='' ){%>
                                     <%photographer.services.forEach(service=>{%>
-                                        <div class="col-12"><input value="<%=service%>" type="text" name="services"
+                                        <div class="col-10"><input value="<%=service%>" type="text" name="services"
                                                 class="form-control" title="Services">
 
+                                        </div>
+                                        <div class="col-2">  <a
+                                            href="/photographers/del-service/<%=photographer._id%>/<%= service%>"><i
+                                                class="fa fa-close del-button"></i></a>
                                         </div>
                                         <%})%>
                                             <%}%>
@@ -141,13 +154,34 @@
                     </div>
                 </div>
 
+                <div class="row rows orow black-white">
+                    <div class="col-sm-12">
+                        <h4>FEATURES</h4>
+                    </div>
+                </div>
+
                 <div class="row rows krow">
                     <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
                         <label for="since">
                             <h6>How long been on Dream Stories:</h6>
+                        </label><input value="<%= photographer.since%>" type="text" name="since" class="form-control" title="since"
+                            id="since">
+                    </div>
+                
+                    <div class="col-sm-6 kcolumns" style="border-right: none; display: flex; justify-content: center; align-items: center;">
+                        <label for="services_offer">
+                            <h6>Service Offered:</h6>
+                        </label><input value="<%= photographer.services_offer%>" type="text" name="services_offer" class="form-control" title="services_offer"
+                            id="services_for">
+                    </div>
+                </div>
+
+                <div class="row rows krow">
+                    <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
+                        <label for="eventsManaged">
+                            <h6>Events Managed Till Now: </h6>
                         </label>
-                        <input value="<%= photographer.since%>" type="text" name="since" class="form-control"
-                            title="Since" id="since" size="40px">
+                        <input type="text" value="<%= photographer.eventsManaged%>" name="eventsManaged" class="form-control" title="Events Managed" id="eventsManaged" size="40px">
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex;  justify-content: center; align-items: center;">

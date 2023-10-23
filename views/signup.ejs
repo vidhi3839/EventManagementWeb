@@ -19,6 +19,7 @@
         crossorigin="anonymous"></script>
     <!--------------Icons-------------------->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- <link rel="stylesheet" href="/css/Ems.css"> -->
     <style>
         body {
@@ -123,12 +124,13 @@
             color: gray;
         }
 
+        /* 
         .input-field input:focus~i.email,
         .input-field input:focus~i.pw_lock,
         .input-field input:focus~i.username,
         .input-field input:focus~i.role {
             color: rgba(255, 255, 255, 0.349);
-        }
+        } */
 
         .input-field i.pw_hide {
             right: 3%;
@@ -151,7 +153,7 @@
             background-color: #ffffffe0;
             transition: all 0.3s ease;
             cursor: pointer;
-            border-radius:  50px 0px 50px 0 ;
+            border-radius: 50px 0px 50px 0;
             padding: 5px;
             border: none;
         }
@@ -203,66 +205,50 @@
             <div class="form-body" style="display: flex; flex-direction: column;">
                 <div class="container">
                     <div class="row">
-                        <% if(infoSubmitObj !='' ) { %>
-                            <div class="col-12 alert alert-success" role="alert">
+                        <% if(infoSubmitObj != '' ) { %>
+                            <div class="col-12 success" role="alert" style="color: rgb(255, 255, 255);">
                                 <%= infoSubmitObj %>
                             </div>
                             <% } %>
-
-                                <% if(infoErrorsObj !='' ) { %>
-                                    <div class="col-12 alert alert-danger" role="alert">
-                                        <%= infoErrorsObj %>
+                           
+                            <% if (typeof infoErrorsObj !== 'undefined' && infoErrorsObj.length > 0) { %>
+                                    <div class="col-12 alert alert-danger danger" role="alert">
+                                        <ul>
+                                            <% infoErrorsObj.forEach(function(error) { %>
+                                                <li><%= error %></li>
+                                            <% }); %>
+                                        </ul>
                                     </div>
                                     <% } %>
+
                     </div>
-                </div>
-                <div class="field input-field">
-                    <input type="text" id="username" placeholder="Name" name="username" class="form-input">
-                    <i class="fa fa-user name"></i>
-                    <p class="username_warning" style="display:block; color: white;"></p>
-                </div>
+                    <div class="field input-field">
+                        <input type="text" id="name" placeholder="Name" name="name" class="form-input">
+                        <i class="fa fa-user name"></i>
+                    </div>
+                    <div class="field input-field">
+                        <input type="text" id="email" placeholder="Email" name="email" class="form-input">
+                        <i class="fa fa-envelope email"></i>
+                    </div>
 
-                <div class="field input-field">
-                    <input type="text" id="email" placeholder="Email" name="email" class="form-input">
-                    <i class="fa fa-envelope email"></i>
-                    <span class="email_warning" style="display: none; color: white;"></span>
-                </div>
-
-                <div class="field input-field">
-                    <select id="role" name="role" class="form-input">
-                        <option value="" disabled selected>Role</option>
-                        <option value="user">User</option>
-                        <option value="vendor">Vendor</option>
-                    </select>
-                    <p class="role_warning" style=" display:block;color: white;"></p>
-                    <i class="fa fa-solid fa-plus role"></i>
-                </div>
-
-                <!-- <div class="field" style="display: flex;align-items:flex-start;justify-content:space-around;">
-                    <p style="color: white;">Choose Role :</p>
-                    <input type="radio" id="user" name="role" value="User" >
-                    <label for="user" style="color: white;">User</label>
-                    <input type="radio" id="vendor" name="role" value="Vendor">
-                    <label for="vendor" style="color: white;">Vendor</label>
-                </div> -->
-
-                <div class="field input-field">
-                    <input type="password" id="password" name="password" placeholder="Create password"
-                        class="form-password">
-                    <i class="fa fa-lock pw_lock"></i>
-                    <i class="fa fa-eye-slash pw_hide" onclick="showHide()"></i>
-                    <small id="passwordHelpBlock" class="form-text" style="color:gray;">
+                    <div class="field input-field">
+                        <input type="password" id="password" name="password" placeholder="Create password"
+                            class="form-password">
+                        <i class="fa fa-lock pw_lock"></i>
+                        <i class="fa fa-eye-slash pw_hide"></i>
+                        <small id="passwordHelpBlock" class="form-text" style="color:gray;">
                         Your password must be atleast 8 characters long, contain  atleast 1 lowercase,uppercase,digit and special character.
                       </small>
                 </div>
 <br>
-                <div class="field input-field">
-                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" class="form-password">
-                    <i class="fa fa-lock pw_lock"></i>
-                    <i class="fa fa-eye-slash pw_hide" onclick="showHide()"></i>
-                </div>
+                    <div class="field input-field">
+                        <input type="password" name="confirm_password" id="confirm_password"
+                            placeholder="Confirm password" class="form-password">
+                        <i class="fa fa-lock pw_lock"></i>
+                        <i class="fa fa-eye-slash pw_hide"></i>
+                    </div>
 
-                <div class="button-field">
+                    <div class="button-field">
 
                     <button id="signup1" type="submit">Signup</button>
                 </div>
@@ -275,7 +261,30 @@
         <a href="/" style="color: white;"> <span style="color: #ffffff;">Go to Home</span>&nbsp;&nbsp;<i class="fa fa-home"></i></a>
 
     </div>
-    <script src="/js/script.js" type="text/js"></script>
+    <script>
+
+        pwdShowHide = document.querySelectorAll(".pw_hide");
+        // For signup form validation
+
+        pwdShowHide.forEach((icon) => {
+
+            icon.addEventListener("click", (event) => {
+                event.preventDefault();
+                let getPwdInput = icon.parentElement.querySelector("input");
+                console.log(getPwdInput)
+                if (getPwdInput.type == "password") {
+                    getPwdInput.type = "text";
+                    icon.classList.replace("fa-eye-slash", "fa-eye")
+                }
+                else {
+                    getPwdInput.type = "password"
+                    icon.classList.replace("fa-eye", "fa-eye-slash")
+                }
+            })
+        });
+
+        console.log(pwdShowHide);
+    </script>
 </body>
 
 </html>

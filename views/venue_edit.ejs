@@ -122,17 +122,8 @@
                         </div>
                     </div>
 
-                    <div class="row rows erow ">
-                        <div class="col-sm-3">
-                            <h6>Venue Type:</h6>
-                        </div>
-                        <div class="col-sm-9"><input value="<%=venue.venue_type%>" class="form-control" type="text"
-                                name="venue_type" id="venue_type" title="Venue Type">
-                        </div>
-                    </div>
 
-
-                    <div class="row rows lrow">
+                    <div class="row rows lrow black-white">
                         <div class="col-12">
 
                             <h6>Events Hosted:</h6>
@@ -146,9 +137,13 @@
                                 <div class="row rows" style="border-radius: 0; width: 100%; justify-content: center;">
                                     <%if(venue.services !='' ){%>
                                         <%venue.services.forEach(service=>{%>
-                                            <div class="col-12"><input value="<%=service%>" type="text" name="services"
+                                            <div class="col-10"><input value="<%=service%>" type="text" name="services"
                                                     class="form-control" title="Services">
 
+                                            </div>
+                                            <div class="col-2">  <a
+                                                href="/venues/del-service/<%=venue._id%>/<%= service%>"><i
+                                                    class="fa fa-close del-button"></i></a>
                                             </div>
                                             <%})%>
                                                 <%}%>
@@ -164,24 +159,50 @@
                         </div>
                     </div>
 
+                    <div class="row rows orow black-white">
+                        <div class="col-sm-12">
+                            <h4>FEATURES</h4>
+                        </div>
+                    </div>
+    
                     <div class="row rows irow">
                         <div class="col-sm-3">
                             <h6>How long been on Dream Stories:</h6>
                         </div>
-                        <div class="col-sm-9"><input value="<%=venue.since%>" type="text" class="form-control"
-                                name="since" title="since">
+                        <div class="col-sm-9"><input value="<%=venue.since%>" type="text" class="form-control" name="since" title="since">
                         </div>
                     </div>
+                             
+                <div class="row rows irow">
+                    <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
+                     
+                            <h6>Venue Type:</h6>
+                      <input value="<%=venue.venue_type%>" type="text" name="venue_type"
+                                class="form-control" title="Venue Type" id="venue_type">
+                       
+                    </div>
+                    <div class="col-sm-6 kcolumns" style="border-right: none; display: flex; justify-content: center; align-items: center;">
+                        
+                            <h6>Events Managed: </h6>
+                        <input value="<%= venue.eventsManaged%>" type="number" name="eventsManaged"
+                                class="form-control" title="Events Managed" id="eventsManaged" size="40px">
+                       
+                    </div>
+                </div>
 
                 
-                    <div class="row rows lrow">
-                        <div class="col-sm-3">
-                            <h6>Starting Price:</h6>
-                        </div>
-                        <div class="col-sm-9"><input value="<%=venue.starting_price%>" type="text" class="form-control"
-                                name="starting_price" id="starting_price"></div>
+                <div class="row rows krow">
+                    <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
+                        <h6>Starting plate/hall price:</h6>
+                        <input type="text" value="<%= venue.starting_price%>" class="form-control" name="starting_price" title="Starting food/hall price:"
+                            size="40px">
                     </div>
-
+                    <div class="col-sm-6 kcolumns"
+                        style="border-right: none; display: flex;  justify-content: center; align-items: center;">
+                        <h6>Starting price for rooms</h6>
+                        <input type="text" value="<%= venue.room_start_price%>" class="form-control" name="room_start_price" title="Room Start Price" size="40px">
+                    </div>
+                </div>
 
                     <div class="row rows krow">
                         <div class="col-sm-6 kcolumns"
@@ -522,7 +543,7 @@
                         </div>
                     </div>
 
-
+ 
                     <div class="row rows urow">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-4"> <a href="/delete-venue/<%=venue._id%>" class="button" id="delete"
