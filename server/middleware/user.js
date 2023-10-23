@@ -4,7 +4,7 @@ const isAuth = (req, res, next) => {
         return next();
     }
     else{
-        res.redirect('/invitations');
+        res.redirect('/login');
 
     }
     

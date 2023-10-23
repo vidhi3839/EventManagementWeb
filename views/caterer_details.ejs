@@ -55,7 +55,7 @@
                 <div class="tab-content">
                   <div id="home" class="tab-pane fade in active">
                     <div class="homecont">
-                        <img class="imgcont" src="/images/<%=caterer.cprofilepic %>" alt="profile picture">
+                        <img class="imgcont" src="/uploads/<%=caterer.cprofilepic %>" alt="profile picture">
                     <div style="width:50%;">
                         <h2><%= caterer.cname%></h2>
                     <p><a href="#"><i class="fa fa-map-marker"></i><%= caterer.clocation%></a></p>
@@ -81,41 +81,45 @@
                     <p><b>Maximum Serving Capacity :   </b> <%=caterer.cmaxcapacity%></p>
                     <p><b>Minimum Serving Capacity :   </b> <%=caterer.cmincapacity%></p>
                     <br>
-                    <p><b>Packages Available :   </b> <%=caterer.cpack%></p>
+                    <p><b>Packages Available :   </b></p><br>
+                    <ul class="list-group list-group-flush">
+                      <% caterer.cpack.forEach(packs => { %>
+                        <li class="list-group-item"><%= packs %></li>
+                      <% }) %>
+                    </ul>
 
                 
                   </div>
                   <div id="portfolio" class="tab-pane fade">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwf1.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwf2.jpg" alt="portfolio iamge" class="img-responsive"></div>    
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwf3.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwf4.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwf5.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwf8.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwf6.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwf7.jpg" alt="portfolio iamge" class="img-responsive"></div>
+                            <% for (let i = 0; i < caterer.cportfolio.length; i++) { %>
+                              <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                  <img src="/uploads/<%= caterer.cportfolio[i].url %>" alt="portfolio image" class="img-responsive">
+                              </div>
+                          <% } %>
                         </div>
                         
                     </div>
                   </div>
                   <div id="contact" class="tab-pane fade">
-                    <h3>Contact us by sending your details to us and we will reach out to you within an hour !!!</h3>
+                    <h3>Contact us by sending your details to us and we will reach out to you !!</h3>
 
                     <br>
                     <input type="text" placeholder="Full Name" required id="cname">
                     <br>
                     <input type="text" placeholder="Contact Number" required id="cmob">
                     <br>
-                    <br>
-                    <input type="text" placeholder="Share your requirements......" style="margin-bottom: 2%;" required id="cdesc">
+                    <input type="textarea" placeholder="Share your requirements......" style="margin-bottom: 2%;" required id="cdesc">
 
                     <br>
+                    <i class="fa fa-brands fa-instagram" style="color: #ec09a4;"></i>&nbsp;: <a href="" style="text-decoration: none;font-size:20px;"><%=caterer.cinstaurl%></a>
                     <br>
+                    <i class="fa fa-brands fa-facebook" style="color: #0733e4;"></i>&nbsp; : <a href="" style="text-decoration: none;font-size:20px;"><%=caterer.cfburl%></a>
+                    <br>
+                    <i class="fa fa-solid fa-phone" style="color: #4ca725;"></i>&nbsp;: <span style="color: black;font-size:20px;"><%=caterer.ccontact%></span>
+<br>
+<br>
 
                     <button class="btn" style="margin-bottom: 2%;">Send Message</button> <button class="btn" style="margin-bottom: 2%;">Call Now</button>
                 

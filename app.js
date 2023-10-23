@@ -3,7 +3,9 @@ const fileUpload = require('express-fileupload');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const flash = require('connect-flash');
-const passport = require('passport')
+const passport = require('passport');
+
+const MongoDBSession = require('connect-mongodb-session')(session);
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +14,8 @@ require('dotenv').config();
 
 app.use(express.urlencoded( { extended: true } ));
 app.use(express.static('public'));
+app.use(express.static('uploads'));
+
 
 
 app.use(cookieParser('DreamStoriesSecure')); 
@@ -23,9 +27,9 @@ const store = new MongoDBSession({
 
 app.use(session({
   secret: 'DreamStoriesSecretSession',
-  cookie: {maxAge: 3600000},
-  saveUninitialized: true,
-  resave: true
+  saveUninitialized: false,
+  resave: false,
+  store:store,
 }));
 
 

@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+const imageSchema = new mongoose.Schema({
+    url: String // You can store the image URLs here
+});
+
 const inviteSchema = new mongoose.Schema({
     iname:{
         type:String,
@@ -58,6 +62,23 @@ const inviteSchema = new mongoose.Schema({
         type:String,
         required : 'This field is required'
     },
+    iinstaurl:{
+        type:String,
+        default:'N/A'
+    },
+    ifburl:{
+        type:String,
+        default:'N/A'
+    },
+    icontact:{
+        type:String,
+        default:'N/A'
+    },
+    userid:{
+        type:String,
+        required : 'This field is required'
+    },
+    iportfolio:[imageSchema],
 });
 
 module.exports = mongoose.model('Invitation',inviteSchema);

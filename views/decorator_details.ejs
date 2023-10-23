@@ -58,7 +58,7 @@
                 <div class="tab-content">
                   <div id="home" class="tab-pane fade in active">
                     <div class="homecont">
-                        <img class="imgcont" src="/images/<%=decorator.dprofilepic %>" alt="profile picture">
+                        <img class="imgcont" src="/uploads/<%=decorator.dprofilepic %>" alt="profile picture">
                     <div style="width:50%;">
                         <h2><%= decorator.dname%></h2>
                     <p><a href="#"><i class="fa fa-map-marker"></i><%= decorator.dlocation%></a></p>
@@ -85,40 +85,32 @@
                   <div id="portfolio" class="tab-pane fade">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw1.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw2.jpg" alt="portfolio iamge" class="img-responsive"></div>    
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw3.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw5.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw6.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw8.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw9.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw10.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpw11.png" alt="portfolio iamge" class="img-responsive"></div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwe1.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12"><img src="/images/rpwe2.jpg" alt="portfolio iamge" class="img-responsive"></div>
-                        
+                        <% for (let i = 0; i < decorator.dportfolio.length; i++) { %>
+                          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                              <img src="/uploads/<%= decorator.dportfolio[i].url %>" alt="portfolio image" class="img-responsive">
+                          </div>
+                      <% } %>
+                    </div>
                         </div>
                         
                     </div>
-                  </div>
                   <div id="contact" class="tab-pane fade">
-                    <h3>Contact us by sending your details to us and we will reach out to you within an hour !!!</h3>
+                    <h3>Contact us by sending your details to us and we will reach out to you !!</h3>
 
                     <br>
                     <input type="text" placeholder="Full Name" required id="decorname">
                     <br>
                     <input type="text" placeholder="Contact Number" required id="decormob">
                     <br>
+                    <input type="textarea" placeholder="Share your requirements......" style="margin-bottom: 2%;" required id="decordesc">
                     <br>
-                    <input type="text" placeholder="Share your requirements......" style="margin-bottom: 2%;" required id="decordesc">
-
+                    <i class="fa fa-brands fa-instagram" style="color: #ec09a4;"></i>&nbsp;: <a href="<%=decorator.dinstaurl%>" style="text-decoration: none;font-size:20px;"><%=decorator.dinstaurl%></a>
                     <br>
+                    <i class="fa fa-brands fa-facebook" style="color: #0733e4;"></i>&nbsp; : <a href="<%=decorator.dfburl%>" style="text-decoration: none;font-size:20px;"><%=decorator.dfburl%></a>
                     <br>
+                    <i class="fa fa-solid fa-phone" style="color: #4ca725;"></i>&nbsp;: <span style="color: black;font-size:20px;"><%=decorator.dcontact%></span>
+<br>
+<br>
 
                     <button class="btn" style="margin-bottom: 2%;">Send Message</button> <button class="btn" style="margin-bottom: 2%;">Call Now</button>
                 
@@ -137,6 +129,7 @@
                       </div>
                       <button class="btn" type="submit">Rate it</button>
                       </form>
+                    </div>
                     </div>
                     <script>
                       const stars = document.querySelectorAll(".stars i");

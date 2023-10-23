@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+const imageSchema = new mongoose.Schema({
+    url: String // You can store the image URLs here
+});
+
 const catererSchema = new mongoose.Schema({
     cname:{
         type:String,
@@ -63,9 +67,26 @@ const catererSchema = new mongoose.Schema({
         required:'This field is required'
     },
     cpack:{
+        type:[String],
+        required : 'This field is required'
+    },
+    cinstaurl:{
+        type:String,
+        default:'N/A'
+    },
+    cfburl:{
+        type:String,
+        default:'N/A'
+    },
+    ccontact:{
+        type:String,
+        default:'N/A'
+    },
+    userid:{
         type:String,
         required : 'This field is required'
     },
+    cportfolio:[imageSchema],
 });
 
 module.exports = mongoose.model('Caterer',catererSchema);

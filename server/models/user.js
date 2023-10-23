@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  name: {
+  username: {
     type: String,
     required: 'This field is required.'
   },
@@ -16,15 +16,19 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: 'This field is required.'
-  }
+    required: 'This field is required'
+  },
+  role:{
+    type:String,
+    required:'This field is required'
+    },
 });
 
 userSchema.index({ name: 'text', description: 'text' });
 // WildCard Indexing
 //recipeSchema.index({ "$**" : 'text' });
 
-module.exports = mongoose.model('Userdata', userSchema);
+module.exports = mongoose.model('User', userSchema);
 
 
 function emailValidate(value) {
@@ -33,5 +37,5 @@ function emailValidate(value) {
   if (!reg_email.test(value)) {
     return false;
   }
-  return true
+  return true;
 }

@@ -85,23 +85,91 @@ var header1 = document.querySelector(".form-header");
 
 
 // For signup form validation
-$(document).ready(function(){
-    var loginmodal = document.getElementById('loginModal');
-var signupmodal = document.getElementById('signupModal');
+// $(document).ready(function(){
+//     var loginmodal = document.getElementById('loginModal');
+// var signupmodal = document.getElementById('signupModal');
 
-let loginclick = document.getElementById('login-link-su');
-loginclick.onclick = function() {
-    signupmodal.style.display = 'none';
-    loginmodal.style.display = 'block';
+// let loginclick = document.getElementById('login-link-su');
+// loginclick.onclick = function() {
+//     signupmodal.style.display = 'none';
+//     loginmodal.style.display = 'block';
 
+// }
+
+// let signupclick = document.getElementById('signup-link-lg');
+// signupclick.onclick = function() {
+//     loginmodal.style.display = 'none';
+//     signupmodal.style.display = 'block';
+// }
+// })
+function Sign(event) {
+    let email = document.querySelector("#email").value;
+    let username = document.querySelector("#username").value;
+    let role = document.querySelector("#role").value;
+    let password = document.querySelector("#password").value;
+    let confirm_password = document.querySelector("#confirm_password").value;
+
+    let pwd_cond = document.querySelector(".password_condition");
+    let username_warning = document.querySelector(".username_warning");
+    let email_warn = document.querySelector(".email_warning");
+    let role_warning = document.querySelector(".role_warning");
+    let confirm_pwd_warn = document.querySelector(".confirm_pwd_warn");
+
+    let user = '';
+    let pass = '';
+    let mail = '';
+    let rolevalue = '';
+
+    var reg_pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$^&*()_-]).{8,}$/;
+    var reg_mail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,63})$/;
+
+    if (!reg_pwd.test(password)) {
+        pwd_cond.innerHTML = "*Password condition is not satisfied";
+        pwd_cond.style.display = 'block';
+        pwd_cond.style.fontSize = '15px';
+        event.preventDefault(); // Prevent form submission
+    } else {
+        pwd_cond.style.display = 'none';
+    }
+
+    if (!reg_mail.test(email)) {
+        email_warn.innerHTML = "*Email is not valid";
+        email_warn.style.display = 'block';
+        email_warn.style.fontSize = '15px';
+        event.preventDefault(); // Prevent form submission
+    } else {
+        mail = email;
+        email_warn.style.display = 'none';
+    }
+
+    if (password !== confirm_password) {
+        confirm_pwd_warn.innerHTML = "*Confirm password not matching";
+        confirm_pwd_warn.style.display = 'block';
+        event.preventDefault(); // Prevent form submission
+    } else {
+        pass = password;
+        confirm_pwd_warn.style.display = 'none';
+    }
+
+    if (username === '') {
+        username_warning.innerHTML = "*Enter Username";
+        username_warning.style.display = 'block';
+        event.preventDefault(); // Prevent form submission
+    } else {
+        user = username;
+        username_warning.style.display = 'none';
+    }
+
+    if (role === '') {
+        role_warning.innerHTML = "*Select Role";
+        role_warning.style.display = 'block';
+        event.preventDefault(); // Prevent form submission
+    } else {
+        rolevalue = role;
+        role_warning.style.display = 'none';
+    }
 }
 
-let signupclick = document.getElementById('signup-link-lg');
-signupclick.onclick = function() {
-    loginmodal.style.display = 'none';
-    signupmodal.style.display = 'block';
-}
-})
 
 pwdShowHide.forEach((icon) => {
     icon.addEventListener("click", () => {

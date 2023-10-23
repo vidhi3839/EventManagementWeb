@@ -8,13 +8,8 @@ const User = require('../models/User');
 const usermiddle = require('../middleware/user');
 const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator');
-
-
-const Packages = require('../models/Packages');
 const Entertainer = require('../models/entertainer');
 const Venue = require('../models/venues');
-// const User = require('../models/user');
-
 
 
 /**
@@ -76,49 +71,189 @@ exports.signup = async (req, res) => {
   res.render('signup', { infoErrorsObj, infoSubmitObj })
 }
 
-
-/**
- * POST /
- * user registration
-*/
-exports.registerUserOnPost = async (req, res) => {
-  try {
-    const user = await User.findOne({ email: req.body.email })
-    var reg_pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$^&*()_-]).{8,}$/;
-
-    if (user) {
-      req.flash('infoErrors', 'User already exists.');
-      res.redirect('/signup');
-    }
-    if (!reg_pwd.test(req.body.password)) {
-      req.flash('infoErrors', 'Password should contain at least 8 characters including one lowercase letter, one uppercase letter, one digit, one special character.');
-      res.redirect('/signup');
-    }
-    if (req.body.password != req.body.confirm_password) {
-      req.flash('infoErrors', 'Password and confirm password do not match.');
-      res.redirect('/signup');
-    }
-
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    const newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
-    });
-
-    await newUser.save();
-
-    console.log("posted");
-    console.log(hashedPassword);
-    // req.session.user = {id: newUser._id , name: newUser.name};
-
-    req.flash('infoSubmit', 'User has been registered.')
-    res.redirect('/');
-  } catch (error) {
-    req.flash('infoErrors', error);
-    res.redirect('/signup');
+// Signup Function
+exports.signupnew = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
   }
+
+  const { username, email, password , role , confirm_password } = req.body;
+
+  try {
+
+    if (!username || !email || !password || !role || !confirm_password) {
+      // Data is missing, set a flash message and redirect
+      req.flash('infoErrors', 'Please fill in all the required fields.');
+      return res.redirect('/signup');
+    }
+
+    var reg_pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$^&*()_-]).{8,}$/;
+ 
+      // Check if the email already exists
+      
+      if (!reg_pwd.test(password)) {
+        req.flash('infoErrors', 'Password should contain at least 8 characters including one lowercase letter, one uppercase letter, one digit, one special character.');
+        return res.redirect('/signup');
+      }
+      if (password != confirm_password) {
+        req.flash('infoErrors', 'Password and confirm password do not match.');
+        return res.redirect('/signup');
+      }
+
+      let user = await User.findOne({ email });
+
+      if (user) {
+        req.flash('infoErrors', 'User already exists.');
+        return res.redirect('/signup');
+      }
+
+      user = new User({
+          username,
+          email,
+          password,
+          role,
+      });
+
+      // Hash the password
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+
+      await user.save();
+
+      req.flash('infoSubmit', 'User has been registered.')
+      res.redirect('/');
+
+  } catch (err) {
+    req.flash('infoErrors', err);
+    return res.status(500).redirect('/signup');
+  }
+};
+
+/*
+Login Form
+*/
+exports.login = async (req, res) => {
+  const infoErrorsObject = req.flash('infoErrorslogin');
+  const infoSubmitObject = req.flash('infoSubmitlogin');
+
+  res.render('login', { infoErrorsObject, infoSubmitObject })
 }
+
+// Login Function
+
+exports.loginnew = async (req, res) => {
+  // Validate user input
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+  }
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
+
+  const { email, password } = req.body;
+
+  try {
+
+    if (!email || !password ) {
+      // Data is missing, set a flash message and redirect
+      req.flash('infoErrorslogin', 'Please fill in all the required fields.');
+      return res.redirect('/login');
+    }
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        req.flash('infoErrorslogin', 'User does not exist.');
+        return res.redirect('/login');
+      }
+
+      const isMatch = await bcrypt.compare(password, user.password);
+
+      if (!isMatch) {
+        req.flash('infoErrorslogin', 'Invalid Password');
+        return res.redirect('/login');
+      }
+
+      console.log(user);
+      const userid = user._id;
+      console.log(user._id);
+     req.session.isAuth = true;
+     req.flash('infoSubmitlogin', 'User has been logged in.')
+
+     if(user.role === 'vendor')
+     {
+      return res.render('addeditvendor',{userid : userid  , ErrorData : null , SubmitData : null , WarningData : null});
+     }
+      else
+      {
+        return res.redirect('/');
+      }
+
+  } catch (err) {
+      console.error(err.message);
+      return res.status(500).redirect('/login');
+  }
+};
+
+/*
+Logout Function
+*/
+
+exports.logout = async(req,res) => {
+  try{
+    req.session.destroy();
+  console.log("logout");
+  return res.redirect('/');
+  }catch(err)
+  {
+    console.log("logout failed");
+    return res.redirect('/');
+  }
+  };
+// /**
+//  * POST /
+//  * user registration
+// // */
+// exports.registerUserOnPost = async (req, res) => {
+//   try {
+//     const user = await User.findOne({ email: req.body.email })
+//     var reg_pwd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$^&*()_-]).{8,}$/;
+
+//     if (user) {
+//       req.flash('infoErrors', 'User already exists.');
+//       res.redirect('/signup');
+//     }
+//     if (!reg_pwd.test(req.body.password)) {
+//       req.flash('infoErrors', 'Password should contain at least 8 characters including one lowercase letter, one uppercase letter, one digit, one special character.');
+//       res.redirect('/signup');
+//     }
+//     if (req.body.password != req.body.confirm_password) {
+//       req.flash('infoErrors', 'Password and confirm password do not match.');
+//       res.redirect('/signup');
+//     }
+
+//     const hashedPassword = await bcrypt.hash(req.body.password, 10)
+//     const newUser = new User({
+//       username: req.body.username,
+//       email: req.body.email,
+//       password: hashedPassword
+//     });
+
+//     await newUser.save();
+
+//     console.log("posted");
+//     console.log(hashedPassword);
+//     // req.session.user = {id: newUser._id , name: newUser.name};
+
+//     req.flash('infoSubmit', 'User has been registered.')
+//     res.redirect('/');
+//   } catch (error) {
+//     req.flash('infoErrors', error);
+//     res.redirect('/signup');
+//   }
+// }
 
 /**------------------------------------------------------venue------------------------------------------------------ */
 
@@ -1799,6 +1934,17 @@ exports.deleteEntertainer = async (req, res) => {
   }
 }
 
+
+
+
+
+
+ 
+
+
+
+
+/**---------------------------- Decorators ----------------------------------------------------------- */
 /*
 GET Decorators
 */
@@ -1827,6 +1973,390 @@ exports.exploreDecorator = async(req, res) => {
 } 
 
 /*
+Update the ratings of Decorators
+*/
+
+exports.decorupdateRating =  async (req, res) => {
+  const decorId = req.params.id;
+  const clientRating = parseFloat(req.body.clientRating);
+
+  const decorator = await Decorator.findById(decorId);
+
+  if (!decorator) {
+    return res.status(404).json({ error: 'Decorator not found' });
+  }
+
+  let updatedRating;
+  if (decorator.dratingscount === 0) {
+    updatedRating = clientRating;
+  } else {
+    updatedRating = (decorator.dratings * decorator.dratingscount + clientRating) / (decorator.dratingscount + 1);
+  }  
+  decorator.dratingscount = decorator.dratingscount + 1;
+
+  updatedRating = updatedRating.toFixed(1);
+
+  await Decorator.findByIdAndUpdate(decorId, { dratings: updatedRating , dratingscount: decorator.dratingscount});
+
+  res.json({ updatedRating });
+}
+
+
+/*
+Search Decorators
+*/
+
+exports.searchDecor = async(req,res) => {
+  try{
+   const searchtext = req.query.searchtext;
+   const decorators = await Decorator.find({
+     "$or":[
+       {"dname":{"$regex":searchtext , $options : 'i'}},
+       {"dlocation":{"$regex":searchtext , $options : 'i'}},
+     ]
+   }).then(decorators => {
+     res.render('decorators',{
+       decoratorList : decorators
+   })
+ })
+  }catch (error) {
+   res.status(500).send({message: error.message || "Error Occured" });
+ }
+ }
+
+/*
+ Filter the Decorators
+ */
+ exports.filterDecor = async (req, res) => {
+  const budgetRange = req.query.budget; 
+  const ratingRange = req.query.rating;
+
+  try {
+
+    let filterConditions = [];
+
+    if (budgetRange) {
+      const [minBudget, maxBudget] = budgetRange.split('-');
+      filterConditions.push({
+        "dstartprice": { $gte: minBudget, $lte: maxBudget }
+      });
+    }
+
+    if (ratingRange) {
+      const [minRating, maxRating] = ratingRange.split('-');
+      filterConditions.push({
+        "dratings": { $gte: minRating, $lte: maxRating}
+      });
+    }
+
+    const query = filterConditions.length === 0 ? {} : { $and: filterConditions };
+  
+    const decorators = await Decorator.find(query).then(decorators => {
+      console.log(decorators);
+      res.render('decorators',{
+        decoratorList : decorators
+    })
+  })
+  }catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+};
+
+/* Open Add Form For Decorator*/
+exports.openDecorform = async(req,res) => {
+  const infoErrorsObjdecor = req.flash('infoErrorsdecor');
+  const infoSubmitObjdecor = req.flash('infoSubmitdecor');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
+
+  const userid = req.params.id;
+  const user = await Decorator.findOne({userid});
+  if(user)
+    {
+      req.flash('warndata','Decorator already exists with this account , To add new , create new Account !!');
+      return res.render('addeditvendor' , {userid : userid  , ErrorData : null , SubmitData : null , WarningData : WarningData});
+    }
+
+  return res.render('addDecorForm',{ infoErrorsObjdecor : infoErrorsObjdecor , infoSubmitObjdecor : infoSubmitObjdecor , userid : userid});
+}
+
+/**Open Update Form For Decorator */
+exports.openDecorupdform = async(req,res) => {
+  const infoErrorsObjdecorupd = req.flash('infoErrorsdecorupd');
+  const infoSubmitObjdecorupd = req.flash('infoSubmitdecorupd');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
+
+  const userid = req.params.id;
+
+  const user = await Decorator.findOne({userid});
+
+  if(!user)
+  {
+    req.flash('errordata','No such User Exists as Decorator !!');
+    return res.render('addeditvendor' , { userid : userid  , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+  }
+  
+  const name = user.dname;
+  const loc = user.dlocation;
+  const start = user.dstartprice;
+  const desc = user.dabout;
+  const yearop = user.dyearop;
+  const service = user.dservicetype;
+  const indoor = user.dindoor;
+  const outdoor = user.doutdoor;
+  const since = user.dsince;
+  const insta = user.dinstaurl;
+  const fb = user.dfburl;
+  const contact = user.dcontact;
+
+  return res.render('editDecorForm',{ infoErrorsObjdecorupd : infoErrorsObjdecorupd, infoSubmitObjdecorupd : infoSubmitObjdecorupd, userid : userid ,
+  name : name,
+  loc : loc,
+  start : start,
+  desc : desc,
+  yearop : yearop,
+  service : service,
+  indoor : indoor,
+  outdoor : outdoor,
+  since : since,
+  insta: insta,
+  fb : fb,
+  contact : contact});
+}
+
+/**Add Decorator */
+exports.addDecor = async (req, res) => {
+  try{
+    const userid = req.params.id;
+    const ErrorData = req.flash('errordata');
+    const SubmitData = req.flash('subdata');
+    const WarningData = req.flash('warndata');
+  
+    
+
+    if(isNaN(req.body.dstartprice))
+    {
+      req.flash('infoErrorsdecor' , 'Starting Price must contain only numeric value !!');
+      return res.redirect('/adddecorform') ;
+    }
+    let imageUploadFile;
+    let uploadPath;
+    let newImageName;
+
+    if(!req.files || Object.keys(req.files).length === 0)
+    {
+      console.log('No files were uploaded');
+    }
+    else
+    {
+      imageUploadFile = req.files.dprofilepic;
+      newImageName = Date.now() + imageUploadFile.name;
+
+      uploadPath = require('path').resolve('./') + '/public/uploads/' + newImageName;
+
+      imageUploadFile.mv(uploadPath , function(err){
+        if(err) return res.status(500).send(err);
+      })
+    }
+
+    const pimages = req.files.dportfolio;
+    const portfolio = [];
+
+    if(pimages && pimages.length > 0)
+    {
+      pimages.forEach((image) => {
+        let newPortfolioName = Date.now() + image.name;
+        const puploadPath = require('path').resolve('./') + '/public/uploads/' + newPortfolioName;
+
+        image.mv(puploadPath , function(err) {
+          if(err) return res.status(500).send(err);
+        })
+        portfolio.push({url : newPortfolioName});
+      });
+    }
+
+    const newDecor = new Decorator({
+      dname : req.body.dname,
+      dlocation : req.body.dlocation,
+      dstartprice : req.body.dstartprice,
+      dindoor : req.body.dindoor,
+      doutdoor : req.body.doutdoor,
+      dabout : req.body.dabout,
+      dsince : req.body.dsince,
+      dyearop : req.body.dyearop,
+      dservicetype : req.body.dservicetype,
+      dinstaurl : req.body.dinstaurl,
+      dfburl : req.body.dfburl,
+      dcontact : req.body.dcontact,
+      userid : req.params.id,
+      dprofilepic : newImageName,
+      dportfolio : portfolio
+    });
+
+    await newDecor.save();
+    req.flash('subdata','Decorator Added successfully !!');
+    return res.render('addeditvendor',{userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null});
+  }
+  catch(error)
+  {
+    console.log(error);
+    req.flash('infoErrorsdecor' , 'Error Occurred !!');
+    return res.redirect('/adddecorform') ;  
+  }
+};
+
+/**Update Decorator */
+exports.updDecor = async (req, res) => {
+  const userid = req.params.id;
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
+  try {
+
+  const updateFields = {};
+
+  // Find the user's record by their user ID
+  const user = await Decorator.findOne({ userid });
+
+  if (!user) {
+    req.flash('errordata', 'No such User Exists as Decorator !');
+    return res.render('addeditvendor',{userid : userid , ErrorData : ErrorData  , SubmitData : null , WarningData : null});
+  }
+
+    if(req.body.dlocation)
+    {
+      updateFields.dlocation = req.body.dlocation;
+    }
+    if(req.body.dabout)
+    {
+      updateFields.dlocation = req.body.dabout;
+    }
+    if(req.body.dservicetype)
+    {
+      updateFields.dservicetype = req.body.dservicetype;
+    }
+    if(req.body.dindoor)
+    {
+      updateFields.dindoor = req.body.dindoor;
+    }
+    if(req.body.doutdoor)
+    {
+      updateFields.doutdoor = req.body.doutdoor;
+    }
+    if(req.body.dinstaurl)
+    {
+      updateFields.dinstaurl = req.body.dinstaurl;
+    }
+    if(req.body.dfburl)
+    {
+      updateFields.dfburl = req.body.dfburl;
+    }
+    if(req.body.dcontact)
+    {
+      updateFields.dcontact = req.body.dcontact;
+    }
+
+    if (isNaN(req.body.dstartprice)) {
+      req.flash('infoErrorsdecorupd', 'Starting Price must contain only a numeric value !!');
+      return res.redirect('/upddecorform/'+userid); // Redirect to the edit form
+    }
+
+
+
+    // Handle profile picture update
+    let newImageName = null;
+    if (req.files && req.files.dprofilepic) {
+      const imageUploadFile = req.files.dprofilepic;
+      newImageName = Date.now() + imageUploadFile.name;
+      const uploadPath = require('path').resolve('./') + '/public/uploads/' + newImageName;
+
+      imageUploadFile.mv(uploadPath, function (err) {
+        if (err) return res.status(500).send(err);
+      });
+    }
+
+    // Handle portfolio image update
+    const existingPortfolio = user.dportfolio || [];
+    let pimages = req.files?.dportfolio || [];
+    const portfolio = existingPortfolio.slice();
+
+    if (pimages.length > 0) {
+      pimages.forEach((image) => {
+        const newPortfolioName = Date.now() + image.name;
+        const puploadPath = require('path').resolve('./') + '/public/uploads/' + newPortfolioName;
+
+        image.mv(puploadPath, function (err) {
+          if (err) return res.status(500).send(err);
+        });
+        portfolio.push({ url: newPortfolioName });
+      });
+    }
+
+    if (newImageName) {
+      updateFields.dprofilepic = newImageName;
+    }
+
+    if (portfolio.length > 0) {
+      updateFields.dportfolio = portfolio;
+    }
+
+
+    const updatedDocument = await Decorator.updateOne({ userid }, { $set: updateFields });
+
+    if (updatedDocument) {
+      req.flash('subdata', 'Decorator updated successfully !!');
+      return res.render('addeditvendor' , {userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null}); // Redirect to a success page or home page
+    } 
+    else {
+      req.flash('infoErrorsdecorupd', 'An error occurred while updating your information!!');
+      return res.redirect('/upddecorform/'+userid);
+    }
+  } catch (error) {
+    console.log(error);
+    req.flash('infoErrorsdecorupd', 'Error Occurred !!');
+    return res.redirect('/upddecorform/'+userid); // Redirect to the edit form
+  }
+};
+
+/**Delete Decorator */
+exports.delDecor = async(req,res) => {
+const userid = req.params.id;
+const ErrorData = req.flash('errordata');
+const SubmitData = req.flash('subdata');
+const WarningData = req.flash('warndata');
+
+
+try {
+  const result = await Decorator.findOne({userid});
+
+  if (!result) {
+    req.flash('errordata','No User Found as Decorator !!');
+    return res.render('addeditvendor', {userid : userid , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+  }
+
+  await Decorator.deleteOne({ userid });
+  req.flash('subdata','Decorator Deleted Successfully !!');
+  return res.render('addeditvendor', {userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null});
+
+} catch (error) {
+  console.log(error);
+  req.flash('errordata', 'Error Occurred While Deleting Decorator!!');
+  return res.render('addeditvendor', {userid : userid , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+}
+};
+
+
+
+/**---------------------------- Caterers ----------------------------------------------------------- */
+
+/*
 GET Caterers
 */
 
@@ -1853,6 +2383,427 @@ exports.exploreCaterer = async(req, res) => {
   }
 } 
 
+/*
+Update the ratings of Caterers
+*/
+
+exports.catererupdateRating =  async (req, res) => {
+  const catererId = req.params.id;
+  const clientRating = parseFloat(req.body.clientRating);
+
+  const caterer = await Caterer.findById(catererId);
+
+  if (!caterer) {
+    return res.status(404).json({ error: 'Caterer not found' });
+  }
+
+  let updatedRating;
+  if (caterer.cratingscount === 0) {
+    updatedRating = clientRating;
+  } else {
+    updatedRating = (caterer.cratings * caterer.cratingscount + clientRating) / (caterer.cratingscount + 1);
+  }  
+  caterer.cratingscount = caterer.cratingscount + 1;
+
+  updatedRating = updatedRating.toFixed(1);
+
+  await Caterer.findByIdAndUpdate(catererId, { cratings: updatedRating , cratingscount: caterer.cratingscount});
+
+  res.json({ updatedRating });
+}
+
+/*
+Search Caterers
+*/
+
+exports.searchCaterer = async(req,res) => {
+  try{
+   const searchtext = req.query.searchtext;
+   const caterers = await Caterer.find({
+     "$or":[
+       {"cname":{"$regex":searchtext , $options : 'i'}},
+       {"clocation":{"$regex":searchtext , $options : 'i'}},
+     ]
+   }).then(caterers => {
+     res.render('caterers',{
+       catererList : caterers
+   })
+ })
+  }catch (error) {
+   res.status(500).send({message: error.message || "Error Occured" });
+ }
+ }
+
+ 
+
+/*
+ Filter the Caterers
+ */
+
+ exports.filterCaterer = async (req, res) => {
+  const budgetRange = req.query.budget; 
+  const ratingRange = req.query.rating;
+
+  try {
+
+    let filterConditions = [];
+
+    if (budgetRange) {
+      const [minBudget, maxBudget] = budgetRange.split('-');
+      filterConditions.push({
+        "cvegprice": { $gte: minBudget, $lte: maxBudget }
+      });
+    }
+
+    if (ratingRange) {
+      const [minRating, maxRating] = ratingRange.split('-');
+      filterConditions.push({
+        "cratings": { $gte: minRating, $lte: maxRating}
+      });
+    }
+
+    const query = filterConditions.length === 0 ? {} : { $and: filterConditions };
+  
+    const caterers = await Caterer.find(query).then(caterers => {
+      console.log(caterers);
+      res.render('caterers',{
+        catererList : caterers
+    })
+  })
+  }catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
+};
+
+/* Open Add Form For Caterer*/
+exports.openCatererform = async(req,res) => {
+  const infoErrorsObjcaterer = req.flash('infoErrorscaterer');
+  const infoSubmitObjcaterer = req.flash('infoSubmitcaterer');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
+
+  const userid = req.params.id;
+  const user = await Caterer.findOne({userid});
+  if(user)
+    {
+      req.flash('warndata','Caterer already exists with this account , To add new , create new Account !!');
+      return res.render('addeditvendor' , {userid : userid  , ErrorData : null , SubmitData : null , WarningData : WarningData});
+    }
+
+  return res.render('addCatererForm',{ infoErrorsObjcaterer : infoErrorsObjcaterer , infoSubmitObjcaterer : infoSubmitObjcaterer , userid : userid});
+}
+
+/**Open Update Form For Caterer */
+exports.openCatererupdform = async(req,res) => {
+  const infoErrorsObjcatererupd = req.flash('infoErrorscatererupd');
+  const infoSubmitObjcatererupd = req.flash('infoSubmitcatererupd');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
+
+  const userid = req.params.id;
+
+  const user = await Caterer.findOne({userid});
+
+  if(!user)
+  {
+    req.flash('errordata','No such User Exists as Caterer !!');
+    return res.render('addeditvendor' , { userid : userid  , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+  }
+  
+  const name = user.cname;
+  const loc = user.clocation;
+  const vegonly = user.cvegonly;
+  const start = user.cvegprice;
+  const nonveg = user.cnonvegprice;
+  const desc = user.cabout;
+  const yearop = user.cyearop;
+  const service = user.ccaterertype;
+  const cuisines = user.cuisines;
+  const min = user.cmincapacity;
+  const max = user.cmaxcapacity;
+  const pack = user.cpack;
+  const since = user.csince;
+  const insta = user.cinstaurl;
+  const fb = user.cfburl;
+  const contact = user.ccontact;
+
+  return res.render('editCatererForm',{ infoErrorsObjcatererupd : infoErrorsObjcatererupd, infoSubmitObjcatererupd : infoSubmitObjcatererupd, userid : userid ,
+  name : name,
+  loc : loc,
+  start : start,
+  desc : desc,
+  yearop : yearop,
+  service : service,
+  vegonly : vegonly,
+  nonveg : nonveg,
+  cuisines : cuisines,
+  min : min,
+  max : max,
+  pack : pack,
+  since : since,
+  insta: insta,
+  fb : fb,
+  contact : contact});
+}
+
+/**Add Caterer */
+exports.addCaterer = async (req, res) => {
+  try{
+    const userid = req.params.id;
+    const ErrorData = req.flash('errordata');
+    const SubmitData = req.flash('subdata');
+    const WarningData = req.flash('warndata');
+  
+    
+
+    if(isNaN(req.body.cvegprice))
+    {
+      req.flash('infoErrorscaterer' , 'Starting Price must contain only numeric value !!');
+      return res.redirect('/addcatererform/'+userid) ;
+    }
+    let imageUploadFile;
+    let uploadPath;
+    let newImageName;
+
+    if(!req.files || Object.keys(req.files).length === 0)
+    {
+      console.log('No files were uploaded');
+    }
+    else
+    {
+      imageUploadFile = req.files.cprofilepic;
+      newImageName = Date.now() + imageUploadFile.name;
+
+      uploadPath = require('path').resolve('./') + '/public/uploads/' + newImageName;
+
+      imageUploadFile.mv(uploadPath , function(err){
+        if(err) return res.status(500).send(err);
+      })
+    }
+
+    const pimages = req.files.cportfolio;
+    const portfolio = [];
+
+    if(pimages && pimages.length > 0)
+    {
+      pimages.forEach((image) => {
+        let newPortfolioName = Date.now() + image.name;
+        const puploadPath = require('path').resolve('./') + '/public/uploads/' + newPortfolioName;
+
+        image.mv(puploadPath , function(err) {
+          if(err) return res.status(500).send(err);
+        })
+        portfolio.push({url : newPortfolioName});
+      });
+    }
+
+    const newCaterer = new Caterer({
+      cname : req.body.cname,
+      clocation : req.body.clocation,
+      cvegonly : req.body.cvegonly,
+      cvegprice : req.body.cvegprice,
+      cnonvegprice : req.body.cnonvegprice,
+      cuisines : req.body.cuisines,
+      cmincapacity : req.body.cmincapacity,
+      cmaxcapacity : req.body.cmaxcapacity,
+      cpack : req.body.cpack,
+      cabout : req.body.cabout,
+      csince : req.body.csince,
+      cyearop : req.body.cyearop,
+      ccaterertype : req.body.ccaterertype,
+      cinstaurl : req.body.cinstaurl,
+      cfburl : req.body.cfburl,
+      ccontact : req.body.ccontact,
+      userid : req.params.id,
+      cprofilepic : newImageName,
+      cportfolio : portfolio
+    });
+
+    await newCaterer.save();
+    req.flash('subdata','Caterer Added successfully !!');
+    return res.render('addeditvendor',{userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null});
+  }
+  catch(error)
+  {
+    console.log(error);
+    req.flash('infoErrorscaterer' , 'Error Occurred !!');
+    return res.redirect('/addcatererform') ;  
+  }
+};
+
+/**Update Caterer */
+exports.updCaterer = async (req, res) => {
+  const userid = req.params.id;
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
+  try {
+
+  const updateFields = {};
+
+  // Find the user's record by their user ID
+  const user = await Caterer.findOne({ userid });
+
+  if (!user) {
+    req.flash('errordata', 'No such User Exists as Decorator !');
+    return res.render('addeditvendor',{userid : userid , ErrorData : ErrorData  , SubmitData : null , WarningData : null});
+  }
+
+    if(req.body.clocation)
+    {
+      updateFields.clocation = req.body.clocation;
+    }
+    if(req.body.cabout)
+    {
+      updateFields.clocation = req.body.cabout;
+    }
+    if(req.body.ccaterertype)
+    {
+      updateFields.ccaterertype = req.body.ccaterertype;
+    }
+    if(req.body.cvegonly)
+    {
+      updateFields.cvegonly = req.body.cvegonly;
+    }
+    if(req.body.cnonvegprice)
+    {
+      updateFields.cnonvegprice = req.body.cnonvegprice;
+    }
+    if(req.body.cuisines)
+    {
+      updateFields.cuisines = req.body.cuisines;
+    }
+    if(req.body.cmincapacity)
+    {
+      updateFields.cmincapacity = req.body.cmincapacity;
+    }
+    if(req.body.cmaxcapacity)
+    {
+      updateFields.cmaxcapacity = req.body.cmaxcapacity;
+    }
+    if (req.body.cpack) {
+      // Ensure updateFields.cpack is an array
+      updateFields.cpack = updateFields.cpack || [];
+    
+      if (Array.isArray(req.body.cpack)) {
+        // If it's an array, append each package
+        updateFields.cpack = updateFields.cpack.concat(req.body.cpack);
+      } else {
+        // If it's a single value, convert it to an array and append
+        updateFields.cpack.push(req.body.cpack);
+      }
+    }
+    
+    
+    if(req.body.cinstaurl)
+    {
+      updateFields.cinstaurl = req.body.cinstaurl;
+    }
+    if(req.body.dfburl)
+    {
+      updateFields.cfburl = req.body.cfburl;
+    }
+    if(req.body.dcontact)
+    {
+      updateFields.ccontact = req.body.ccontact;
+    }
+
+    if (isNaN(req.body.cvegprice)) {
+      req.flash('infoErrorscatererupd', 'Starting Price must contain only a numeric value !!');
+      return res.redirect('/updcatererform/'+userid); // Redirect to the edit form
+    }
+
+
+
+    // Handle profile picture update
+    let newImageName = null;
+    if (req.files && req.files.cprofilepic) {
+      const imageUploadFile = req.files.dprofilepic;
+      newImageName = Date.now() + imageUploadFile.name;
+      const uploadPath = require('path').resolve('./') + '/public/uploads/' + newImageName;
+
+      imageUploadFile.mv(uploadPath, function (err) {
+        if (err) return res.status(500).send(err);
+      });
+    }
+
+    // Handle portfolio image update
+    const existingPortfolio = user.cportfolio || [];
+    let pimages = req.files?.cportfolio || [];
+    const portfolio = existingPortfolio.slice();
+
+    if (pimages.length > 0) {
+      pimages.forEach((image) => {
+        const newPortfolioName = Date.now() + image.name;
+        const puploadPath = require('path').resolve('./') + '/public/uploads/' + newPortfolioName;
+
+        image.mv(puploadPath, function (err) {
+          if (err) return res.status(500).send(err);
+        });
+        portfolio.push({ url: newPortfolioName });
+      });
+    }
+
+    if (newImageName) {
+      updateFields.cprofilepic = newImageName;
+    }
+
+    if (portfolio.length > 0) {
+      updateFields.cportfolio = portfolio;
+    }
+
+
+    const updatedDocument = await Caterer.updateOne({ userid }, { $set: updateFields });
+
+    if (updatedDocument) {
+      req.flash('subdata', 'Caterer updated successfully !!');
+      return res.render('addeditvendor' , {userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null}); // Redirect to a success page or home page
+    } 
+    else {
+      req.flash('infoErrorscatererupd', 'An error occurred while updating your information!!');
+      return res.redirect('/updcatererform/'+userid);
+    }
+  } catch (error) {
+    console.log(error);
+    req.flash('infoErrorscatererupd', 'Error Occurred !!');
+    return res.redirect('/updcatererform/'+userid); // Redirect to the edit form
+  }
+};
+
+/**Delete Caterer */
+exports.delCaterer = async(req,res) => {
+const userid = req.params.id;
+const ErrorData = req.flash('errordata');
+const SubmitData = req.flash('subdata');
+const WarningData = req.flash('warndata');
+
+
+try {
+  const result = await Caterer.findOne({userid});
+
+  if (!result) {
+    req.flash('errordata','No User Found as Caterer !!');
+    return res.render('addeditvendor', {userid : userid , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+  }
+
+  await Caterer.deleteOne({ userid });
+  req.flash('subdata','Caterer Deleted Successfully !!');
+  return res.render('addeditvendor', {userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null});
+
+} catch (error) {
+  console.log(error);
+  req.flash('errordata', 'Error Occurred While Deleting Caterer!!');
+  return res.render('addeditvendor', {userid : userid , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+}
+};
+
+/**---------------------------- Invitation Card Providers ----------------------------------------------------------- */
 /*
 GET Invitations 
 */
@@ -1909,63 +2860,6 @@ exports.updateRating =  async (req, res) => {
   res.json({ updatedRating });
 }
 
-/*
-Update the ratings of Decorators
-*/
-
-exports.decorupdateRating =  async (req, res) => {
-  const decorId = req.params.id;
-  const clientRating = parseFloat(req.body.clientRating);
-
-  const decorator = await Decorator.findById(decorId);
-
-  if (!decorator) {
-    return res.status(404).json({ error: 'Decorator not found' });
-  }
-
-  let updatedRating;
-  if (decorator.dratingscount === 0) {
-    updatedRating = clientRating;
-  } else {
-    updatedRating = (decorator.dratings * decorator.dratingscount + clientRating) / (decorator.dratingscount + 1);
-  }  
-  decorator.dratingscount = decorator.dratingscount + 1;
-
-  updatedRating = updatedRating.toFixed(1);
-
-  await Decorator.findByIdAndUpdate(decorId, { dratings: updatedRating , dratingscount: decorator.dratingscount});
-
-  res.json({ updatedRating });
-}
-
-/*
-Update the ratings of Caterers
-*/
-
-exports.catererupdateRating =  async (req, res) => {
-  const catererId = req.params.id;
-  const clientRating = parseFloat(req.body.clientRating);
-
-  const caterer = await Caterer.findById(catererId);
-
-  if (!caterer) {
-    return res.status(404).json({ error: 'Caterer not found' });
-  }
-
-  let updatedRating;
-  if (caterer.cratingscount === 0) {
-    updatedRating = clientRating;
-  } else {
-    updatedRating = (caterer.cratings * caterer.cratingscount + clientRating) / (caterer.cratingscount + 1);
-  }  
-  caterer.cratingscount = caterer.cratingscount + 1;
-
-  updatedRating = updatedRating.toFixed(1);
-
-  await Caterer.findByIdAndUpdate(catererId, { cratings: updatedRating , cratingscount: caterer.cratingscount});
-
-  res.json({ updatedRating });
-}
 
 /*
 Search Invitation Providers
@@ -2029,207 +2923,314 @@ exports.filterInvite = async (req, res) => {
   } 
 };
 
-/*
-Search Decorators
-*/
+/* Open Add Form For Invitation */
+exports.openform = async(req,res) => {
+  const infoErrorsObjinv = req.flash('infoErrorsinv');
+  const infoSubmitObjinv = req.flash('infoSubmitinv');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
 
-exports.searchDecor = async(req,res) => {
-  try{
-   const searchtext = req.query.searchtext;
-   const decorators = await Decorator.find({
-     "$or":[
-       {"dname":{"$regex":searchtext , $options : 'i'}},
-       {"dlocation":{"$regex":searchtext , $options : 'i'}},
-     ]
-   }).then(decorators => {
-     res.render('decorators',{
-       decoratorList : decorators
-   })
- })
-  }catch (error) {
-   res.status(500).send({message: error.message || "Error Occured" });
- }
- }
 
- /*
-Search Caterers
-*/
-
- exports.searchCaterer = async(req,res) => {
-  try{
-   const searchtext = req.query.searchtext;
-   const caterers = await Caterer.find({
-     "$or":[
-       {"cname":{"$regex":searchtext , $options : 'i'}},
-       {"clocation":{"$regex":searchtext , $options : 'i'}},
-     ]
-   }).then(caterers => {
-     res.render('caterers',{
-       catererList : caterers
-   })
- })
-  }catch (error) {
-   res.status(500).send({message: error.message || "Error Occured" });
- }
- }
-
- /*
- Filter the Decorators
- */
- exports.filterDecor = async (req, res) => {
-  const budgetRange = req.query.budget; 
-  const ratingRange = req.query.rating;
-
-  try {
-
-    let filterConditions = [];
-
-    if (budgetRange) {
-      const [minBudget, maxBudget] = budgetRange.split('-');
-      filterConditions.push({
-        "dstartprice": { $gte: minBudget, $lte: maxBudget }
-      });
+  const userid = req.params.id;
+  const user = await Invitation.findOne({userid});
+  if(user)
+    {
+      req.flash('warndata','Invitation Card Provider already exists with this account , To add new , create new Account !!');
+      return res.render('addeditvendor' , {userid : userid  , ErrorData : ErrorData , SubmitData : SubmitData , WarningData : WarningData});
     }
 
-    if (ratingRange) {
-      const [minRating, maxRating] = ratingRange.split('-');
-      filterConditions.push({
-        "dratings": { $gte: minRating, $lte: maxRating}
-      });
-    }
+  return res.render('addInviteForm',{ infoErrorsObjinv : infoErrorsObjinv, infoSubmitObjinv : infoSubmitObjinv, userid : userid});
+}
 
-    const query = filterConditions.length === 0 ? {} : { $and: filterConditions };
+/**Open Update Form For Invitation */
+exports.openupdform = async(req,res) => {
+  const infoErrorsObjinvupd = req.flash('infoErrorsinvupd');
+  const infoSubmitObjinvupd = req.flash('infoSubmitinvupd');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
+
+  const userid = req.params.id;
+
+  const user = await Invitation.findOne({userid});
+
+  if(!user)
+  {
+    req.flash('errordata','No such User Exists as Invitation Card Provider !!');
+    return res.render('addeditvendor' , { userid : userid  , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+  }
   
-    const decorators = await Decorator.find(query).then(decorators => {
-      console.log(decorators);
-      res.render('decorators',{
-        decoratorList : decorators
-    })
-  })
-  }catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  } 
-};
+  const name = user.iname;
+  const loc = user.ilocation;
+  const start = user.istart;
+  const desc = user.iabout;
+  const yearop = user.iyearop;
+  const service = user.iservicetype;
+  const range = user.irange;
+  const special = user.ispeciality;
+  const shipp = user.ishipping;
+  const min = user.iminorder;
+  const since = user.isince;
+  const insta = user.iinstaurl;
+  const fb = user.ifburl;
+  const contact = user.icontact;
 
-/*
- Filter the Caterers
- */
+  return res.render('editInvitationForm',{ infoErrorsObjinvupd : infoErrorsObjinvupd, infoSubmitObjinvupd : infoSubmitObjinvupd, userid : userid ,
+  name : name,
+  loc : loc,
+  start : start,
+  desc : desc,
+  yearop : yearop,
+  service : service,
+  range : range,
+  special : special,
+  shipp : shipp,
+  min : min,
+  since : since,
+  insta: insta,
+  fb : fb,
+  contact : contact});
+}
 
- exports.filterCaterer = async (req, res) => {
-  const budgetRange = req.query.budget; 
-  const ratingRange = req.query.rating;
-
-  try {
-
-    let filterConditions = [];
-
-    if (budgetRange) {
-      const [minBudget, maxBudget] = budgetRange.split('-');
-      filterConditions.push({
-        "cvegprice": { $gte: minBudget, $lte: maxBudget }
-      });
-    }
-
-    if (ratingRange) {
-      const [minRating, maxRating] = ratingRange.split('-');
-      filterConditions.push({
-        "cratings": { $gte: minRating, $lte: maxRating}
-      });
-    }
-
-    const query = filterConditions.length === 0 ? {} : { $and: filterConditions };
+/**Add Invitation */
+exports.addInvite = async (req, res) => {
+  try{
+    const userid = req.params.id;
+    const ErrorData = req.flash('errordata');
+    const SubmitData = req.flash('subdata');
+    const WarningData = req.flash('warndata');
   
-    const caterers = await Caterer.find(query).then(caterers => {
-      console.log(caterers);
-      res.render('caterers',{
-        catererList : caterers
-    })
-  })
-  }catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  } 
-};
+    
 
+    if(isNaN(req.body.istart))
+    {
+      req.flash('infoErrorsinv' , 'Starting Price must contain only numeric value !!');
+      return res.redirect('/addinviteform') ;
+    }
+    let imageUploadFile;
+    let uploadPath;
+    let newImageName;
 
-// Signup Function
-exports.signup = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-  }
+    if(!req.files || Object.keys(req.files).length === 0)
+    {
+      console.log('No files were uploaded');
+    }
+    else
+    {
+      imageUploadFile = req.files.iprofilepic;
+      newImageName = Date.now() + imageUploadFile.name;
 
-  const { username, email, password, role } = req.body;
+      uploadPath = require('path').resolve('./') + '/public/uploads/' + newImageName;
 
-  try {
- 
-      // Check if the email already exists
-      let user = await User.findOne({ email });
+      imageUploadFile.mv(uploadPath , function(err){
+        if(err) return res.status(500).send(err);
+      })
+    }
 
-      if (user) {
-          return res.status(400).json({ msg: 'User already exists' });
-          // res.redirect('/index#loginModal');
-      }
+    const pimages = req.files.iportfolio;
+    const portfolio = [];
 
-      user = new User({
-          username,
-          email,
-          password,
-          role,
+    if(pimages && pimages.length > 0)
+    {
+      pimages.forEach((image) => {
+        let newPortfolioName = Date.now() + image.name;
+        const puploadPath = require('path').resolve('./') + '/public/uploads/' + newPortfolioName;
+
+        image.mv(puploadPath , function(err) {
+          if(err) return res.status(500).send(err);
+        })
+        portfolio.push({url : newPortfolioName});
       });
+    }
 
-      // Hash the password
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
+    const newInvitation = new Invitation({
+      iname : req.body.iname,
+      ilocation : req.body.ilocation,
+      istart : req.body.istart,
+      irange : req.body.irange,
+      iabout : req.body.iabout,
+      isince : req.body.isince,
+      iyearop : req.body.iyearop,
+      iservicetype : req.body.iservicetype,
+      ishipping : req.body.ishipping,
+      ispeciality : req.body.ispeciality,
+      iminorder : req.body.iminorder,
+      iinstaurl : req.body.iinstaurl,
+      ifburl : req.body.ifburl,
+      icontact : req.body.icontact,
+      userid : req.params.id,
+      iprofilepic : newImageName,
+      iportfolio : portfolio
+    });
 
-      await user.save();
-
-      // Create a session to log the user in
-      // req.session.userId = user._id;
-      res.redirect('/');
-
-  } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+    await newInvitation.save();
+    req.flash('subdata','Invitation Card Provider Added successfully !!');
+    return res.render('addeditvendor',{userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null});
+  }
+  catch(error)
+  {
+    console.log(error);
+    req.flash('infoErrorsinv' , 'Error Occurred !!');
+    return res.redirect('/addinviteform') ;  
   }
 };
 
-// Login Function
-exports.login = async (req, res) => {
-  // Validate user input
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-  }
-
-  const { email, password } = req.body;
+/**Update Invitation */
+exports.updInvite = async (req, res) => {
+  const userid = req.params.id;
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
 
   try {
-      const user = await User.findOne({ email });
 
-      if (!user) {
-          return res.status(400).json({ msg: 'User does not exist' });
-      }
+  const updateFields = {};
 
-      const isMatch = await bcrypt.compare(password, user.password);
+  // Find the user's record by their user ID
+  const user = await Invitation.findOne({ userid });
 
-      if (!isMatch) {
-          return res.status(400).json({ msg: 'Invalid password' });
-      }
+  if (!user) {
+    req.flash('errordata', 'No such User Exists as Invitation Card Provider !');
+    return res.render('addeditvendor',{userid : userid , ErrorData : ErrorData  , SubmitData : null , WarningData : null});
+  }
 
-      console.log(user);
+    if(req.body.ilocation)
+    {
+      updateFields.ilocation = req.body.ilocation;
+    }
+    if(req.body.iabout)
+    {
+      updateFields.ilocation = req.body.iabout;
+    }
+    if(req.body.iservicetype)
+    {
+      updateFields.iservicetype = req.body.iservicetype;
+    }
+    if(req.body.ishipping)
+    {
+      updateFields.ishipping = req.body.ishipping;
+    }
+    if(req.body.irange)
+    {
+      updateFields.irange = req.body.irange;
+    }
+    if(req.body.ispeciality)
+    {
+      updateFields.ispeciality = req.body.ispeciality;
+    }
+    if(req.body.iminorder)
+    {
+      updateFields.iminorder = req.body.iminorder;
+    }
+    if(req.body.iinstaurl)
+    {
+      updateFields.iinstaurl = req.body.iinstaurl;
+    }
+    if(req.body.ifburl)
+    {
+      updateFields.ifburl = req.body.ifburl;
+    }
+    if(req.body.icontact)
+    {
+      updateFields.icontact = req.body.icontact;
+    }
 
-     console.log(user._id);
-     req.session.isAuth = true;
+    if (isNaN(req.body.istart)) {
+      req.flash('infoErrorsinvupd', 'Starting Price must contain only a numeric value !!');
+      return res.redirect('/updinviteform/'+userid); // Redirect to the edit form
+    }
 
-    res.render('index');
-    //  res.redirect('/decorators');
-  } catch (err) {
-      console.error(err.message);
-      res.status(500).send('Server Error');
+
+
+    // Handle profile picture update
+    let newImageName = null;
+    if (req.files && req.files.iprofilepic) {
+      const imageUploadFile = req.files.iprofilepic;
+      newImageName = Date.now() + imageUploadFile.name;
+      const uploadPath = require('path').resolve('./') + '/public/uploads/' + newImageName;
+
+      imageUploadFile.mv(uploadPath, function (err) {
+        if (err) return res.status(500).send(err);
+      });
+    }
+
+    // Handle portfolio image update
+    const existingPortfolio = user.iportfolio || [];
+    let pimages = req.files?.iportfolio || [];
+    const portfolio = existingPortfolio.slice();
+
+    if (pimages.length > 0) {
+      pimages.forEach((image) => {
+        const newPortfolioName = Date.now() + image.name;
+        const puploadPath = require('path').resolve('./') + '/public/uploads/' + newPortfolioName;
+
+        image.mv(puploadPath, function (err) {
+          if (err) return res.status(500).send(err);
+        });
+        portfolio.push({ url: newPortfolioName });
+      });
+    }
+
+    if (newImageName) {
+      updateFields.iprofilepic = newImageName;
+    }
+
+    if (portfolio.length > 0) {
+      updateFields.iportfolio = portfolio;
+    }
+
+
+    const updatedDocument = await Invitation.updateOne({ userid }, { $set: updateFields });
+
+    if (updatedDocument) {
+      req.flash('subdata', 'Invitation Card Provider updated successfully !!');
+      return res.render('addeditvendor' , {userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null}); // Redirect to a success page or home page
+    } 
+    else {
+      req.flash('infoErrorsinvupd', 'An error occurred while updating your information!!');
+      return res.redirect('/updinviteform/'+userid);
+    }
+  } catch (error) {
+    console.log(error);
+    req.flash('infoErrorsinvupd', 'Error Occurred !!');
+    return res.redirect('/updinviteform/'+userid); // Redirect to the edit form
   }
 };
+
+/**Delete Invitation */
+exports.delInvite = async(req,res) => {
+const userid = req.params.id;
+const ErrorData = req.flash('errordata');
+const SubmitData = req.flash('subdata');
+const WarningData = req.flash('warndata');
+
+
+try {
+  const result = await Invitation.findOne({userid});
+
+  if (!result) {
+    req.flash('errordata','No User Found as Invitation Card Provider !!');
+    return res.render('addeditvendor', {userid : userid , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+  }
+
+  await Invitation.deleteOne({ userid });
+  req.flash('subdata','Invitation Card Provider Deleted Successfully !!');
+  return res.render('addeditvendor', {userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null});
+
+} catch (error) {
+  console.log(error);
+  req.flash('errordata', 'Error Occurred While Deleting Invitation Card Provider!!');
+  return res.render('addeditvendor', {userid : userid , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+}
+};
+
+
+
+
+
+
 
 
 

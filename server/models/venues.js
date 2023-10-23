@@ -164,7 +164,7 @@ const venueSchema = new mongoose.Schema({
   averageRating: {
     type: Number,
     default: 0
-  }
+  },
 
 });
 // venueSchema.index({ name: 'text', description: 'text' });

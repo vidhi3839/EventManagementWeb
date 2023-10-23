@@ -2,31 +2,24 @@ const express = require('express');
 const router = express.Router();
 const eventsController = require('../controllers/eventsController');
 const isAuth = require('../middleware/user');
-const multer = require('multer');
 const mongoose = require('mongoose');
 
-
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-      cb(null, '../../public/uploads/');
-    },
-    filename: (req, file, cb) => {
-      cb(null, file.originalname);
-    },
-  });
-  
-  const upload = multer({ storage: storage });
-  
-  const Image = mongoose.model('Image', {
-    filename: String,
-  });
 /**
  * App Routes 
 */
 
 router.get('/', eventsController.homepage );
+
+/* Signup Form and Function*/
 router.get('/signup', eventsController.signup);
-router.post('/signup', eventsController.registerUserOnPost);
+router.post('/signupnew', eventsController.signupnew);
+
+/* Login Form and Function*/
+router.get('/login', eventsController.login);
+router.post('/loginnew',eventsController.loginnew);
+
+/* Logout Function*/
+router.get('/logout',eventsController.logout);
 
 
 // Register venue
@@ -94,35 +87,101 @@ router.get('/delete-entertainer/:id', eventsController.deleteEntertainer);
 
 router.get('/packages', eventsController.explorePackages );
 router.get('/packages/:id',eventsController.packageName);
-// router.get('/decorators',eventsController.exploreDecorators);
-router.get('/decorators/:id', eventsController.exploreDecorator );
+
+
+
+
+/** Add Decorator Form */
+router.get('/adddecorform/:id',eventsController.openDecorform);
+
+/** Add Decorator on Post */
+router.post('/addcaterer/:id', eventsController.addCaterer);
+
+/** Update Decorator Form */
+router.get('/upddecorform/:id',eventsController.openDecorupdform);
+
+/** Update Decorator on Post */
+router.post('/updcaterer/:id', eventsController.updCaterer);
+
+/** Delete Decorator on Post */
+router.get('/deletecaterer/:id',eventsController.delCaterer);
+
+/** Explore Decorators */
+router.get('/decorators',isAuth,eventsController.exploreDecorators);
+
+/** Explore Particular Decorator*/
+router.get('/decorators/:id',isAuth, eventsController.exploreDecorator );
+
+/** Search Decorator */
+router.get('/searchdecor',isAuth, eventsController.searchDecor);
+
+/** Filter Decorator */
+router.get('/filterdecor',isAuth,eventsController.filterDecor);
+
+/** Rate Decorator */
+router.post('/decorupdateRating/:id',isAuth, eventsController.decorupdateRating);
+
+
+/** Add Caterer Form */
+router.get('/addcatererform/:id',eventsController.openCatererform);
+
+/** Add Caterer on Post */
+router.post('/adddecor/:id', eventsController.addDecor);
+
+/** Update Caterer Form */
+router.get('/updcatererform/:id',eventsController.openCatererupdform);
+
+/** Update Caterer on Post */
+router.post('/upddecor/:id', eventsController.updDecor);
+
+/** Delete Caterer on Post */
+router.get('/deletedecor/:id',eventsController.delDecor);
+
+/** Explore Caterer */
 router.get('/caterers' ,isAuth, eventsController.exploreCaterers);
-router.get('/caterers/:id', eventsController.exploreCaterer );
-router.get('/invitations' , eventsController.exploreInvites);
-router.get('/invitations/:id', eventsController.exploreInvite );
-router.post('/updateRating/:id', eventsController.updateRating);
-router.post('/decorupdateRating/:id', eventsController.decorupdateRating);
-router.post('/catererupdateRating/:id', eventsController.catererupdateRating);
-router.get('/searchinvite', eventsController.searchInvite);
-router.get('/searchdecor', eventsController.searchDecor);
-router.get('/searchcaterer', eventsController.searchCaterer);
-router.get('/filterinvite',eventsController.filterInvite);
-router.get('/filterdecor',eventsController.filterDecor);
-router.get('/filtercaterer',eventsController.filterCaterer);
 
-// router.get('/signup', eventsController.signupPage);
-router.post('/signup', eventsController.signup);
+/** Explore Particular Caterer*/
+router.get('/caterers/:id',isAuth, eventsController.exploreCaterer );
 
-// router.get('/login', eventsController.loginPage);
-router.post('/login',eventsController.login);
+/** Search Caterer */
+router.get('/searchcaterer',isAuth, eventsController.searchCaterer);
 
-// router.get('/dashboard', eventsController.dashboard);
-// router.get('/logout', eventsController.logout);
+/** Filter Caterer */
+router.get('/filtercaterer',isAuth,eventsController.filterCaterer);
+
+/** Rate Caterer */
+router.post('/catererupdateRating/:id',isAuth, eventsController.catererupdateRating);
 
 
-// router.get('/submit-package', eventsController.submitPackage );
-// // router.post('/submit-package', eventsController.updateonsubmitPackage );
+
+/** Add Invite Form */
+router.get('/addinviteform/:id',eventsController.openform);
+
+/** Add Invite on Post */
+router.post('/addinvite/:id', eventsController.addInvite);
+
+/** Update Invite Form */
+router.get('/updinviteform/:id',eventsController.openupdform);
+
+/** Update Invite on Post */
+router.post('/updinvite/:id', eventsController.updInvite);
+
+/** Delete Invite on Post */
+router.get('/deleteinvite/:id',eventsController.delInvite);
+
+/** Explore Invitations */
+router.get('/invitations' ,isAuth, eventsController.exploreInvites);
+/** Explore Particular Invite*/
+router.get('/invitations/:id',isAuth, eventsController.exploreInvite );
+
+/** Search Invite */
+router.get('/searchinvite',isAuth, eventsController.searchInvite);
+
+/** Filter Invite */
+router.get('/filterinvite',isAuth,eventsController.filterInvite);
+
+/** Rate Invite */
+router.post('/updateRating/:id',isAuth, eventsController.updateRating);
 
 module.exports = router;
 
-// https://chat.openai.com/share/4376ac94-f9a4-4413-93b8-1e8f8dbfb029

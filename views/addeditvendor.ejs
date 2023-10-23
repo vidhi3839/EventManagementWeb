@@ -24,25 +24,49 @@
 
     <!--------------Icons-------------------->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../public/css/style.css">
+    <!-- <link rel="stylesheet" href="../public/css/style.css"> -->
+    <link rel="stylesheet" href="/css/form.css">
+
   
 </head>
 <body>
     <header class="adminhead">
-        <p style="text-align: left;">Admin Dashboard</p>        <a href="/" style="color:white"><i class="fa fa-home" aria-hidden="true"></i></a>
+        <p style="text-align: left;">Vendor Dashboard</p>        <a href="/" style="color:white">Go to Home <i class="fa fa-home" aria-hidden="true"></i></a>
 
     </header>
+
+    <!-- <% if(userid) { %>
+        <%=userid%>
+    <% } %> -->
+
+    <div class="row">
+      <% if(ErrorData) { %>
+          <div class="col-12 alert alert-danger" role="alert">
+              <%= ErrorData %>
+          </div>
+      <% } else if (SubmitData) { %>
+          <div class="col-12 alert alert-success" role="alert">
+              <%= SubmitData %>
+          </div>
+      <% } else if (WarningData) { %>
+          <div class="col-12 alert alert-warning" role="alert">
+              <%= WarningData %>
+          </div>
+      <% } %>
+    </div>
     <div id="accordion">
 
         <div class="card">
           <div class="card-header">
             <a class="btn" data-bs-toggle="collapse" href="#packages">
-             Add New Package
+             Packages
             </a>
           </div>
           <div id="packages" class="collapse" data-bs-parent="#accordion">
             <div class="card-body">
-              Lorem ipsum..
+              <!-- <button><a href="/addcatererform/<%=userid%>">Add</a></button>
+                <button><a href="/updcatererform/<%=userid%>">Update</a></button>
+                <button><a href="/deletecaterer/<%=userid%>">Delete</a></button> -->
             </div>
           </div>
         </div>
@@ -50,12 +74,14 @@
         <div class="card">
           <div class="card-header">
             <a class="collapsed btn" data-bs-toggle="collapse" href="#venue">
-              Add New Venue
+              Venue
             </a>
           </div>
           <div id="venue" class="collapse" data-bs-parent="#accordion">
             <div class="card-body">
-              Lorem ipsum..
+              <!-- <button><a href="/addcatererform/<%=userid%>">Add</a></button>
+                <button><a href="/updcatererform/<%=userid%>">Update</a></button>
+                <button><a href="/deletecaterer/<%=userid%>">Delete</a></button> -->
             </div>
           </div>
         </div>
@@ -63,12 +89,14 @@
         <div class="card">
           <div class="card-header">
             <a class="collapsed btn" data-bs-toggle="collapse" href="#caterer">
-              Add New Caterer
+              Caterer
             </a>
           </div>
           <div id="caterer" class="collapse" data-bs-parent="#accordion">
             <div class="card-body">
-              Lorem ipsum..
+                <button class="btn btn-info btn-lg"><a href="/addcatererform/<%=userid%>">Add</a></button>
+                <button class="btn btn-info btn-lg"><a href="/updcatererform/<%=userid%>">Update</a></button>
+                <button class="btn btn-info btn-lg"><a href="/deletecaterer/<%=userid%>">Delete</a></button>
             </div>
           </div>
         </div>
@@ -76,12 +104,14 @@
         <div class="card">
             <div class="card-header">
               <a class="btn" data-bs-toggle="collapse" href="#entertainment">
-                Add New Entertainment Provider 
+                Entertainment Provider 
               </a>
             </div>
             <div id="entertainment" class="collapse" data-bs-parent="#accordion">
               <div class="card-body">
-                Lorem ipsum..
+                <!-- <button><a href="/addcatererform/<%=userid%>">Add</a></button>
+                <button><a href="/updcatererform/<%=userid%>">Update</a></button>
+                <button><a href="/deletecaterer/<%=userid%>">Delete</a></button> -->
               </div>
             </div>
           </div>
@@ -89,12 +119,14 @@
           <div class="card">
             <div class="card-header">
               <a class="btn" data-bs-toggle="collapse" href="#photographer">
-                Add New Photographer
+                Photographer
               </a>
             </div>
             <div id="photographer" class="collapse" data-bs-parent="#accordion">
               <div class="card-body">
-                Lorem ipsum..
+                <!-- <button><a href="/addcatererform/<%=userid%>">Add</a></button>
+                <button><a href="/updcatererform/<%=userid%>">Update</a></button>
+                <button><a href="/deletecaterer/<%=userid%>">Delete</a></button> -->
               </div>
             </div>
           </div>
@@ -102,12 +134,14 @@
           <div class="card">
             <div class="card-header">
               <a class="btn" data-bs-toggle="collapse" href="#decorator">
-                Add New Decorator
+                Decorator
               </a>
             </div>
             <div id="decorator" class="collapse" data-bs-parent="#accordion">
               <div class="card-body">
-                Lorem ipsum..
+                <button class="btn btn-info btn-lg"><a href="/adddecorform/<%=userid%>">Add</a></button>
+                <button class="btn btn-info btn-lg"><a href="/upddecorform/<%=userid%>">Update</a></button>
+                <button class="btn btn-info btn-lg"><a href="/deletedecor/<%=userid%>">Delete</a></button>
               </div>
             </div>
           </div>
@@ -115,13 +149,17 @@
           <div class="card">
             <div class="card-header">
               <a class="btn" data-bs-toggle="collapse" href="#invitation">
-                Add New Invitation Card Provider
+                Invitation Card Provider
               </a>
             </div>
             <div id="invitation" class="collapse" data-bs-parent="#accordion">
               <div class="card-body">
-                Lorem ipsum..
-              </div>
+
+             <button class="btn btn-info btn-lg"><a href="/addinviteform/<%=userid%>">Add</a></button>
+             <button class="btn btn-info btn-lg"><a href="/updinviteform/<%=userid%>">Update</a></button>
+             <button class="btn btn-info btn-lg"><a href="/deleteinvite/<%=userid%>">Delete</a></button>
+               
+            </div>
             </div>
           </div>
       

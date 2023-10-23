@@ -167,14 +167,17 @@
     border-radius: 5px;
 }
 
-.deet-container .container .tab-content input[type="text"]{
+.deet-container .container .tab-content input[type="text"], input[type="textarea"]{
+    border-radius: 10px;
     border: none;
     outline:none;
     border-bottom: 2px solid lightgray;
-    padding-bottom: 10px;
     width:70%;
     font-size: 18px;
-    background: transparent;
+    background: white;
+    padding:15px;
+    margin-bottom: 10px;
+    font-family: 'Nunito';
 }
 
 .deet-container .container .tab-content input[type="date"]{

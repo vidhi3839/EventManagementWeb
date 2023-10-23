@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Event Management System</title>
+    <title>Dream Stories</title>
     <link rel="icon" type="image-icon" href="images/logo.ico">
     <!-------------Bootstrap CSS------------->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -79,7 +79,8 @@
         }
 
         .input-field input,
-        .button-field button {
+        .button-field button,
+        .input-field select{
             background: transparent;
             border-radius: 5px;
             height: 100%;
@@ -89,6 +90,14 @@
             outline: none;
             padding: 0px 40px;
             color: rgb(255, 255, 255);
+        }
+
+        .input-field option{
+            color: #000000;
+        }
+
+        .input-field select{
+            color: lightslategrey;
         }
 
         .input-field input:focus {
@@ -108,14 +117,16 @@
 
         .input-field i.email,
         .input-field i.pw_lock,
-        .input-field i.name {
+        .input-field i.name,
+        .input-field i.role{
             left: 5px;
             color: gray;
         }
 
         .input-field input:focus~i.email,
         .input-field input:focus~i.pw_lock,
-        .input-field input:focus~i.name {
+        .input-field input:focus~i.username,
+        .input-field input:focus~i.role {
             color: rgba(255, 255, 255, 0.349);
         }
 
@@ -183,7 +194,7 @@
 
 <body>
     <div class="container form">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="/signupnew" method="POST">
             <div class="form-header">
                 <h5 class="form-title">Sign Up</h5>
 
@@ -200,27 +211,51 @@
 
                                 <% if(infoErrorsObj !='' ) { %>
                                     <div class="col-12 alert alert-danger" role="alert">
-                                        <%= infoErrorsObj[0].message %>
+                                        <%= infoErrorsObj %>
                                     </div>
                                     <% } %>
                     </div>
                 </div>
                 <div class="field input-field">
-                    <input type="text" id="name" placeholder="Name" name="name" class="form-input">
+                    <input type="text" id="username" placeholder="Name" name="username" class="form-input">
                     <i class="fa fa-user name"></i>
+                    <p class="username_warning" style="display:block; color: white;"></p>
                 </div>
+
                 <div class="field input-field">
                     <input type="text" id="email" placeholder="Email" name="email" class="form-input">
                     <i class="fa fa-envelope email"></i>
+                    <span class="email_warning" style="display: none; color: white;"></span>
                 </div>
+
+                <div class="field input-field">
+                    <select id="role" name="role" class="form-input">
+                        <option value="" disabled selected>Role</option>
+                        <option value="user">User</option>
+                        <option value="vendor">Vendor</option>
+                    </select>
+                    <p class="role_warning" style=" display:block;color: white;"></p>
+                    <i class="fa fa-solid fa-plus role"></i>
+                </div>
+
+                <!-- <div class="field" style="display: flex;align-items:flex-start;justify-content:space-around;">
+                    <p style="color: white;">Choose Role :</p>
+                    <input type="radio" id="user" name="role" value="User" >
+                    <label for="user" style="color: white;">User</label>
+                    <input type="radio" id="vendor" name="role" value="Vendor">
+                    <label for="vendor" style="color: white;">Vendor</label>
+                </div> -->
 
                 <div class="field input-field">
                     <input type="password" id="password" name="password" placeholder="Create password"
                         class="form-password">
                     <i class="fa fa-lock pw_lock"></i>
                     <i class="fa fa-eye-slash pw_hide" onclick="showHide()"></i>
+                    <small id="passwordHelpBlock" class="form-text" style="color:gray;">
+                        Your password must be atleast 8 characters long, contain  atleast 1 lowercase,uppercase,digit and special character.
+                      </small>
                 </div>
-
+<br>
                 <div class="field input-field">
                     <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm password" class="form-password">
                     <i class="fa fa-lock pw_lock"></i>
@@ -232,11 +267,12 @@
                     <button id="signup1" type="submit">Signup</button>
                 </div>
                 <div class="form-link">
-                    <span>Already have an account? <a href="#" class="link login-link" id="login">Login</a></span>
+                    <span>Already have an account? <a href="/login" class="link login-link" id="login">Login</a></span>
                 </div>
         </form>
     </div>
-    <div class="form-footer" style="display: flex; flex-direction: column;">
+    <div class="form-footer" style="display: flex;justify-content: center;">
+        <a href="/" style="color: white;"> <span style="color: #ffffff;">Go to Home</span>&nbsp;&nbsp;<i class="fa fa-home"></i></a>
 
     </div>
     <script src="/js/script.js" type="text/js"></script>

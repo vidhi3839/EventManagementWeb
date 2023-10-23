@@ -35,11 +35,11 @@
         <a href="/" class="navbar-logo"><img src="/images/logo.png" alt="" width="100%" height="100%"></a>
 
         <nav class="navbar navigation-bar">
-            <a href="#"><i class="fa fa-glass"></i>Food & Beverages</a>
+            <a href="/caterers"><i class="fa fa-glass"></i>Food & Beverages</a>
             <a href="/photographers"><i class="fa fa-image"></i>Photographers</a>
             <a href="/entertainers"><i class="fa fa-film"></i>Entertainers</a>
-            <a href="#"><i class="fa fa-star"></i>Decoraters</a>
-            <a href="#" style="border: none;"><i class="fa fa-gift"></i>e-Invitaton Card</a>
+            <a href="/decorators"><i class="fa fa-star"></i>Decoraters</a>
+            <a href="/invitations" style="border: none;"><i class="fa fa-gift"></i>e-Invitaton Card</a>
 
         </nav>
 
@@ -77,7 +77,7 @@
                 <%venueList.forEach(venues=>{%>
                     <div class="col-md-4 col-sm-2 column">
                         <div class="service-figure">
-                            <img src="/uploads/<%= venue.profilePhoto%>" alt="" class="services-img">
+                            <img src="/uploads/<%= venues.profilePhoto%>" alt="" class="services-img">
                             <button onclick="favourite()"><i class="fa fa-heart favourites"></i></button>
                         </div>
                         <div class="service-brief">

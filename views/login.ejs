@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Stories</title>
+    <link rel="icon" type="image-icon" href="images/logo.ico">
+    <!-------------Bootstrap CSS------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <!-------------jQuery-------------------->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <!-------------Bootstrap js-------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+    <!--------------Icons-------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="/css/Ems.css"> -->
+    <style>
+        body {
+            background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);            
+            background-size: cover;
+            background-attachment: fixed;
+            }
+
+        .form {
+            margin-top:10%;
+            width: 40%;
+            padding: 25px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0px 8px 32px rgba(0, 0, 0,0.37);
+            background:linear-gradient(135deg,rgba(255,255,255,0.1),rgba(255,255,255,0)) ;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+
+        .form-content {
+            height: 500px;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #ffffff57;
+            border: none;
+        }
+
+        .form .field {
+            position: relative;
+            height: 40px;
+            width: 100%;
+            margin-top: 30px;
+            border-radius: 6px;
+            border-bottom: 1px solid black;
+        }
+
+
+        .form-title {
+            font-size: 22px;
+            color: black;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .form-close {
+            transform: translateX(450%);
+            position: relative;
+        }
+
+        .input-field input,
+        .button-field button
+        {
+            background: transparent;
+            border-radius: 5px;
+            height: 100%;
+            width: 100%;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            padding: 0px 40px;
+            color:black;
+        }
+
+        .input-field input:focus {
+            background: #ffffff2c;
+        }
+
+        .input-field span {
+            margin: 2px 0px 2px 0px;
+        }
+
+        .input-field i {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+
+        .input-field i.email,
+        .input-field i.pw_lock
+        {
+            left: 5px;
+            color: gray;
+        }
+
+        .input-field input:focus~i.email,
+        .input-field input:focus~i.pw_lock
+        {
+            color: black;
+        }
+
+        .input-field i.pw_hide {
+            right: 3%;
+            color: gray;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .button-field {
+            position: relative;
+            height: 40px;
+            width: 100%;
+            margin-top: 30px;
+            border-radius: 6px;
+            border-bottom: none;
+        }
+
+        .button-field button {
+            color: #000000;
+            background-color: lightskyblue;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            border-radius:  50px;
+            padding: 5px;
+            border: none;
+        }
+
+        .button-field button:hover {
+            background-color:blue;
+            color: white;
+        }
+
+        .form-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .form-link span,
+        .form-link a {
+            font-size: 17px;
+            font-weight: 500;
+            color: #fdfdfd;
+
+        }
+
+        .form a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .form-content a:hover {
+            text-decoration: underline;
+        }
+
+
+        @media screen and (max-width: 400px) {
+            .form {
+                padding: 20px 10px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container form">
+        <form action="/loginnew" method="POST">
+            <div class="form-header">
+                <h5 class="form-title">Sign In</h5>
+
+            </div>
+
+            <div class="form-body" style="display: flex; flex-direction: column;">
+                <div class="container">
+                    <div class="row">
+                        <% if(infoSubmitObject !='' ) { %>
+                            <div class="col-12 alert alert-success" role="alert">
+                                <%= infoSubmitObject %>
+                            </div>
+                            <% } %>
+
+                                <% if(infoErrorsObject !='' ) { %>
+                                    <div class="col-12 alert alert-danger" role="alert">
+                                        <%= infoErrorsObject %>
+                                    </div>
+                                    <% } %>
+                    </div>
+                </div>
+
+                <div class="field input-field">
+                    <input type="text" id="email" placeholder="Enter Email" name="email" class="form-input">
+                    <i class="fa fa-envelope email"></i>
+                    <span class="email_warning" style="display: none; color: white;"></span>
+                </div>
+
+                <div class="field input-field">
+                    <input type="password" id="password" name="password" placeholder="Enter Password"
+                        class="form-password">
+                    <i class="fa fa-lock pw_lock"></i>
+                    <i class="fa fa-eye-slash pw_hide" onclick="showHide()"></i>
+                    <p class="password_condition" style="font-size: 10px; color: white;"></p>
+
+                </div>
+
+
+                <div class="button-field">
+
+                    <button id="signup1" type="submit">Sign In</button>
+                </div>
+                <div class="form-link">
+                    <span style="color: black;">Don't have an account? <a href="/signup" class="link signup-link" id="signup">Sign Up</a></span>
+                </div>
+        </form>
+    </div>
+    <div class="form-footer" style="display: flex;justify-content: center;">
+        <a href="/" style="color: #000000;"><span>Go to Home</span>&nbsp;&nbsp;<i class="fa fa-home"></i></a>
+    </div>
+    <script src="/js/script.js" type="text/js"></script>
+</body>
+
+</html>

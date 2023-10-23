@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 
+const imageSchema = new mongoose.Schema({
+    url: String // You can store the image URLs here
+});
+
 const decorSchema = new mongoose.Schema({
     dname:{
         type:String,
@@ -50,6 +54,23 @@ const decorSchema = new mongoose.Schema({
         type:String,
         required:'This field is required'
     },
+    dinstaurl:{
+        type:String,
+        default:'N/A'
+    },
+    dfburl:{
+        type:String,
+        default:'N/A'
+    },
+    dcontact:{
+        type:String,
+        default:'N/A'
+    },
+    userid:{
+        type:String,
+        required : 'This field is required'
+    },
+    dportfolio:[imageSchema],
 });
 
 module.exports = mongoose.model('Decorator',decorSchema);

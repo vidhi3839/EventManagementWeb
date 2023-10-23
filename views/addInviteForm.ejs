@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Stories</title>
+    <link rel="icon" type="image-icon" href="images/logo.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+
+    <!-------------Bootstrap CSS------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-------------jQuery-------------------->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-------------Bootstrap js-------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <!--------------Icons-------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+    <style>
+       body{
+        background-color: aliceblue;
+       }
+
+       .card{
+        width:60%;
+        font-family: 'Nunito';
+        font-size: 20px;
+        margin: auto;
+        padding:20px;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 20px;
+        box-shadow: 0px 8px 32px rgba(0,0,0,0.37);
+       }
+
+       .card h2{
+        text-align: center;
+        margin: 7%;
+        font-size: 30px;
+       }
+
+       .card label{
+        margin-bottom: 10px;
+        font-size: 23px;
+       }
+
+       .card small{
+        font-size:17px;
+       }
+
+       .card input[type='text'],textarea,input[type='file']{
+        margin-bottom: 10px;
+       }
+
+       .card .btncss{
+        margin-top: 3%;
+        padding:10px;
+        font-size: 20px;
+        transition: 1s ease;
+       }
+
+       .card .btncss:hover{
+        transform: scale(1.1);
+       }
+
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Add Details for the New Invitation Card Provider</h2>
+        <p><%= userid %></p>
+        <form action="/addinvite/<%=userid%>" method="POST" enctype="multipart/form-data">
+            <div class="container">
+                <div class="row">
+                    <% if(infoSubmitObjinv !='' ) { %>
+                        <div class="col-12 alert alert-success" role="alert">
+                            <%= infoSubmitObjinv %>
+                        </div>
+                        <% } %>
+
+                            <% if(infoErrorsObjinv !='' ) { %>
+                                <div class="col-12 alert alert-danger" role="alert">
+                                    <%= infoErrorsObjinv %>
+                                </div>
+                                <% } %>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="decorator-name">Name of the Firm:</label>
+                <input type="text" id="decorator-name" name="iname" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="ilocation" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="starting-price">Starting Price:</label>
+                <br>
+                <small>(Add the starting price - minimum price for the products available)</small>
+                <input type="text" id="starting-price" name="istart" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <br>
+                <small>(Add some description about your Firm)</small>
+                <textarea id="description" name="iabout" rows="4" required class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="year-of-operation">Year of Operation:</label>
+                <br>
+                <small>(Add the year in which the firm started)</small>
+                <input type="text" id="year-of-operation" name="iyearop" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="service-type">Service Type:</label>
+                <br>
+                <small>(Add the services you provide)</small>
+                <input type="text" id="service-type" name="iservicetype" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="range">Range:</label>
+                <br>
+                <small>(Add the price range you provide for your products)</small>
+                <input type="text" id="range" name="irange" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="shipping">Shipping:</label>
+                <br>
+                <small>(Add where do you provide shipping - can be city,state or even international)</small>
+                <input type="text" id="shipping" name="ishipping" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="speciality">Speciality:</label>
+                <br>
+                <small>(Add the specialities you provide)</small>
+                <input type="text" id="speciality" name="ispeciality" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="minorder">Minimum Order:</label>
+                <br>
+                <small>(Add the minimum number of orders you take up)</small>
+                <input type="text" id="minorder" name="iminorder" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="since">With Dream Stories Since:</label>
+                <br>
+                <small>(Add current year)</small>
+                <input type="text" id="since" name="isince" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="instaurl">Add Instagram Url:</label>
+                <input type="text" id="instaurl" name="iinstaurl" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="fburl">Add Facebook Url:</label>
+                <input type="text" id="fburl" name="ifburl" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="call">Add Contact:</label>
+                <input type="text" id="call" name="icontact" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="profile-picture">Profile Picture:</label>
+                <br>
+                <small>(Add the image you want to display as your profile picture , users would see this first)</small>
+                <input type="file" id="profile-picture" name="iprofilepic" accept="image/*" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="portfolio">Add Portfolio:</label>
+                <br>
+                <small>(Add only images to showcase your work , multiple images allowed)</small>
+                <input type="file" id="portfolio" name="iportfolio" accept="image/*" multiple required class="form-control">
+            </div>
+           
+            <button type="submit" class="btn btn-primary btncss">Add Invitation Card Provider</button>
+        </form>
+    </div>
+</body>
+</html>
