@@ -1,97 +1,69 @@
 const mongoose = require('mongoose');
 
 const packagesSchema = new mongoose.Schema({
+  pkgcmpyname:{
+    type: String,
+    // required: 'This field is required.'
+  },
   pkgname: {
     type: String,
-    required: 'This field is required.'
+    //required: 'This field is required.'
   },  
   apImg:{
     type: String,
-    required: 'This field is required.'
+   // required: 'This field is required.'
   },
-  bItemList:{
-    type: Object,
-    basicItem:{
-      type: String,
-      required:'This field is required.'
-    },
-    basicPrice:{
-      type:String,
-      required:'This field is required.'
-    }
-  },
+  bItemList:[{
+    basicItem:String,
+    basicPrice:String
+  }]
+ ,
   totalBasicPrice:{
     type:String,
-    required:'This field is required'
+    //required:'This field is required'
   },
 
-  bDesList:{
-    type: Object,
-    basicDesTitle:{
-      type: String,
-      required:'This field is required.'
-    },
-    basicDes:{
-      type:String,
-      required:'This field is required.'
-    }
-  },
-  pItemList:{
-    type: Object,
-    premiumItem:{
-      type: String,
-      required:'This field is required.'
-    },
-    premiumPrice:{
-      type:String,
-      required:'This field is required.'
-    }
-  },
+  bDesList:[{
+    basicDesTitle:String,
+    basicDes:String
+  }]
+  ,
+  pItemList:[{
+    premiumItem:String,
+    premiumPrice:String
+  }]
+  ,
   totalPremiumPrice:{
     type:String,
-    required:'This field is required'
+   // required:'This field is required'
   },
-  pDesList:{
-    type: Object,
-    premiumDesTitle:{
-      type: String,
-      required:'This field is required.'
-    },
-    premiumDes:{
-      type:String,
-      required:'This field is required.'
-    }
-  },
-  uItemList:{
-    type: Object,
-    ultimateItem:{
-      type: String,
-      required:'This field is required.'
-    },
-    ultimatePrice:{
-      type:String,
-      required:'This field is required.'
-    }
-  },
+  pDesList:[{
+    premiumDesTitle:String,
+    premiumDes:String
+  }]
+ ,
+  uItemList:[{
+    ultimateItem: String,
+    ultimatePrice: String
+  }]
+ ,
   totalUltimatePrice:{
     type:String,
-    required:'This field is required'
+  //  required:'This field is required'
   },
-  uDesList:{
-    type: Object,
-    ultimateDesTitle:{
-      type: String,
-      required:'This field is required.'
-    },
-    ultimateDes:{
-      type:String,
-      required:'This field is required.'
-    }
-  }
+  uDesList:[{
+    ultimateDesTitle: String,
+    ultimateDes: String
+  }],
+  userid:{
+    type:String,
+   // required : 'This field is required'
+}
+  
 
 });
 
 
-
+packagesSchema.index({ "$**" : 'text' });
 
 module.exports = mongoose.model('Packages', packagesSchema);

@@ -105,8 +105,18 @@ router.get('/delete-entertainer/:id', eventsController.deleteEntertainer);
 
 
 
+router.get('/packages/edit/:id', eventsController.packagesEdit);
+router.post('/packages/edit/:id', eventsController.packagesEditPost);
 router.get('/packages', eventsController.explorePackages );
 router.get('/packages/:id',eventsController.packageName);
+
+router.get('/packages-form/:id', eventsController.submitPackages );
+router.post('/packages-form/:id', eventsController.updateonsubmitPackage );
+
+router.get('/delete-packages/:id', eventsController.deletePackages);
+router.get('/packages/add-list/:id', eventsController.addPackagesList);
+router.post('/packages/add-list/:id', eventsController.addPackagesListOnPost);
+router.get('/packages/del-list/:id/:pid', eventsController.delPackagesList);
 
 
 
@@ -202,6 +212,12 @@ router.get('/filterinvite',isAuth,eventsController.filterInvite);
 
 /** Rate Invite */
 router.post('/updateRating/:id',isAuth, eventsController.updateRating);
+
+
+//reviews
+router.get('/reviews', eventsController.exploreReviews);
+router.get('/reviews/:id', eventsController.exploreReviewsById);
+router.post('/index', eventsController.submitReviews );
 
 module.exports = router;
 
