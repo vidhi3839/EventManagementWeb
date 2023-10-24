@@ -4681,10 +4681,10 @@ exports.submitReviews = async (req, res) => {
   try {
     let date = new Date();
     let dt = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
-  {
+    
+    {
     const newReview = new Review({
-      userid:req.params.id,
-      username: req.user.username,
+  
       userRating: req.body.rating,
       userRatingDes: req.body.describe,
       reviewDate: dt,

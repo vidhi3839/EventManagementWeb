@@ -6,7 +6,7 @@ const reviewSchema = new mongoose.Schema({
   //  required: 'This field is required.'
   },
   userRating: {
-    type: String,
+    type: Number,
     required: 'This field is required.'
   },
   userRatingDes: {
