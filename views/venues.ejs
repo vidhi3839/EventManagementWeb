@@ -316,7 +316,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="filter-topics  col-lg-3   col-sm-6">
+                        <!-- <div class="filter-topics  col-lg-3   col-sm-6">
                             <h5>Rental Cost</h5>
                             <div class="options">
                                 <div class="row filter-rows">
@@ -352,7 +352,7 @@
                                     <div class="col-7">&gt= &nbsp; <i class="fa fa-inr"></i>500000</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="filter-topics  col-lg-3   col-sm-6">
                             <h5>Venue Type</h5>
                             <div class="options">
@@ -369,10 +369,10 @@
                                     <div class="col-7">Banquet Halls</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Lawns/Farmhouse" type="radio"
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Lawns,Farms" type="radio"
                                             name="venue_type" id="poolside">
                                     </div>
-                                    <div class="col-7">Lawns/Farmhouses</div>
+                                    <div class="col-7">Lawns/Farmhouse</div>
                                 </div>
                                 <div class="row filter-rows">
                                     <div class="col-md-3 col-sm-2 col-2"><input value="Resort" type="radio"
@@ -516,17 +516,7 @@
 
             // Redirect the user to the URL with the search input as a route parameter
             window.location.href = `/venues/search/${searchInput}`;
-            // const searchForm = document.getElementById('searchForm');
-            // if (currentPath.startsWith('/venues/service-events/')) {
-            //     // If the current route is /photographer/search/:searchInput
-            //     const eventInput = currentPath.substring('/venues/service-events/'.length);
-            //     searchForm.action = null;
-            // }
-            // else {
-            //     // If the current route is /photographer
-            //     const eventInput = currentPath.substring('/venues/search/'.length);
-            //     searchForm.action = `/venues/search/${searchInput}`;
-            // }
+         
         });
 
 

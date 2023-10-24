@@ -270,12 +270,12 @@
                                             <div class="col-12">
                                             <% if(infoSubmitObj !='' ) { %>
                                                 <div class="col-sm-6 alert alert-success" style="text-align: center;">
-                                                    <%= infoSubmitObj %>
+                                                    <%= infoSubmitObj[0].message %>
                                                 </div>
                                                 <% } %>
                                             </div>
                                             <div class="col-12">
-                                                    <% if(infoErrorsObj !='' ) { %>
+                                                    <% if(infoErrorsObj  !='') { %>
                                                         <div class="col-12 alert alert-danger" role="alert">
                                                             <%= infoErrorsObj[0].message %>
                                                         </div>
@@ -461,13 +461,13 @@
 
                             <div class="TabViews fcol f-space-between">
                                 <div class="Portfolio ">  <%console.log(photographer.photos)%>
-                                    <%if(photographer.photos.length > 0){%>
+                                    <%if(photographer.portfolioPhotos != ''){%>
                                       
                                     <div class="row">
-                                        <%photographer.photos.forEach(photo=>{%>
+                                        <%photographer.porfolioPhotos.forEach(photo=>{%>
                                         <div class="col-md-3"><img id="vendor-portfolio-pic-0"
                                                 class="img-thumbnail images-thumbnail"
-                                                src="/uploads/<%= photo%>"
+                                                src="/uploads/<%= photo.url%>"
                                                 alt="portfolio-pic" loading="lazy">
                                         </div>
                                         <%})%>

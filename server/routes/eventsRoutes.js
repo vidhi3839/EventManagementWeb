@@ -23,15 +23,15 @@ router.get('/logout',eventsController.logout);
 
 
 // Register venue
-router.get('/register-venue', eventsController.registerVenue);
-router.post('/register-venue',eventsController.registerVenueOnPost);
+router.get('/register-venue/:id', eventsController.registerVenue);
+router.post('/register-venue/:id',eventsController.registerVenueOnPost);
 // explore venue
 router.get('/venues',isAuth, eventsController.exploreVenues );
-router.get('/venues/search/:searchInput', eventsController.searchVenue);
-router.get('/venues/service-events/:events', eventsController.eventVenue);
-router.get('/venues/:id', eventsController.exploreVenue);
-router.post('/venues/:id', eventsController.rateVenue);
-router.post('/venues/:id/enquire', eventsController.enquireVenue);
+router.get('/venues/search/:searchInput' ,isAuth, eventsController.searchVenue);
+router.get('/venues/service-events/:events' ,isAuth, eventsController.eventVenue);
+router.get('/venues/:id',isAuth, eventsController.exploreVenue);
+router.post('/venues/:id',isAuth,  eventsController.rateVenue);
+router.post('/venues/:id/enquire',isAuth,  eventsController.enquireVenue);
 // Update venue
 router.get('/venues/edit/:id', eventsController.venuesEdit);
 router.post('/venues/edit/:id', eventsController.venuesEditPost);
@@ -39,6 +39,10 @@ router.post('/venues/edit/:id', eventsController.venuesEditPost);
 router.get('/venues/add-services/:id', eventsController.addVenueServices);
 router.post('/venues/add-services/:id', eventsController.addVenueServicesOnPost);
 router.get('/venues/del-service/:id/:service', eventsController.delVenueService);
+// Add and delete food
+ router.get('/venues/add-food/:id', eventsController.addVenueFood);
+ router.post('/venues/add-food/:id', eventsController.addVenueFoodOnPost);
+ router.get('/venues/del-food/:id/:pid', eventsController.delVenueFood);
 // Add and delete venue halls
 router.get('/venues/add-hall/:id', eventsController.addVenueHall);
 router.post('/venues/add-hall/:id', eventsController.addVenueHallOnPost);
@@ -56,14 +60,14 @@ router.get('/delete-venue/:id', eventsController.deleteVenue);
 
 
 // Register photographer
-router.get('/register-photographer', eventsController.registerPhotographer);
-router.post('/register-photographer',eventsController.registerPhotographerOnPost);
+router.get('/register-photographer/:id', eventsController.registerPhotographer);
+router.post('/register-photographer/:id',eventsController.registerPhotographerOnPost);
 // Explore photographer
 router.get('/photographers',isAuth, eventsController.explorePhotographers );
-router.get('/photographers/search/:searchInput', eventsController.searchPhotographer);
-router.get('/photographers/:id', eventsController.explorePhotographer );
-router.post('/photographers/:id', eventsController.ratePhotographer);
-router.post('/photographers/:id/enquire', eventsController.enquirePhotographer);
+router.get('/photographers/search/:searchInput',isAuth,  eventsController.searchPhotographer);
+router.get('/photographers/:id',isAuth,  eventsController.explorePhotographer );
+router.post('/photographers/:id' ,isAuth, eventsController.ratePhotographer);
+router.post('/photographers/:id/enquire',isAuth,  eventsController.enquirePhotographer);
 // Update photographer
 router.get('/photographers/edit/:id', eventsController.photographersEdit);
 router.post('/photographers/edit/:id', eventsController.photographersEditPost);
@@ -80,15 +84,15 @@ router.get('/delete-photographer/:id', eventsController.deletePhotographer);
 
 
 // Register entertainer
-router.get('/register-entertainer', eventsController.registerEntertainer);
-router.post('/register-entertainer',eventsController.registerEntertainerOnPost);
+router.get('/register-entertainer/:id', eventsController.registerEntertainer);
+router.post('/register-entertainer/:id',eventsController.registerEntertainerOnPost);
 // Explore entertainer
 router.get('/entertainers',isAuth, eventsController.exploreEntertainers );
-router.get('/entertainers/search/:searchInput', eventsController.searchEntertainer);
-router.get('/entertainers/type/:type', eventsController.eventEntertainer);
-router.get('/entertainers/:id', eventsController.exploreEntertainer);
-router.post('/entertainers/:id', eventsController.rateEntertainer);
-router.post('/entertainers/:id/enquire', eventsController.enquireEntertainer);
+router.get('/entertainers/search/:searchInput',isAuth,  eventsController.searchEntertainer);
+router.get('/entertainers/type/:type',isAuth,  eventsController.eventEntertainer);
+router.get('/entertainers/:id',isAuth,  eventsController.exploreEntertainer);
+router.post('/entertainers/:id',isAuth,  eventsController.rateEntertainer);
+router.post('/entertainers/:id/enquire',isAuth,  eventsController.enquireEntertainer);
 // Update entertainer
 router.get('/entertainers/edit/:id', eventsController.entertainersEdit);
 router.post('/entertainers/edit/:id', eventsController.entertainersEditPost);
@@ -103,7 +107,7 @@ router.get('/entertainers/del-price/:id/:pid', eventsController.delEntertainerPr
 // Delete entertainer
 router.get('/delete-entertainer/:id', eventsController.deleteEntertainer);
 
-
+router.get('/back/:id',eventsController.back);
 
 router.get('/packages', eventsController.explorePackages );
 router.get('/packages/:id',eventsController.packageName);

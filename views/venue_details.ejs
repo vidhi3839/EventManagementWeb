@@ -107,8 +107,8 @@
                                                     </p>
                                                 </div>
                                             
-                                            <div class="col-md-5 col-sm-5 "><iframe src="<%= venue.addressUrl%>" width="100"
-                                                    height="100" style="border:1px solid gray;" allowfullscreen=""
+                                            <div class="col-md-5 col-sm-5 "><iframe src="<%= venue.addressUrl%>" width="150"
+                                                    height="150" style="border:1px solid gray;" allowfullscreen=""
                                                     loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                             </div>
                                         </div>
@@ -331,14 +331,14 @@
                                                 <% if(infoSubmitObj !='' ) { %>
                                                     <div class="col-sm-6 alert alert-success"
                                                         style="text-align: center;">
-                                                        <%= infoSubmitObj %>
+                                                        <%= infoSubmitObj[0].message %>
                                                     </div>
                                                     <% } %>
                                             </div>
                                             <div class="col-12">
                                                 <% if(infoErrorsObj !='' ) { %>
                                                     <div class="col-12 alert alert-danger" role="alert">
-                                                        <%= infoErrorsObj[0].message %>
+                                                        <%= infoErrorsObj[0].message  %>
                                                     </div>
                                                     <% } %>
                                             </div>
@@ -548,13 +548,13 @@
 
                             <div class="TabViews fcol f-space-between">
                                 <div class="Portfolio "> 
-                                    <%if(venue.photos.length > 0){%>
+                                    <%if(venue.porfolioPhotos != ''){%>
                                       
                                     <div class="row">
-                                        <%venue.photos.forEach(photo=>{%>
+                                        <%venue.portfolioPhotos.forEach(photo=>{%>
                                         <div class="col-md-3"><img id="vendor-portfolio-pic-0"
                                                 class="img-thumbnail images-thumbnail"
-                                                src="/uploads/<%= photo%>"
+                                                src="/uploads/<%= photo.url%>"
                                                 alt="portfolio-pic" loading="lazy">
                                         </div>
                                         <%})%>

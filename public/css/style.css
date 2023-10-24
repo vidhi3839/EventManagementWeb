@@ -48,8 +48,7 @@ a {
 }
 
 .header .navbar a:hover{
-    background: linear-gradient(violet,purple,violet);
-    box-shadow: 1px 1px 5px white;
+    box-shadow: 0 0 10px black, 0 0 10px white inset;
 }
 
 .login-btn{
