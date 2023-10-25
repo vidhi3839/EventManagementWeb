@@ -313,11 +313,11 @@ background: #b6b6b68f;
 }
 @media (max-width: 991px) {
   .pkg-wrapper .pkg-table{
-    width: calc(50% - 20px);
+    width: 100%;
     margin-bottom: 40px;
   }
   .pkg-wrapper a{
-    width:calc(50% -20px)
+    width:33%
   }
 }
 @media (max-width: 768px) {
@@ -385,7 +385,11 @@ background: #b6b6b68f;
 }
 .contact-form{
   background-color: #fff;
+  display:flex;
+  align-items: center;
+  justify-content: center;
   padding:40px;
+  margin: 1.2em auto;
   width:45%;
   padding-bottom:20px;
   padding-top:20px;
