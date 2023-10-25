@@ -55,7 +55,7 @@
         <div class="dropdown-menu dropdown_menu text-center" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="/signup" id="signup"><i class="fa fa-sign-in"></i>Sign Up</a>
 
-            <a class="dropdown-item" href="#"><i class="fa fa-user"></i> My Profile</a>
+            <a class="dropdown-item" href="/userProfile"><i class="fa fa-user"></i> My Profile</a>
 
             <a class="dropdown-item" href="/login" id="signin"><i class="fa fa-sign-in"></i> Sign In</a>
     
@@ -366,8 +366,13 @@
                     <h5>Rate your experience</h5>
                     <span style="background: #ffe600; height: 2px; width: 50px; margin: 5px; border: none;"></span>
                 </div>
-                <form action="/index" enctype="multipart/form-data" method="post" name="form-1" class="form-1">
-                    <div class="star-widget stars">
+                <form action="/index" enctype="multipart/form-data" method="post" name="form-1" class="form-1" style="text-align: center;">
+               
+             <div class="usernameR">
+                Post Review as:   <input type="text" name="usernameR" value="">
+             </div>
+
+                    <div class="star-widget stars" >
                         <input type="number" name="rating" hidden>
                         <i class='fa fa-star star' style="--i: 0;"></i>
                         <i class='fa fa-star star' style="--i: 1;"></i>
@@ -375,8 +380,9 @@
                         <i class='fa fa-star star' style="--i: 3;"></i>
                         <i class='fa fa-star star' style="--i: 4;"></i>
                     </div>
-
-                    <header class="form-header"></header>
+                   
+                     <header class="form-header"></header>  
+                    
                     <div class="textarea">
                         <textarea name="describe" id="describe" cols="50"
                             placeholder="Describe your experience..."></textarea>
@@ -403,8 +409,8 @@
                     <i class="fas fa-quote-left"></i>
                     <div class="review">
                         <span repeat="<%- reviews.userRating %>">★</span>
-
-                    </div>
+                       
+                       </div>
                     <p><%- reviews.userRatingDes %>
                     </p>
                     <div class="review-user">
@@ -432,7 +438,10 @@
 <!-- -------------------------------------------------------------------------- -->
 
 <script src="/js/script.js">
-         $(document).ready(function() {
+ 
+</script>
+<script>
+            $(document).ready(function() {
     $('[repeat]').each(function() {
        var toRepeat = $(this).text();
        var times = parseInt($(this).attr('repeat'));

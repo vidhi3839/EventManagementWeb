@@ -19,9 +19,11 @@ exports.homepage = async (req, res) => {
   try {
     const limitNumber = 10;
     const limitReview = 3;
+    
     const packages = await Packages.find({}).limit(limitNumber);
-    const reviews = await Review.find({}).limit(limitReview);
-    res.render('index', { packages,reviews });
+    const reviews = await Review.find({}).limit(limitReview); 
+    
+    res.render('index', { packages,reviews,});
   } catch (error) {
     res.status(500).send({message: error.message || "Error Occured" });
   }
@@ -4684,7 +4686,7 @@ exports.submitReviews = async (req, res) => {
     
     {
     const newReview = new Review({
-  
+      username:req.body.usernameR,
       userRating: req.body.rating,
       userRatingDes: req.body.describe,
       reviewDate: dt,

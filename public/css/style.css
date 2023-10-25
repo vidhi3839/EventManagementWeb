@@ -761,6 +761,7 @@ background: #b6b6b68f;
 	font-size: 2rem;
 	color:rgb(88, 88, 88);
 	margin-bottom: 1rem;
+    margin-left: 5rem;
 }
 .star-widget .star {
 	cursor: pointer;
@@ -811,6 +812,26 @@ background: #b6b6b68f;
     font-weight: 500;
     padding: 10px 0px 30px 10px;
     transition: all 0.2s ease;
+}
+
+.form-1 .usernameR input{
+    position: relative;
+    height: 100%;
+    width: 50%;
+    outline: none;
+    padding: 1%;
+    font-size: 100%;
+    resize: none;
+    background: #5e5e5ee3;
+    color: white;
+    border: 1px solid rgb(148, 147, 147);
+    border-radius: 3px;
+    transition: all .2s ease;
+    margin-left: 5px;
+}
+
+.usernameR input:hover{
+    background: #8a8a8aa2;
 }
 
 .form-1 .textarea {
