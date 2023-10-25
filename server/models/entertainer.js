@@ -1,32 +1,36 @@
 const mongoose = require('mongoose');
 const entertainerSchema = new mongoose.Schema({
-   date:{
-       type: Date,
-       default: Date.now
-   },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  userid: {
+    type: String,
+    required: 'This field is required'
+  },
   name: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
   address: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
-  location:{
+  location: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
-  addressUrl:{
-      type: String,
+  addressUrl: {
+    type: String,
     default: 'N/A'
   },
   about: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
-  contact:{
+  contact: {
     type: String,
-   // required: 'This field is required.',
+    // required: 'This field is required.',
     validate: {
       validator: contactValidate,
       message: props => `${props.value} Invalid contact number.`
@@ -34,68 +38,73 @@ const entertainerSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-   // required: 'This field is required.',
+    // required: 'This field is required.',
     unique: true,
     validate: {
       validator: emailValidate,
       message: props => `${props.value} must have @ sign,domain must be one or more lowercase letters, numbers, underscores, dots, or hyphens.. and then another (escaped) dot, with the extension being 2 to 63 letters or dots`
     }
   },
-  entertainer_type:{
+  entertainer_type: {
     type: String,
-   // required: 'This field is required.'
-  } ,
-  services: {
-    type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
-  eventsManaged:{
+  services: [{
+    type: String,
+    // required: 'This field is required.'
+  }],
+  eventsManaged: {
     type: Number,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
   since: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
-  payment_terms:{
+  payment_terms: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
   experience: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
-  budget:{
-    type:Number,
-   // required: 'This field is required.'
+  budget: {
+    type: Number,
+    // required: 'This field is required.'
   },
   travelCost: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
-  instaUrl:{
-      type: String,
+  instaUrl: {
+    type: String,
     default: 'N/A'
   },
-  fbUrl:{
-      type: String,
+  fbUrl: {
+    type: String,
     default: 'N/A'
   },
   prices: [{
-    event:{
-    type: String,
-   // required: 'This field is required.'
+    event: {
+      type: String,
+      // required: 'This field is required.'
     },
-    price:{
+    price: {
       type: Number,
-   // required: 'This field is required.'
+      // required: 'This field is required.'
     }
-}],
+  }],
 
-  portfolioPhoto: {
+  profilePhoto: {
     type: String,
-   // required: 'This field is required.'
+    // required: 'This field is required.'
   },
+  portfolioPhotos: [{
+    url: {
+      type: String
+    }
+  }],
   ratings: [{
     user_id: {
       type: String
@@ -104,7 +113,7 @@ const entertainerSchema = new mongoose.Schema({
       type: Number
     }
   }],
-  averageRating:{
+  averageRating: {
     type: Number,
     default: 0
   }
@@ -112,12 +121,12 @@ const entertainerSchema = new mongoose.Schema({
 });
 // entertainerSchema.index({ name: 'text', description: 'text' });
 // WildCard Indexing
-entertainerSchema.index({ "$**" : 'text' });
+entertainerSchema.index({ "$**": 'text' });
 
 
 
 function contactValidate(value) {
-  var contact = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+  var contact = /^\d{10}$/;
   if (!contact.test(value)) {
     return false;
   }

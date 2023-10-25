@@ -4,6 +4,9 @@ const photographerSchema = new mongoose.Schema({
   date:{
     type: Date,
     default: Date.now
+}, userid:{
+  type:String,
+  required : 'This field is required'
 },
   name: {
     type: String,
@@ -42,10 +45,10 @@ const photographerSchema = new mongoose.Schema({
       message: props => `${props.value} must have @ sign,domain must be one or more lowercase letters, numbers, underscores, dots, or hyphens.. and then another (escaped) dot, with the extension being 2 to 63 letters or dots`
     }
   },
-  services_offer: [{
+  services_offer: {
     type: String,
     // required: 'This field is required.'
-  }],
+  },
   services: [{
     type: String,
     // required: 'This field is required.' 
@@ -106,8 +109,10 @@ const photographerSchema = new mongoose.Schema({
     type: String,
     // required: 'This field is required.'
   },
-  photos: [{
-    type: String,
+  portfolioPhotos: [{
+    url: {
+      type: String
+    }
   }],
   ratings: [{
     user_id: {
@@ -129,7 +134,7 @@ photographerSchema.index({ "$**" : 'text' });
 
 
 function contactValidate(value) {
-  var contact = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+  var contact = /^\d{10}$/;
   if (!contact.test(value)) {
     return false;
   }

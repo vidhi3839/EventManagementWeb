@@ -24,7 +24,7 @@
 
 <body>
     <div class="container form-container">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <div>
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <img src="/images/logo3-removebg-preview.png" alt="" width="100px" height="100px"
@@ -62,7 +62,7 @@
                         <h6>Name of Venue:</h6>
                     </div>
                     <div class="col-sm-9"><input type="text" class="form-control" name="name" id="name" placeholder=" "
-                            title="name"></div>
+                            title="name" required></div>
                 </div>
 
                 <div class="row rows erow ">
@@ -70,7 +70,7 @@
                         <h6>Address:</h6>
                     </div>
                     <div class="col-sm-9"><textarea class="form-control" name="address" id="address" placeholder=" "
-                            title="address"></textarea>
+                            title="address" required></textarea>
                     </div>
                 </div>
 
@@ -79,7 +79,7 @@
                         <h6>Location:</h6>
                     </div>
                     <div class="col-sm-9"><input class="form-control" type="text" name="location" id="location"
-                            placeholder=" " title="Location">
+                            placeholder=" " title="Location" required>
                     </div>
                 </div>
 
@@ -95,7 +95,7 @@
                             <h6>Address Map URL</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="address-url" id="address-url" class="form-control"
+                    <div class="col-sm-9"><input type="text" name="addressUrl" id="address-url" class="form-control"
                             cols="83" rows="5">
                     </div>
                 </div>
@@ -105,7 +105,7 @@
                         <h6>About:</h6>
                     </div>
                     <div class="col-sm-9"><textarea name="about" class="form-control" id="about" cols="83"
-                            rows="5"></textarea>
+                            rows="5" required></textarea>
                     </div>
                 </div>
 
@@ -113,7 +113,7 @@
                     <div class="col-sm-3">
                         <h6>Contact:</h6>
                     </div>
-                    <div class="col-sm-9"><input type="tel" class="form-control" name="contact" title="contact">
+                    <div class="col-sm-9"><input type="tel" class="form-control" name="contact" title="contact" required>
                     </div>
                 </div>
 
@@ -121,7 +121,7 @@
                     <div class="col-sm-3">
                         <h6>Email:</h6>
                     </div>
-                    <div class="col-sm-9"><input type="email" class="form-control" name="email" title="email">
+                    <div class="col-sm-9"><input type="email" class="form-control" name="email" title="email" required>
                     </div>
                 </div>
 
@@ -141,7 +141,7 @@
                             <div class="row rows" style="border-radius: 0; width: 100%; justify-content: center;">
 
                                 <div class="col-6"><input type="text" name="services" class="form-control"
-                                        title="Services">
+                                        title="Services" required>
 
                                 </div>
                             </div>
@@ -167,14 +167,14 @@
                     <div class="col-sm-3">
                         <h6>How long been on Dream Stories:</h6>
                     </div>
-                    <div class="col-sm-9"><input type="text" class="form-control" name="since" title="since">
+                    <div class="col-sm-9"><input type="text" class="form-control" name="since" title="since" required>
                     </div>
                 </div>
                 <div class="row rows irow">
                     <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
                         <h6>Venue Type:</h6>
                        <input type="text" name="venue_type" class="form-control"
-                                title="Venue Type" id="venue_type">
+                                title="Venue Type" id="venue_type" required>
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex; justify-content: center; align-items: center;">
@@ -191,13 +191,13 @@
                     <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
                         <h6>Starting plate/hall price:</h6>
                         <input type="text" class="form-control" name="starting_price" title="Starting food/hall price:"
-                            size="40px">
+                            size="40px" required>
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex;  justify-content: center; align-items: center;">
                         <h6>Starting price for rooms</h6>
                         <input type="text" class="form-control" name="room_start_price" title="Room Start Price"
-                            size="40px">
+                            size="40px" required>
                     </div>
                 </div>
 
@@ -205,7 +205,7 @@
                     <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
                         <h6>Small Party Venue:</h6>
                         <input type="text" class="form-control" name="small_party" title="Small Party Venue"
-                            size="40px">
+                            size="40px" required>
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex;  justify-content: center; align-items: center;">
@@ -217,7 +217,7 @@
                 <div class="row rows krow">
                     <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
                         <h6>Maximum Guests Capacity:</h6>
-                        <input type="text" class="form-control" name="guests" title="Maximum Guests" size="40px">
+                        <input type="text" class="form-control" name="guests" title="Maximum Guests" size="40px" required>
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex;  justify-content: center; align-items: center;">
@@ -230,12 +230,12 @@
                     <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
                         <h6>Space:</h6>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" class="form-control"
-                            name="space" title="Space">
+                            name="space" title="Space" required>
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex;  justify-content: center; align-items: center;">
                         <h6>Room Count:</h6>
-                        <input type="text" class="form-control" name="room_count" title="Room Count" size="40px">
+                        <input type="text" class="form-control" name="room_count" title="Room Count" size="40px" required>
                     </div>
                 </div>
 
@@ -474,7 +474,7 @@
                     </div>
                     <div class="col-sm-7">
 
-                        <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                        <input type="file" name="image" id="image" class="form-control" accept="image/*" required>
                         <label for="image" id="drop-area">
 
                             <!--  <input type="file" name="profile-phot class="form-control"o" id="profile-photo"
@@ -493,18 +493,20 @@
 
                 <div class="row rows trow">
                     <div class="col-sm-5">
-                        <p>Photos</p>
+                        <h6>Photos</h6>
                     </div>
                     <div class="col-sm-7">
-
+                        <label for="photos">
+                            <input type="file" name="photos" id="photos" class="form-control"
+                                accept="image/jpeg, image/jpg, image/png" multiple>
+                        </label>
+                        
                     </div>
                 </div>
 
-
                 <div class="row rows urow">
                     <div class="col-sm-3"></div>
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4"> <button type="submit" class="button" id="submit">Submit</button>
+                    <div class="col-sm-4"> <button type="submit" class="button" id="submit"><i class="fa fa-check post"></i>Submit</button>
                     </div>
                 </div>
             </div>
@@ -515,7 +517,108 @@
     </div>
 
 
-    <script src="/js/form.js">
+    <script>
+        
+
+        const dropArea = document.querySelector("#drop-area"),
+        imageView = document.querySelector(".img-view"),
+        image = document.querySelector("#image");
+
+    image.addEventListener("change", function (e) {
+        let imgLink = URL.createObjectURL(image.files[0]);
+        imageView.style.backgroundImage = `url(${imgLink})`;
+        imageView.textContent = "";
+        imageView.style.border = 0;
+    })
+    dropArea.addEventListener("dragover", function (e) {
+        e.preventDefault();
+    });
+    dropArea.addEventListener("drop", function (e) {
+        e.preventDefault();
+        image.files = e.dataTransfer.files;
+
+        image.addEventListener("change", function (e) {
+            let imgLink = URL.createObjectURL(image.files[0]);
+            imageView.style.backgroundImage = `url(${imgLink})`;
+            imageView.textContent = "";
+            imageView.style.border = 0;
+        })
+    });
+
+    let addMoreServicesBtn = document.querySelector("#add-more-services");
+    let addMoreServicesList = document.querySelector('.add-more-services-list');
+    let addMoreServicesDiv = document.querySelectorAll('.add-more-services-div')[0];
+
+    addMoreServicesBtn.addEventListener('click', function () {
+        let newHalls = addMoreServicesDiv.cloneNode(true);
+        let input = newHalls.getElementsByTagName('input')[0];
+        input.value = '';
+        addMoreServicesList.appendChild(newHalls);
+    });
+
+    
+    //add more input field for halls/packages prices
+
+    
+    let addMoreButton = document.querySelector("#add-more-button");
+    let addMore = document.querySelector('.add-more');
+    let addMoreDivision = document.querySelectorAll('.add-more-division')[0];
+
+    addMoreButton.addEventListener('click', function () {
+        let newItem = addMoreDivision.cloneNode(true);
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+            input[i].value = '';}
+        addMore.appendChild(newItem);
+    });
+
+      
+    //add more input field for food prices
+
+    
+    let addMoreFoodButton = document.querySelector("#add-food-button");
+    let addMoreFood = document.querySelector('.add-more-food');
+    let addMoreFoodDivision = document.querySelectorAll('.add-more-food-division')[0];
+
+    addMoreFoodButton.addEventListener('click', function () {
+        let newItem = addMoreFoodDivision.cloneNode(true);
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+        input[i].value = '';}
+        addMoreFood.appendChild(newItem);
+    });
+
+
+    //add more input field for event decor prices
+
+    
+    let addMoreDecorButton = document.querySelector("#add-more-decor-button");
+    let addMoreDecor = document.querySelector('.add-more-decor-price');
+    let addMoreDecorDivision = document.querySelectorAll('.add-more-decor-division')[0];
+
+    addMoreDecorButton.addEventListener('click', function () {
+        let newItem = addMoreDecorDivision.cloneNode(true);
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+            input[i].value = '';}
+        addMoreDecor.appendChild(newItem);
+    });
+
+      
+    //add more input field for room prices
+
+    
+    let addMoreRoomButton = document.querySelector("#add-more-room-button");
+    let addMoreRoom = document.querySelector('.add-more-room-price');
+    let addMoreRoomDivision = document.querySelectorAll('.add-more-room-division')[0];
+
+    addMoreRoomButton.addEventListener('click', function () {
+        let newItem = addMoreRoomDivision.cloneNode(true);
+        let input = newItem.getElementsByTagName('input');
+        for(let i=0; i< input.length; i++){
+            input[i].value = '';}
+        addMoreRoom.appendChild(newItem);
+    });
 
     </script>
 </body>
