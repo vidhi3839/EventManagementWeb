@@ -24,10 +24,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
   <link rel="stylesheet" href="/css/package-pricing.css">
   <script src="/js/script.js">
-     let pkgTotalPrice= new Array();
-     pkgTotalPrice=document.getElementById('pkg-basic-price').nodeValue;
-     console.log(pkgTotalPrice)
+     
   </script>
+   <script type="text/javascript">
+    (function(){
+        emailjs.init("uNhx_iGsOh1tSUkb0");
+      })();
+    </script>
 </head>
 
 <body>
@@ -292,7 +295,7 @@
             <span>Mobile number</span>
         </div>
           <div class="input-box">
-              <input type="email" id="mail" required="false">
+              <input type="email" id="mail" required="true">
               <span>Email</span>
           </div>
           <div class="input-box">
@@ -309,25 +312,42 @@
         </div>
   </div>
  
-  <script>     
+  <script>   
+  (function(){
+        emailjs.init("uNhx_iGsOh1tSUkb0");
+      })();  
     function sendEmail(){
        
-       var params={
-       from_name : document.getElementById("name").value,
-       mno : document.getElementById("mno").value,
-       mail: document.getElementById("mail").value,
-       pkgname: document.getElementById("pname").value,
-       message: document.getElementById("message").value,
-      };
-      if(from_name=='' || mno=='' || pkgname==''){
-        alert("Fill name, contact number and package name compulsorily")
+    try {
+      var fname=document.getElementById("name").value;
+      var sname=document.getElementById("sname").value;
+      var mno=document.getElementById("mno").value;
+      var mail=document.getElementById("mail").value;
+      var pname=document.getElementById("pname").value;
+      var message=document.getElementById("message").value;
+
+      if(fname=='' || mno=='' || mail=='' || pname=='' ||message==''){
+        alert("Fill all the details");
       }
-      emailjs.send("service_ns4ekvp","template_gdvjcu8",params).then(function (res){
+      else{
+        var params={
+          from_name : fname,
+       mno : mno,
+       mail: mail,
+       pname: pname,
+       message:message
+        };
+        emailjs.send("service_ns4ekvp","template_gdvjcu8",params).then(function (res){
        
-       alert("successfully sent!");
-      })
-      
+       alert("Successfully sent! A call will come within an hour!!");
+      });
+      }
     }
+    catch(err){
+      console.log(err);
+      alert(err);
+    }
+  }
 
       </script>  
 </body>
