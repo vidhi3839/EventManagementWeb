@@ -920,7 +920,9 @@ exports.registerVenue = async (req, res) => {
 exports.registerVenueOnPost = async (req, res) => {
   const userid = req.params.id;
   try {
-
+    const ErrorData = req.flash('errordata');
+    const SubmitData = req.flash('subdata');
+    const WarningData = req.flash('warndata');
     let imageUploadFile;
     let uploadPath;
     let newImageName;
@@ -1062,8 +1064,8 @@ exports.registerVenueOnPost = async (req, res) => {
     req.flash('subdata', 'Organisation has been registered.')
     res.render('addeditvendor', { userid: userid, ErrorData: null, SubmitData: SubmitData, WarningData: null });
   } catch (error) {
-    req.flash('infoErrors', error);
-    res.redirect('/register-venue/' + `${userid}`);
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/register-venue/'+ `${userid}`);
   }
 }
 
@@ -1092,7 +1094,8 @@ exports.venuesEdit = async (req, res) => {
 
   }
   catch (err) {
-    res.status(500).send(err)
+    req.flash('errordata', 'Error Occured !!');
+    return res.render('addeditvendor', { userid: userid, ErrorData: ErrorData, SubmitData: null, WarningData: null });
   }
 }
 
@@ -1102,9 +1105,10 @@ exports.venuesEdit = async (req, res) => {
 */
 
 exports.venuesEditPost = async (req, res) => {
-  try {
-    const userid = req.params.id;
+  const userid = req.params.id;
 
+  try {
+    
     let imageUploadFile;
     let uploadPath;
     let newImageName;
@@ -1251,27 +1255,31 @@ exports.venuesEditPost = async (req, res) => {
     res.redirect('/venues/edit/' + `${userid}`)
 
   }
-  catch (err) {
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
 
 exports.addVenueServices = async (req, res) => {
+   const userid = req.params.id;
   try {
-    const userid = req.params.id;
+   
     const venue = await Venue.findOne({userid});
     res.render('addVenueService', { venue })
   }
   catch (error) {
-    res.send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
 
-exports.delVenueService = async (req, res) => {
+exports.delVenueService = async (req, res) => {  
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+  
     const service = req.params.service;
     const venue = await Venue.findOne({userid});
 
@@ -1283,16 +1291,17 @@ exports.delVenueService = async (req, res) => {
     res.redirect('/venues/edit/' + `${userid}`);
 
   }
-  catch (err) {
-    req.flash('infoErrors', err);
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
 
 exports.addVenueServicesOnPost = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+    
 
     await Venue.findOneAndUpdate(
       { userid },
@@ -1310,8 +1319,8 @@ exports.addVenueServicesOnPost = async (req, res) => {
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    res.status(500).send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1322,17 +1331,23 @@ exports.addVenueServicesOnPost = async (req, res) => {
 */
 exports.addVenueHall = async (req, res) => {
   const userid = req.params.id;
+  try{
   const venue = await Venue.findOne({ userid })
-  res.render('addVenueHalls', { venue })
+  res.render('addVenueHalls', { venue })}
+  catch(error){
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
+  }
 }
 
 /**
  * POST /venues/add-hall/:id
  * photographer-add-halls
 */
-exports.addVenueHallOnPost = async (req, res) => {
+exports.addVenueHallOnPost = async (req, res) => { 
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+   
     const { hall_name, hall_space, hall_seating, hall_floating, hall_price } = req.body;
 
     const hallsToAdd = [];
@@ -1368,8 +1383,8 @@ exports.addVenueHallOnPost = async (req, res) => {
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    res.status(500).send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1378,9 +1393,10 @@ exports.addVenueHallOnPost = async (req, res) => {
  * POST /venues/del-hall/:id/:pid
  * photographer-hall-delete
 */
-exports.delVenueHall = async (req, res) => {
+exports.delVenueHall = async (req, res) => { 
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+   
     const hallId = req.params.pid;
     const venue = await Venue.findOne({ userid });
 
@@ -1392,9 +1408,9 @@ exports.delVenueHall = async (req, res) => {
     res.redirect('/venues/edit/' + `${userid}`);
 
   }
-  catch (err) {
-    req.flash('infoErrors', err);
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1405,8 +1421,14 @@ exports.delVenueHall = async (req, res) => {
 */
 exports.addVenueRoom = async (req, res) => {
   const userid = req.params.id;
+  try{
+  
   const venue = await Venue.findOne({ userid })
-  res.render('addVenueRooms', { venue })
+  res.render('addVenueRooms', { venue })}
+  catch(error){
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
+  }
 }
 
 /**
@@ -1414,8 +1436,9 @@ exports.addVenueRoom = async (req, res) => {
  * photographer-add-rooms
 */
 exports.addVenueRoomOnPost = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+    
     const { room_name, room_price } = req.body;
 
     const roomsToAdd = [];
@@ -1448,8 +1471,8 @@ exports.addVenueRoomOnPost = async (req, res) => {
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    res.status(500).send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1458,9 +1481,10 @@ exports.addVenueRoomOnPost = async (req, res) => {
  * POST /venues/del-room/:id/:pid
  * photographer-rooms-delete
 */
-exports.delVenueRoom = async (req, res) => {
+exports.delVenueRoom = async (req, res) => { 
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+   
     const roomId = req.params.pid;
     const venue = await Venue.findOne({ userid });
 
@@ -1472,9 +1496,9 @@ exports.delVenueRoom = async (req, res) => {
     res.redirect('/venues/edit/' + `${userid}`);
 
   }
-  catch (err) {
-    req.flash('infoErrors', error);
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1486,8 +1510,14 @@ exports.delVenueRoom = async (req, res) => {
 */
 exports.addVenueFood= async (req, res) => {
   const userid = req.params.id;
+  try{
+  
   const venue = await Venue.findOne({ userid })
-  res.render('addVenueFood', { venue })
+  res.render('addVenueFood', { venue })}
+  catch(error){
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
+  }
 }
 
 /**
@@ -1495,8 +1525,9 @@ exports.addVenueFood= async (req, res) => {
  * photographer-add-food
 */
 exports.addVenueFoodOnPost = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+    
     const { food_type, food_price } = req.body;
 
     const foodsToAdd = [];
@@ -1529,8 +1560,8 @@ exports.addVenueFoodOnPost = async (req, res) => {
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    res.status(500).send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1539,9 +1570,10 @@ exports.addVenueFoodOnPost = async (req, res) => {
  * POST /venues/del-room/:id/:pid
  * photographer-rooms-delete
 */
-exports.delVenueFood = async (req, res) => {
+exports.delVenueFood = async (req, res) => { 
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+   
     const foodId = req.params.pid;
     const venue = await Venue.findOne({ userid });
 
@@ -1553,9 +1585,9 @@ exports.delVenueFood = async (req, res) => {
     res.redirect('/venues/edit/' + `${userid}`);
 
   }
-  catch (err) {
-    req.flash('infoErrors', err);
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1565,8 +1597,13 @@ exports.delVenueFood = async (req, res) => {
 */
 exports.addVenueDecor = async (req, res) => {
   const userid = req.params.id;
+  try{
   const venue = await Venue.findOne({ userid })
-  res.render('addVenueDecor', { venue })
+  res.render('addVenueDecor', { venue })}
+  catch(error){
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
+  }
 }
 
 /**
@@ -1574,8 +1611,9 @@ exports.addVenueDecor = async (req, res) => {
  * photographer-add-halls
 */
 exports.addVenueDecorOnPost = async (req, res) => {
-  try {
     const userid = req.params.id;
+  try {
+  
     const { event, decor_price } = req.body;
 
     const decorsToAdd = [];
@@ -1608,9 +1646,8 @@ exports.addVenueDecorOnPost = async (req, res) => {
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    console.log(error)
-    res.status(500).send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1619,9 +1656,10 @@ exports.addVenueDecorOnPost = async (req, res) => {
  * POST /venues/del-package/:id/:pid
  * photographer-packages-delete
 */
-exports.delVenueDecor = async (req, res) => {
+exports.delVenueDecor = async (req, res) => { 
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+   
     const decorId = req.params.pid;
     const venue = await Venue.findOne({ userid });
 
@@ -1633,9 +1671,9 @@ exports.delVenueDecor = async (req, res) => {
     res.redirect('/venues/edit/' + `${userid}`);
 
   }
-  catch (err) {
-    req.flash('infoErrors', err);
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/venues/edit/'+ `${userid}`);
   }
 }
 
@@ -1954,7 +1992,10 @@ exports.registerPhotographer = async (req, res) => {
 exports.registerPhotographerOnPost = async (req, res) => { 
    const userid = req.params.id;
   try {
-  
+    const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
+
     let imageUploadFile;
     let uploadPath;
     let newImageName;
@@ -2051,7 +2092,7 @@ exports.registerPhotographerOnPost = async (req, res) => {
     req.flash('subdata', 'Photographer Registered!')
     res.render('addeditvendor', { userid: userid, ErrorData: null, SubmitData: SubmitData, WarningData: null });
   } catch (error) {
-    req.flash('infoErrors', error);
+    req.flash('infoErrors',[{ message: `${error}`}]);
     res.redirect('/register-photographer/'+ `${userid}`);
   }
 }
@@ -2078,7 +2119,8 @@ exports.photographersEdit = async (req, res) => {
 
   }
   catch (err) {
-    res.status(500).send(err)
+    req.flash('errordata', 'Error Occured !!');
+      return res.render('addeditvendor', { userid: userid, ErrorData: ErrorData, SubmitData: null, WarningData: null });
   }
 }
 
@@ -2087,9 +2129,10 @@ exports.photographersEdit = async (req, res) => {
  * photographer-updation
 */
 
-exports.photographersEditPost = async (req, res) => {
+exports.photographersEditPost = async (req, res) => { 
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+   
 
     let imageUploadFile;
     let uploadPath;
@@ -2189,26 +2232,30 @@ exports.photographersEditPost = async (req, res) => {
     res.redirect('/photographers/edit/' + `${userid}`)
 
   }
-  catch (err) {
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/photographers/edit/'+ `${userid}`);
   }
 }
 
 exports.addPhotographersServices = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+    
     const photographer = await Photographer.findOne({userid});
     res.render('addPhotographerServices', { photographer })
   }
   catch (error) {
-    res.send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/photographers/edit/'+ `${userid}`);
   }
 }
 
 
 exports.delPhotographersService = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+    
     const service = req.params.service;
     const photographer = await Photographer.findOne({userid});
 
@@ -2220,16 +2267,16 @@ exports.delPhotographersService = async (req, res) => {
     res.redirect('/photographers/edit/' + `${userid}`);
 
   }
-  catch (err) {
-    req.flash('infoErrors', err);
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/photographers/edit/'+ `${userid}`);
   }
 }
 
 
-exports.addPhotographersServicesOnPost = async (req, res) => { const userid = req.params.id;
+exports.addPhotographersServicesOnPost = async (req, res) => {
+   const userid = req.params.id;
   try {
-   
 
     await Photographer.findOneAndUpdate(
       { userid },
@@ -2247,8 +2294,8 @@ exports.addPhotographersServicesOnPost = async (req, res) => { const userid = re
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    res.redirect('/photographers/edit/' + `${userid}`)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/photographers/edit/'+ `${userid}`);
   }
 }
 
@@ -2259,8 +2306,13 @@ exports.addPhotographersServicesOnPost = async (req, res) => { const userid = re
 */
 exports.addPhotographersPackages = async (req, res) => {
   const userid = req.params.id;
+  try{
   const photographer = await Photographer.findOne({userid})
-  res.render('addPhotographerPackage', { photographer })
+  res.render('addPhotographerPackage', { photographer })}
+  catch(error){
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/photographers/edit/'+ `${userid}`);
+  }
 }
 
 /**
@@ -2268,8 +2320,9 @@ exports.addPhotographersPackages = async (req, res) => {
  * photographer-add-packages
 */
 exports.addPhotographersPackagesOnPost = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+    
     const { package_name, package_price } = req.body;
 
     const packagesToAdd = [];
@@ -2302,8 +2355,8 @@ exports.addPhotographersPackagesOnPost = async (req, res) => {
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    res.status(500).send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/photographers/edit/'+ `${userid}`);
   }
 }
 
@@ -2326,10 +2379,9 @@ exports.delPhotographersPackage = async (req, res) => { const userid = req.param
     res.redirect('/photographers/edit/' + `${userid}`);
 
   }
-  catch (err) {
-    req.flash('infoErrors', err);
-    res.redirect('/photographers/edit/' + `${userid}`);
-
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/photographers/edit/'+ `${userid}`);
   }
 }
 
@@ -2827,6 +2879,9 @@ exports.registerEntertainer = async (req, res) => {
 exports.registerEntertainerOnPost = async (req, res) => {
   const userid = req.params.id;
   try {
+    const ErrorData = req.flash('errordata');
+    const SubmitData = req.flash('subdata');
+    const WarningData = req.flash('warndata');
     
     let imageUploadFile;
     let uploadPath;
@@ -2931,8 +2986,7 @@ exports.registerEntertainerOnPost = async (req, res) => {
     req.flash('subdata', 'Organisation has been registered.')
     res.render('addeditvendor', { userid: userid, ErrorData: null, SubmitData: SubmitData, WarningData: null });
   } catch (error) {
-    req.flash('infoError', error);
-    console.log(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
     res.redirect('/register-entertainer/'+ `${userid}`);
   }
 }
@@ -2944,6 +2998,7 @@ exports.registerEntertainerOnPost = async (req, res) => {
  * entertainer-details-update
 */
 exports.entertainersEdit = async (req, res) => {
+  const userid = req.params.id;
   try {
     const infoErrorsObj = req.flash('infoErrors');
     const infoSubmitObj = req.flash('infoSubmit');
@@ -2951,7 +3006,7 @@ exports.entertainersEdit = async (req, res) => {
   const SubmitData = req.flash('subdata');
   const WarningData = req.flash('warndata');
 
-    const userid = req.params.id;
+    
 
     const entertainer = await Entertainer.findOne({ userid });
 
@@ -2963,7 +3018,8 @@ exports.entertainersEdit = async (req, res) => {
 
   }
   catch (err) {
-    res.status(500).send(err)
+    req.flash('errordata', 'Error Occured!!');
+      return res.render('addeditvendor', { userid: userid, ErrorData: ErrorData, SubmitData: null, WarningData: null });
   }
 }
 
@@ -2972,9 +3028,10 @@ exports.entertainersEdit = async (req, res) => {
  * entertainer-updation
 */
 
-exports.entertainersEditPost = async (req, res) => {
+exports.entertainersEditPost = async (req, res) => { 
+   const userid = req.params.id;
   try {
-    const userid = req.params.id;
+  
 
     let imageUploadFile;
     let uploadPath;
@@ -3069,8 +3126,9 @@ exports.entertainersEditPost = async (req, res) => {
     res.redirect('/entertainers/edit/' + `${userid}`)
 
   }
-  catch (err) {
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/entertainers/edit/'+ `${userid}`);
   }
 }
 
@@ -3081,17 +3139,23 @@ exports.entertainersEditPost = async (req, res) => {
 */
 exports.addEntertainerPrice = async (req, res) => {
   const userid = req.params.id;
+  try{
   const entertainer = await Entertainer.findOne({userid})
-  res.render('addEntertainerPrice', { entertainer })
+  res.render('addEntertainerPrice', { entertainer })}
+  catch(error){
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/entertainers/edit/'+ `${userid}`);
+  }
 }
 
 /**
  * POST /entertainers/add-price/:id
  * entertainer-add-prices
 */
-exports.addEntertainerPriceOnPost = async (req, res) => {
+exports.addEntertainerPriceOnPost = async (req, res) => { 
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+   
     const { event, price } = req.body;
 
     const pricesToAdd = [];
@@ -3124,8 +3188,8 @@ exports.addEntertainerPriceOnPost = async (req, res) => {
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    res.status(500).send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/entertainers/edit/'+ `${userid}`);
   }
 }
 
@@ -3133,9 +3197,10 @@ exports.addEntertainerPriceOnPost = async (req, res) => {
  * POST /entertainers/del-price/:id/:pid
  * enteratiner-prices-delete
 */
-exports.delEntertainerPrice = async (req, res) => {
+exports.delEntertainerPrice = async (req, res) => {  
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+  
     const priceId = req.params.pid;
     const entertainer = await Entertainer.findOne({userid});
 
@@ -3148,27 +3213,30 @@ exports.delEntertainerPrice = async (req, res) => {
 
   }
   catch (err) {
-    req.flash('infoErrors', err);
-    res.status(500).send(err)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/entertainers/edit/'+ `${userid}`);
   }
 }
 
 
 exports.addEntertainersServices = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+    
     const entertainer = await Entertainer.findOne({userid});
     res.render('addEntertainerService', { entertainer })
   }
   catch (error) {
-    res.send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/entertainers/edit/'+ `${userid}`);
   }
 }
 
 
 exports.delEntertainersService = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
+    
     const service = req.params.service;
     const entertainer = await Entertainer.findOne({userid});
 
@@ -3180,17 +3248,16 @@ exports.delEntertainersService = async (req, res) => {
     res.redirect('/entertainers/edit/' + `${userid}`);
 
   }
-  catch (err) {
-    req.flash('infoErrors', err);
-    res.status(500).send(err)
+  catch (error) {
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/entertainers/edit/'+ `${userid}`);
   }
 }
 
 
 exports.addEntertainersServicesOnPost = async (req, res) => {
+  const userid = req.params.id;
   try {
-    const userid = req.params.id;
-
     await Entertainer.findOneAndUpdate(
       { userid },
       {
@@ -3207,9 +3274,8 @@ exports.addEntertainersServicesOnPost = async (req, res) => {
 
   }
   catch (error) {
-    req.flash('infoErrors', error);
-    console.log(error)
-    res.status(500).send(error)
+    req.flash('infoErrors',[{ message: `${error}`}]);
+    res.redirect('/entertainers/edit/'+ `${userid}`);
   }
 }
 
@@ -3245,13 +3311,17 @@ exports.deleteEntertainer = async (req, res) => {
 
 
 exports.back = async (req,res)=>{
+  const userid = req.params.id; 
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const WarningData = req.flash('warndata');
   try{
-    const userid = req.params.id;
-      res.render('addeditvendor', { userid: userid, ErrorData: null, SubmitData: null, WarningData: null })
+   
+    res.render('addeditvendor', { userid: userid, ErrorData: null, SubmitData: null, WarningData: null })
   }
   catch(error){
-    res.status(500).send(error)
-    console.log(error)
+    req.flash('errordata', 'Error Occured!!');
+    res.render('addeditvendor', { userid: userid, ErrorData: ErrorData, SubmitData: null, WarningData: null })
   }
 }
 

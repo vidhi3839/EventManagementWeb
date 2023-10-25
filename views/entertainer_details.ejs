@@ -36,9 +36,7 @@
 
         </nav>
 
-        <div class="user-btn dropdown" id="user-btn">
-            <a> <i class="fa fa-user user-icon"></i></a>
-        </div>
+       
     </header>
 
     
@@ -64,7 +62,7 @@
                         <div class="fcol1 photographer-brief col-md-6 col-sm-12">
                             <hr>
                             <div class="main-profile-pic">
-                                <img id="vendor-profile-pic" src="images/<%=entertainer.profilePhoto%>" alt="
+                                <img id="vendor-profile-pic" src="/uploads/<%=entertainer.profilePhoto%>" alt="
                                     <%= entertainer.name%>" class="profile-pic">
 
                             </div>
@@ -118,8 +116,8 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-6"><i
-                                            class="fa fa-call"></i></div>
+                                        <div class="col-md-2 col-sm-2"><i
+                                            class="fa fa-phone"></i></div>
                                         <div class="col-md-6 col-sm-6">
                                             <p>
                                                 <%= entertainer.contact%>
@@ -128,7 +126,7 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-6"><i
+                                        <div class="col-md-2 col-sm-2"><i
                                             class="fa fa-instagram"></i></div>
                                         <div class="col-md-6 col-sm-6"><a href="<%= entertainer.instaUrl%>">
                                                 <%= entertainer.instaUrl%>
@@ -136,7 +134,7 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-6"><i
+                                        <div class="col-md-2 col-sm-2"><i
                                             class="fa fa-facebook"></i></div>
                                         <div class="col-md-6 col-sm-6"><a href="<%= entertainer.fbUrl%>">
                                                 <%= entertainer.fbUrl%>

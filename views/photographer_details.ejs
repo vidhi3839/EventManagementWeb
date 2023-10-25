@@ -37,9 +37,6 @@
 
         </nav>
 
-        <div class="user-btn dropdown" id="user-btn">
-            <a> <i class="fa fa-user user-icon"></i></a>
-        </div>
     </header>
 
     <nav aria-label="breadcrumb" class="page-location">
@@ -460,11 +457,11 @@
 
 
                             <div class="TabViews fcol f-space-between">
-                                <div class="Portfolio ">  <%console.log(photographer.photos)%>
+                                <div class="Portfolio "> 
                                     <%if(photographer.portfolioPhotos != ''){%>
                                       
                                     <div class="row">
-                                        <%photographer.porfolioPhotos.forEach(photo=>{%>
+                                        <%photographer.portfolioPhotos.forEach(photo=>{%>
                                         <div class="col-md-3"><img id="vendor-portfolio-pic-0"
                                                 class="img-thumbnail images-thumbnail"
                                                 src="/uploads/<%= photo.url%>"

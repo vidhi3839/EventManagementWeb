@@ -43,9 +43,7 @@
 
         </nav>
 
-        <div class="user-btn dropdown" id="user-btn">
-            <a> <i class="fa fa-user user-icon"></i></a>
-        </div>
+    
     </header>
 
    
@@ -98,7 +96,7 @@
                                 <span><img
                                         src="https://images.wedmegood.com/react-frontend-v4/static/media/location.417064ed.svg"
                                         alt="Location" width="10.62" height="17"></span>
-                                <p title="<%= photographers.address %>"><span><%= photographers.address %>
+                                <p title="<%= photographers.address %>"><span><%= photographers.location %>
                                     </span></p>
                             </div>
                         </a>
@@ -133,58 +131,7 @@
                 </div>
                 <% } %>   
 
-            <!-- <% if(photographerList != '') { %>
- <%photographerList.forEach(photographers=>{%>
-            <div class="col-md-4 col-sm-2 column">
-                <div class="service-figure">
-                    <img src="images/saptpadi-venue.jpg" alt="" class="services-img">
-
-                </div>
-                <div class="service-brief">
-
-                    <div class="venue-description venue-name" id="venue-name">
-                        <div>
-                            <a target="_blank" title="Saptpadi Party Plot" href="/photographer/<%= photographers._id %>">
-                                <h6><%=photographers.name %></h6>
-                            </a>
-                        </div>
-                        <div><span><i class="fa fa-star">5.0</i></span>
-                        </div>
-                    </div>
-
-                    <div class="venue-description venue-location" id="venue-location"><a href="#">
-                            <div class="location">
-                                <span><img
-                                        src="https://images.wedmegood.com/react-frontend-v4/static/media/location.417064ed.svg"
-                                        alt="Location" width="10.62" height="17"></span>
-                                <p title="Nizampura, Vadodara"><span></span><span>Vadodara</span> </p>
-                            </div>
-
-                            <div class="location">
-                                <img src="https://images.wedmegood.com/react-frontend-v4/static/media/ResortIcon.00b02371.svg"
-                                    alt="Venue" width="17" height="20">
-                                <p title="Banquet Halls, Lawns / Farmhouses">
-                                    Banquet Halls, Lawns</p>
-                            </div>
-                        </a>
-
-                    </div>
-
-                    <div class="venue-description venue-price" id="venue-price">
-                        <div>
-                            <span class="veg-food-price">
-                                Starting at <i class="fa fa-inr"></i><span><%= photographers.since%></span></span>
-
-                        </div>
-                        <div>
-                            <button class="explore">Explore More</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <%})%> 
-         <% } %> -->
+          
         </div>
     </div>
 

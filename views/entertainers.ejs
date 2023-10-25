@@ -41,9 +41,6 @@
 
         </nav>
 
-        <div class="user-btn dropdown" id="user-btn">
-            <a> <i class="fa fa-user user-icon"></i></a>
-        </div>
     </header>
 
     <div class="page-location">
@@ -137,7 +134,7 @@
                                     </a>
                                 </div>
                                 <div><span><i class="fa fa-star"></i>
-                                        <%= entertainers.rating %>
+                                        <%= entertainers.averageRating %>
                                     </span>
                                 </div>
                             </div>
@@ -149,17 +146,10 @@
                                                 src="https://images.wedmegood.com/react-frontend-v4/static/media/location.417064ed.svg"
                                                 alt="Location" width="10.62" height="17"></span>
                                         <p title=" <%= entertainers.address %>"><span>
-                                                <%= entertainers.address %>
+                                                <%= entertainers.location %>
                                             </span> </p>
                                     </div>
 
-                                    <div class="location">
-                                        <img src="https://images.wedmegood.com/react-frontend-v4/static/media/ResortIcon.00b02371.svg"
-                                            alt="Venue" width="17" height="20">
-                                        <p title="Banquet Halls, Lawns / Farmhouses">
-                                            <%= entertainers.location%>
-                                        </p>
-                                    </div>
                                 </a>
 
                             </div>
