@@ -43,9 +43,7 @@
 
         </nav>
 
-        <div class="user-btn dropdown" id="user-btn">
-            <a> <i class="fa fa-user user-icon"></i></a>
-        </div>
+        
     </header>
 
     <div class="page-location">
@@ -140,7 +138,7 @@
                             <h6>Interview</h6>
                         </a>
                     </div>
-                    <div class="card card-9"><a href="/venues/service-events/Freshers/Farewell">
+                    <div class="card card-9"><a href="/venues/service-events/Freshers,Farewell">
                             <div class="card-img">
                                 <img src="/images/freshers.png" alt="">
                             </div>
@@ -149,7 +147,7 @@
                             </h6>
                         </a>
                     </div>
-                    <div class="card card-10"><a href="/venues/service-events/Exhibition/Brand Promo">
+                    <div class="card card-10"><a href="/venues/service-events/Exhibition,Brand Promo">
                             <div class="card-img">
                                 <img src="/images/exhibition.png" alt="">
                             </div>
@@ -196,16 +194,16 @@
                                         <span><img
                                                 src="https://images.wedmegood.com/react-frontend-v4/static/media/location.417064ed.svg"
                                                 alt="Location" width="10.62" height="17"></span>
-                                        <p title=" <%= venues.address %>"><span>
-                                                <%= venues.address %>
+                                        <p title=" <%= venues.location %>"><span>
+                                                <%= venues.location %>
                                             </span> </p>
                                     </div>
 
                                     <div class="location">
                                         <img src="https://images.wedmegood.com/react-frontend-v4/static/media/ResortIcon.00b02371.svg"
                                             alt="Venue" width="17" height="20">
-                                        <p title="Banquet Halls, Lawns / Farmhouses">
-                                            Banquet Halls, Lawns / Farmhouses</p>
+                                        <p title="<%= venues.venue_type %>">
+                                            <%= venues.venue_type %></p>
                                     </div>
                                 </a>
 
@@ -316,7 +314,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="filter-topics  col-lg-3   col-sm-6">
+                        <!-- <div class="filter-topics  col-lg-3   col-sm-6">
                             <h5>Rental Cost</h5>
                             <div class="options">
                                 <div class="row filter-rows">
@@ -352,7 +350,7 @@
                                     <div class="col-7">&gt= &nbsp; <i class="fa fa-inr"></i>500000</div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="filter-topics  col-lg-3   col-sm-6">
                             <h5>Venue Type</h5>
                             <div class="options">
@@ -369,10 +367,10 @@
                                     <div class="col-7">Banquet Halls</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input value="Lawns/Farmhouse" type="radio"
+                                    <div class="col-md-3 col-sm-2 col-2"><input value="Lawns,Farms" type="radio"
                                             name="venue_type" id="poolside">
                                     </div>
-                                    <div class="col-7">Lawns/Farmhouses</div>
+                                    <div class="col-7">Lawns/Farmhouse</div>
                                 </div>
                                 <div class="row filter-rows">
                                     <div class="col-md-3 col-sm-2 col-2"><input value="Resort" type="radio"
@@ -516,17 +514,7 @@
 
             // Redirect the user to the URL with the search input as a route parameter
             window.location.href = `/venues/search/${searchInput}`;
-            // const searchForm = document.getElementById('searchForm');
-            // if (currentPath.startsWith('/venues/service-events/')) {
-            //     // If the current route is /photographer/search/:searchInput
-            //     const eventInput = currentPath.substring('/venues/service-events/'.length);
-            //     searchForm.action = null;
-            // }
-            // else {
-            //     // If the current route is /photographer
-            //     const eventInput = currentPath.substring('/venues/search/'.length);
-            //     searchForm.action = `/venues/search/${searchInput}`;
-            // }
+         
         });
 
 

@@ -64,7 +64,7 @@
                             <h6>Name of Organisation:</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="name" id="name" class="form-control" title="name">
+                    <div class="col-sm-9"><input type="text" name="name" id="name" class="form-control" title="name" required>
                     </div>
                 </div>
                 <div class="row rows erow ">
@@ -72,7 +72,7 @@
                         <h6>Address:</h6>
                     </div>
                     <div class="col-sm-9"><textarea class="form-control" name="address" id="address" placeholder=" "
-                            title="address"></textarea>
+                            title="address" required></textarea>
                     </div>
                 </div>
                 <div class="row rows erow ">
@@ -80,7 +80,7 @@
                         <h6>Location:</h6>
                     </div>
                     <div class="col-sm-9"><input type="text" name="location" class="form-control" id="location"
-                            placeholder=" " title="Location">
+                            placeholder=" " title="Location" required>
                     </div>
                 </div>
                 <div class="row rows frow" style=" background: #a8a8a8; color: rgb(0, 0, 0);">
@@ -95,7 +95,7 @@
                             <h6>Address Map URL</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="address-url" id="address-url" class="form-control"
+                    <div class="col-sm-9"><input type="text" name="addressUrl" id="address-url" class="form-control"
                             cols="83" rows="5">
                     </div>
                 </div>
@@ -107,7 +107,7 @@
                         </label>
                     </div>
                     <div class="col-sm-9"><textarea name="about" id="about" class="form-control" cols="83"
-                            rows="5"></textarea>
+                            rows="5" required></textarea>
                     </div>
                 </div>
                 <div class="row rows irow">
@@ -117,7 +117,7 @@
                         </label>
                     </div>
                     <div class="col-sm-9"><input type="tel" name="contact" class="form-control" title="contact"
-                            id="contact">
+                            id="contact" required>
                     </div>
                 </div>
                 <div class="row rows hrow">
@@ -127,7 +127,7 @@
                         </label>
                     </div>
                     <div class="col-sm-9"><input type="email" name="email" class="form-control" title="email"
-                            id="email">
+                            id="email" required>
                     </div>
                 </div>
 
@@ -143,7 +143,7 @@
                             <div class="row rows" style="border-radius: 0; width: 100%; justify-content: center;">
 
                                 <div class="col-6"><input type="text" name="services" class="form-control"
-                                        title="Services">
+                                        title="Services" required>
 
                                 </div>
                             </div>
@@ -177,7 +177,7 @@
                         <label for="budget">
                             <h6>Budget: </h6>
                         </label><input type="text" name="budget" class="form-control" title="Budget" id="budget"
-                            size="40px">
+                            size="40px" required>
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex; justify-content: center; align-items: center;">
@@ -194,7 +194,7 @@
                             <h6>Entertainer Type:</h6>
 
                         </label><input type="text" name="entertainer_type" class="form-control" title="Payment Terms"
-                            id="entertainer_type">
+                            id="entertainer_type" required>
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex; justify-content: center; align-items: center;">
@@ -211,7 +211,7 @@
                             <h6>Experience:</h6>
                         </label>
                         <input type="text" name="experience" class="form-control" title="Experience" id="experience"
-                            size="40px">
+                            size="40px" required>
                     </div>
                     <div class="col-sm-6 kcolumns"
                         style="border-right: none; display: flex;  justify-content: center; align-items: center;">
@@ -244,10 +244,10 @@
                         <div class="add-more-division" style="width: 102%;">
                             <div class="row rows rrow form-control" style="background: #adadadb4; border-radius: 0;">
                                 <div class="col-sm-5"><input type="text" name="event" class="form-control"
-                                        title="Type/Name" size="65px">
+                                        title="Type/Name" size="65px" required>
                                 </div>
                                 <div class="col-sm-7">
-                                    <input type="number" name="price" class="form-control" title="Type_price" size="25px">
+                                    <input type="number" name="price" class="form-control" title="Type_price" size="25px" required>
 
 
                                 </div>
@@ -274,7 +274,7 @@
                             <h6>Instagram URL</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="insta-url" id="insta-url" class="form-control"
+                    <div class="col-sm-9"><input type="text" name="instaUrl" id="insta-url" class="form-control"
                             cols="83" rows="5">
                     </div>
                 </div>
@@ -284,7 +284,7 @@
                             <h6>Facebook URL</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="fb-url" id="fb-url" class="form-control" cols="83"
+                    <div class="col-sm-9"><input type="text" name="fbUrl" id="fb-url" class="form-control" cols="83"
                             rows="5">
                     </div>
                 </div>
@@ -302,7 +302,7 @@
                     </div>
                     <div class="col-sm-7">
 
-                        <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                        <input type="file" name="image" id="image" class="form-control" accept="image/*" required>
                         <label for="image" id="drop-area">
 
                             <!--  <input type="file" name="profile-phot class="form-control"o" id="profile-photo"
@@ -326,18 +326,9 @@
                     <div class="col-sm-7">
                         <label for="photos">
                             <input type="file" name="photos" id="photos" class="form-control"
-                                accept="image/jpeg, image/jpg, image/png">
+                                accept="image/jpeg, image/jpg, image/png" multiple>
                         </label>
-                        <div class="file-wrapper">
-                            <h5>Uploaded Photos</h5>
-                            <!-- <div class="showfilebox">
-                                <div class="left">
-                                    <span class="filetype"></span>
-                                    <h6 id="photos-filename"></h6>
-                                </div>
-                                <div class="right"><span class="close">&#215;</span></div>
-                            </div> -->
-                        </div>
+                        
                     </div>
                 </div>
 

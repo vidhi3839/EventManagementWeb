@@ -41,45 +41,44 @@
                     </div>
                 </div>
 
-                <%if(entertainer.services !='' ){%>
-                    <div class="row rows rrow form-control"
-                        style="background: #adadadb4; border-radius: 0; width: 102%;">
 
+                <div class="row rows rrow form-control" style="background: #adadadb4; border-radius: 0; width: 102%;">
+                    <%if(entertainer.services !='' ){%>
                         <%entertainer.services.forEach(service=>{%>
                             <div class="col-sm-5"><input value="<%=service%>" type="text" name="event"
                                     class="form-control" title="Type/Name" size="65px" disabled>
                             </div>
 
                             <%})%>
+                                <%}%>
+                </div>
 
-                    </div>
-                    <%}%>
-                    
-                        <div class="row rows rrow">
-                            <div class="add-more">
-                                <div class="add-more-division" style="width: 102%;">
-                                    <div class="row rows rrow form-control"
-                                        style="background: #adadadb4; border-radius: 0;">
-                                        <div class="col-sm-12"><input type="text" name="services" class="form-control"
-                                                title="Type/Name" size="65px">
-                                        </div>
 
-                                    </div>
+                <div class="row rows rrow">
+                    <div class="add-more">
+                        <div class="add-more-division" style="width: 102%;">
+                            <div class="row rows rrow form-control"
+                                style="background: #adadadb4; border-radius: 0; justify-content: center; align-items: center;">
+                                <div class="col-sm-5 col-md-5"><input type="text" name="services" class="form-control"
+                                        title="Type/Name" size="65px">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row rows" style="text-align: center;">
-                            <div class="col-12">
 
-                                <button type="button" class="button add-button" id="add-more-button">Add more +</button>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="row rows" style="text-align: center;">
+                    <div class="col-12">
 
-                        <div class="row rows urow">
-                            <div class="col-sm-3"></div>
-                            <div class="col-sm-4"> <button class="button" id="submit" type="submit">Submit</button>
-                            </div>
-                        </div>
+                        <button type="button" class="button add-button" id="add-more-button">Add more +</button>
+                    </div>
+                </div>
+
+                <div class="row rows urow">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-4"> <button class="button" id="submit" type="submit">Submit</button>
+                    </div>
+                </div>
 
             </div>
         </form>
@@ -92,7 +91,7 @@
 
         addMoreButton.addEventListener('click', function () {
             let newItem = addMoreDivision.cloneNode(true);
-            let input = newItem.getElementsByTagName('input');
+            let input = newItem.getElementsByTagName('input')[0];
             input.value = '';
             addMore.appendChild(newItem);
         });

@@ -48,8 +48,7 @@ a {
 }
 
 .header .navbar a:hover{
-    background: linear-gradient(violet,purple,violet);
-    box-shadow: 1px 1px 5px white;
+    box-shadow: 0 0 10px black, 0 0 10px white inset;
 }
 
 .login-btn{
@@ -253,16 +252,7 @@ background: #b6b6b68f;
     padding: 70px 0 20px 0;
     text-align: center;
 }
-.show-animate {
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 0.4s ease-in, transform 0.4s ease-in;
-}
 
-.show-animate.show {
-    opacity: 1;
-    transform: translateY(0);
-}
 .about h1 {
     font-size:3rem;
     color: rgba(231, 220, 158, 0.863);
@@ -1017,6 +1007,7 @@ background: #b6b6b68f;
 	font-size: 2rem;
 	color:rgb(88, 88, 88);
 	margin-bottom: 1rem;
+    margin-left: 5rem;
 }
 .star-widget .star {
 	cursor: pointer;
@@ -1067,6 +1058,26 @@ background: #b6b6b68f;
     font-weight: 500;
     padding: 10px 0px 30px 10px;
     transition: all 0.2s ease;
+}
+
+.form-1 .usernameR input{
+    position: relative;
+    height: 100%;
+    width: 50%;
+    outline: none;
+    padding: 1%;
+    font-size: 100%;
+    resize: none;
+    background: #5e5e5ee3;
+    color: white;
+    border: 1px solid rgb(148, 147, 147);
+    border-radius: 3px;
+    transition: all .2s ease;
+    margin-left: 5px;
+}
+
+.usernameR input:hover{
+    background: #8a8a8aa2;
 }
 
 .form-1 .textarea {
@@ -1174,7 +1185,7 @@ background: #b6b6b68f;
     color: 666;
     font-size: 1rem;
     padding: 2rem 0;
-    height: 17em;
+    height: 10em;
    }
    .review-user{
     display: flex;
@@ -1213,9 +1224,10 @@ background: #b6b6b68f;
       margin-top: 10em;
       padding-bottom: 0;
   }
-  .review i {
-      font-size: 7em;
+  .review span {
+      font-size: 18em;
       opacity: 1;
+      display: block;
   }
   #review .review-link{
       width: 10.5em;
@@ -1237,7 +1249,7 @@ background: #b6b6b68f;
       color: black;
       text-decoration: none;
   }
-
+  
 /*-----------------------------------------------------------------------------------------------------*/
 
 /*---------------------------------------Footer--------------------------------------------------------*/

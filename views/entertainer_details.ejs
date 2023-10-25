@@ -36,9 +36,7 @@
 
         </nav>
 
-        <div class="user-btn dropdown" id="user-btn">
-            <a> <i class="fa fa-user user-icon"></i></a>
-        </div>
+       
     </header>
 
     
@@ -64,7 +62,7 @@
                         <div class="fcol1 photographer-brief col-md-6 col-sm-12">
                             <hr>
                             <div class="main-profile-pic">
-                                <img id="vendor-profile-pic" src="images/<%=entertainer.profilePhoto%>" alt="
+                                <img id="vendor-profile-pic" src="/uploads/<%=entertainer.profilePhoto%>" alt="
                                     <%= entertainer.name%>" class="profile-pic">
 
                             </div>
@@ -110,16 +108,16 @@
                                                     <hr>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 "><iframe src="<%= entertainer.addressUrl%>" width="100"
-                                                    height="100" style="border:1px solid gray;" allowfullscreen=""
+                                            <div class="col-md-6 "><iframe src="<%= entertainer.addressUrl%>" width="150"
+                                                    height="150" style="border:1px solid gray;" allowfullscreen=""
                                                     loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                             </div>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-6"><i
-                                            class="fa fa-call"></i></div>
+                                        <div class="col-md-2 col-sm-2"><i
+                                            class="fa fa-phone"></i></div>
                                         <div class="col-md-6 col-sm-6">
                                             <p>
                                                 <%= entertainer.contact%>
@@ -128,7 +126,7 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-6"><i
+                                        <div class="col-md-2 col-sm-2"><i
                                             class="fa fa-instagram"></i></div>
                                         <div class="col-md-6 col-sm-6"><a href="<%= entertainer.instaUrl%>">
                                                 <%= entertainer.instaUrl%>
@@ -136,7 +134,7 @@
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-6 col-sm-6"><i
+                                        <div class="col-md-2 col-sm-2"><i
                                             class="fa fa-facebook"></i></div>
                                         <div class="col-md-6 col-sm-6"><a href="<%= entertainer.fbUrl%>">
                                                 <%= entertainer.fbUrl%>
@@ -222,14 +220,14 @@
                                             <div class="col-12">
                                             <% if(infoSubmitObj !='' ) { %>
                                                 <div class="col-sm-6 alert alert-success" style="text-align: center;">
-                                                    <%= infoSubmitObj %>
+                                                    <%= infoSubmitObj[0].message %>
                                                 </div>
                                                 <% } %>
                                             </div>
                                             <div class="col-12">
                                                     <% if(infoErrorsObj !='' ) { %>
                                                         <div class="col-12 alert alert-danger" role="alert">
-                                                            <%= infoErrorsObj[0].message %>
+                                                            <%= infoErrorsObj[0].message  %>
                                                         </div>
                                                         <% } %>
                                             </div>
@@ -276,21 +274,17 @@
                                                 <label for="type">Function Type: </label>
                                             </div>
                                             <div class="col-md-9 col-sm-9">
-                                                <select name="type" id="type" class="form-control" required>
-                                                    <option value="wedding">Wedding</option>
-                                                    <option value="birthday">Birthday</option>
-                                                    <option value="ring-ceremony">Ring Ceremony</option>
-                                                    <option value="conference">Conference</option>
-                                                    <option value="workshop">Workshop</option>
-                                                    <option value="freshers/farewell">Freshers/Farewell</option>
-                                                    <option value="concert">Concert</option>
-                                                    <option value="babyshower">Baby Shower</option>
-                                                    <option value="promo">Product Promo</option>
-                                                    <option value="business-party">Business Party</option>
-                                                    <option value="pre-wedding">Pre-wedding</option>
-                                                    <option value="reality-shows">Reality Shows Auditions</option>
-                                                    <option value="festival">Festival</option>
-                                                </select>
+                                                <%if(entertainer.services !='' ){%>
+
+                                                    <select name="type" id="type" class="form-control" required>
+                                                        <%entertainer.services.forEach(service=>{%>
+                                                            <option value="<%=service%>">
+                                                                <%= service%>
+                                                            </option>
+                                                            <%})%>
+                                                    </select>
+
+                                                    <%}%>
                                             </div>
 
                                         </div>
@@ -304,13 +298,6 @@
 
                                         </div>
 
-                                        <div class="row availability-row">
-
-                                            <div class="col-sm-12" style="text-align: center;"> <button
-                                                    class="button book-btn" id="book" type="button"
-                                                    data-bs-toggle="modal" data-bs-target="#bookModal">Call</button>
-                                            </div>
-                                        </div>
                                     </form>
                                 </div>
 
@@ -389,13 +376,13 @@
 
                             <div class="TabViews fcol f-space-between">
                                 <div class="Portfolio "> 
-                                    <%if(entertainer.photos.length > 0){%>
+                                    <%if(entertainer.portfolioPhotos != ''){%>
                                       
                                     <div class="row">
-                                        <%entertainer.photos.forEach(photo=>{%>
+                                        <%entertainer.portfolioPhotos.forEach(photo=>{%>
                                         <div class="col-md-3"><img id="vendor-portfolio-pic-0"
                                                 class="img-thumbnail images-thumbnail"
-                                                src="/uploads/<%= photo%>"
+                                                src="/uploads/<%= photo.url%>"
                                                 alt="portfolio-pic" loading="lazy">
                                         </div>
                                         <%})%>

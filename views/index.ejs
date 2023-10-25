@@ -27,6 +27,7 @@
 
     <!--------------Icons-------------------->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
   
 </head>
@@ -430,42 +431,46 @@
 <!-- ----------------------------------Packages---------------------------------- -->
 <section id="package">
     <h2 id="package-heading">OUR PACKAGES</h2>
-    <div id="package-main">    
-      <div class="package-wrapper">  
-    
-  <i id="package-left" class="fa fa-solid fa-angle-left"></i>
-        <ul class="package-carousel"> <% if(packages !='' ) { %>
-         <% packages.forEach(function(packages, index){  %>
-          <li class="package-card" id="package-party">
-          <img src="/images/<%= packages.apImg%>" alt="" width="100%" height="120%">
-            <div><h3><%- packages.pkgname %></h3>
-                  <p>
-                    <% if (packages.bItemList && packages.bItemList.basicItem) { %>
-                        <ul>
-                          <% packages.bItemList.basicItem.forEach(function(basicItem, index){ %>
-                            <li><%= basicItem %></li>
-                          <% }) %>
-                        </ul>
-                      <% } else { %>
-                        <p>No basic items available.</p>
-                      <% } %>
-                      <br>
-                  <strong>Starting from &#8377 5000</strong></p>
-                  <a href="/packages/<%= packages._id%>"><button class="package-btn">Details</button></a>
-            </div>
-               
-          </li>
-           <% }) %>
-        <% } %>
-        </ul>
-        <i id="package-right" class="fa fa-solid fa-angle-right"></i>
+    <div id="package-main">
+        <div class="package-wrapper">
+
+            <i id="package-left" class="fa-solid fa-angle-left"></i>
+            <ul class="package-carousel">
+                <% if(packages !='' ) { %>
+                    <% packages.forEach(function(packages, index){ %>
+                        <li class="package-card" id="package-party">
+                            <img src="/images/<%= packages.apImg%>" alt="" width="100%" height="120%">
+                            <div>
+                                <h3><%- packages.pkgname %></h3>
+                                <p>
+                                <ul>
+                                    <%if(packages.bItemList !='' ){%>
+                                        <%packages.bItemList.forEach(bItemList=>{%>
+                                        <li>
+                                            <%=bItemList.basicItem%>
+                                        </li>
+                                       
+                  <%})%>
+                  <%}%>
+                                </ul><br>
+                                <strong>Starting from &#8377 5000</strong></p>
+                                <a href="/packages/<%= packages._id%>"><button
+                                        class="package-btn">Details</button></a>
+                            </div>
+
+                        </li>
        
+                        <% }) %>
+                            <% } %>
+            </ul>
+            <i id="package-right" class="fa-solid fa-angle-right"></i>
+
+
+        </div>
 
     </div>
-      
-    </div>
 
-  </section>
+</section>
 <!-- -------------------------------------------------------------------------- -->
 
 
@@ -540,22 +545,29 @@
                     <h5>Rate your experience</h5>
                     <span style="background: #ffe600; height: 2px; width: 50px; margin: 5px; border: none;"></span>
                 </div>
-                <div class="star-widget stars">
-                    <input type="number" name="rating" hidden>
-                    <i class='fa fa-star star' style="--i: 0;"></i>
-                    <i class='fa fa-star star' style="--i: 1;"></i>
-                    <i class='fa fa-star star' style="--i: 2;"></i>
-                    <i class='fa fa-star star' style="--i: 3;"></i>
-                    <i class='fa fa-star star' style="--i: 4;"></i>
-                </div>
-                <form action="#" name="form-1" class="form-1">
-                    <header class="form-header"></header>
+                <form action="/index" enctype="multipart/form-data" method="post" name="form-1" class="form-1" style="text-align: center;">
+               
+             <div class="usernameR">
+                Post Review as:   <input type="text" name="usernameR" value="">
+             </div>
+
+                    <div class="star-widget stars" >
+                        <input type="number" name="rating" hidden>
+                        <i class='fa fa-star star' style="--i: 0;"></i>
+                        <i class='fa fa-star star' style="--i: 1;"></i>
+                        <i class='fa fa-star star' style="--i: 2;"></i>
+                        <i class='fa fa-star star' style="--i: 3;"></i>
+                        <i class='fa fa-star star' style="--i: 4;"></i>
+                    </div>
+                   
+                     <header class="form-header"></header>  
+                    
                     <div class="textarea">
                         <textarea name="describe" id="describe" cols="50"
                             placeholder="Describe your experience..."></textarea>
                     </div>
                     <div class="post-btn">
-                        <input type="button" value="POST" id="post" placeholder="POST">
+                        <button type="submit" value="POST" id="post" placeholder="POST">POST</button>
                     </div>
                 </form>
             </div>
@@ -568,79 +580,52 @@
 <!-- ----------------------------------Reviews---------------------------------- -->
 <section id="review">
     <h2 class="review-heading">CUSTOMERS REVIEW</h2>
-     <H3 class="review-title">What people says about us</H3>
-     <div class="review-box-container">
-        <div class="review-box">
-            <i class="fa fa-quote-left"></i>
-            <div class="review">
-                <i class='fa fa-star star' style="--i: 0;"></i>
-                <i class='fa fa-star star' style="--i: 1;"></i>
-                <i class='fa fa-star star' style="--i: 2;"></i>
-                <i class='fa fa-star star' style="--i: 3;"></i>
-                <i class='fa fa-star star' style="--i: 4;"></i>
-               </div>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Totam sunt voluptate dolore asperiores molestias! Tenetur aperiam ut quaerat perspiciatis nostrum esse totam quisquam aut, dolores repudiandae itaque quidem, fugiat assumenda?
-               
-            </p>
-            <div class="review-user">
-                <img src="images/IMG-20230909-WA0003.jpg" alt="">
-                <div class="review-info">
-                    <h3>XYZ ABC</h3>
-                    <span>Date</span>
+    <H3 class="review-title">What people says about us</H3>
+    <div class="review-box-container">
+        <% if(reviews !='' ) { %>
+            <% reviews.forEach(function(reviews, index){ %>
+                <div class="review-box">
+                    <i class="fas fa-quote-left"></i>
+                    <div class="review">
+                        <span repeat="<%- reviews.userRating %>">★</span>
+                       
+                       </div>
+                    <p><%- reviews.userRatingDes %>
+                    </p>
+                    <div class="review-user">
+                        <div class="review-info">
+                            <h3><%- reviews.username %></h3>
+                            <span><%- reviews.reviewDate %></span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="review-box">
-            <i class="fa fa-quote-left"></i>
-            <div class="review">
-                <i class='fa fa-star star' style="--i: 0;"></i>
-                <i class='fa fa-star star' style="--i: 1;"></i>
-                <i class='fa fa-star star' style="--i: 2;"></i>
-                <i class='fa fa-star star' style="--i: 3;"></i>
-               </div>
-            <p>Their commitment towards their customer and meeting objectives to ensure success was impressive.
-                
-            </p>
-            <div class="review-user">
-                <img src="images/IMG-20230909-WA0006.jpg" alt="">
-                <div class="review-info">
-                    <h3>XYZ ABC</h3>
-                    <span>Date</span>
-                </div>
-            </div>
-        </div>
-        <div class="review-box">
-            <i class="fa fa-quote-left"></i>
-            <div class="review">
-                <i class='fa fa-star star' style="--i: 0;"></i>
-                <i class='fa fa-star star' style="--i: 1;"></i>
-                <i class='fa fa-star star' style="--i: 2;"></i>
-                <i class='fa fa-star star' style="--i: 3;"></i>
-                <i class='fa fa-star-half star' style="--i: 4;"></i>
-               </div>
-            <p>I was mesmerized by the creativity, punctuality, and effort they put in.
-                 
-            </p>
-            <div class="review-user">
-                <img src="images/IMG-20230909-WA0004.jpg" alt="Profile">
-                <div class="review-info">
-                    <h3>XYZ ABC</h3>
-                    <span>Date</span>
-                </div>
-            </div>
-        </div>
-        
-     </div>
-     <button class="review-link">
-        <a href="/review"> <span>Show more reviews</span>  <i id="review-right" class="fa fa-solid fa-angle-right"></i></a>
-     </button>
+                <% }) %>
+                    <% } %>
+
+
+    </div>
+    <button class="review-link">
+        <a href="/reviews"> <span>Show more reviews</span> <i id="review-right"
+                class="fa-solid fa-angle-right"></i></a>
+    </button>
+
 </section>
+          
+
+ 
 <!-- -------------------------------------------------------------------------- -->
 
 
 <!-- ----------------------------------Footer---------------------------------- -->
-
-<section class="main_call" id="contact">
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
+     <script type="text/javascript">
+        (function(){
+               emailjs.init("uNhx_iGsOh1tSUkb0");
+             })();
+      </script>
+    <section class="main_call" id="contact">
     <section class="contact">
          <div class="section-header">
             <div class="container_call">
@@ -657,7 +642,7 @@
                 <div class="contact-info">
                     <div class="contact-info-item">
                         <div class="contact-info-icon">
-                            <i class="fa fa-home"></i>
+                            <i class="fas fa-home"></i>
                         </div>
 
                     <div class="contact-info-content">
@@ -668,7 +653,7 @@
                     </div>
                     <div class="contact-info-item">
                          <div class="contact-info-icon">
-                             <i class="fa fa-phone"></i>
+                             <i class="fas fa-phone"></i>
                     </div>
                     <div class="contact-info-content">
                         <h4>phone</h4>
@@ -677,7 +662,7 @@
                     </div>
                     <div class="contact-info-item">
                         <div class="contact-info-icon">
-                            <i class="fa fa-envelope"></i>
+                            <i class="fas fa-envelope"></i>
                    </div>
                    <div class="contact-info-content">
                     <h4>Email</h4>
@@ -710,22 +695,35 @@
  </div>
 </section>
 </section>
-<script type="text/javascript">
-    (function(){
-           emailjs.init("uNhx_iGsOh1tSUkb0");
-         })();
-  </script>
 
+<script>     
+    function sendEmail(){
+
+       var params={
+       from_name : document.getElementById("name").value,
+       mail: document.getElementById("mail").value,
+       message: document.getElementById("message").value,
+      };
+
+      emailjs.send("service_ns4ekvp","template_gdvjcu8",params).then(function (res){
+       
+       alert("successfully sent!");
+      })
+      
+    }
+
+   
+      </script>
 
 <section class="footer">
     <div class="box-container">
         <div class="box">
-            <h3>branches</h3>
-            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span> Gandhinagar</span></a>
-            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>Surat</span></a>
-            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>Anand</span></a>
-            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>Ahmedabad</span></a>
-            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>Vadodara</span></a>
+            <h3>Branches</h3>
+            <a href="#"><i class="fa fa-map-marker-alt" aria-hidden="true"></i><span>Mumbai</span></a>
+            <a href="#"><i class="fa fa-map-marker-alt" aria-hidden="true"></i><span>Jaipur</span></a>
+            <a href="#"><i class="fa fa-map-marker-alt" aria-hidden="true"></i><span>Delhi</span></a>
+            <a href="#"><i class="fa fa-map-marker-alt" aria-hidden="true"></i><span>Chennai</span></a>
+            <a href="#"><i class="fa fa-map-marker-alt" aria-hidden="true"></i><span>Vadodara</span></a>
         </div>
         <div class="box">
             <h3>Quick links</h3>
@@ -738,21 +736,21 @@
             <a href="#contact"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Contact</span></a> 
             <a href="#ratings"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Ratings</span></a> 
 
+        
         </div>
         <div class="box">
-            <h3>contact info</h3>
+            <h3>Contact Info</h3>
             <a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span>+123-456-7890</span></a>
             <a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span>+111-222-3333</span></a>
             <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span>dreamstories@gmail.com</span></a>
             <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span>ds2023@gmail.com</span></a>
-            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>vadodara,india - 390001</span></a>
         </div>
         <div class="box">
-            <h3>follow us</h3>
-            <a href="https://www.facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"></i><span>facebook</span</a>
-            <a href="https://www.bing.com/ck/a?!&&p=7143adc61403fd20JmltdHM9MTY5NDQ3NjgwMCZpZ3VpZD0wMTJiMDYzNC0xMTM3LTY4MmItMTNjOS0xNWIyMTAyZDY5YzEmaW5zaWQ9NTY0NA&ptn=3&hsh=3&fclid=012b0634-1137-682b-13c9-15b2102d69c1&psq=twitter&u=a1aHR0cHM6Ly90d2l0dGVyLmNvbS9Ud2l0dGVy&ntb=1"><i class="fa fa-twitter" aria-hidden="true"></i><span>twitter</span></a>
-            <a href="https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1"><i class="fa fa-instagram"></i><span>instagram</span></a>
-            <a href="https://www.bing.com/ck/a?!&&p=30882cec9f068653JmltdHM9MTY5NDQ3NjgwMCZpZ3VpZD0wMTJiMDYzNC0xMTM3LTY4MmItMTNjOS0xNWIyMTAyZDY5YzEmaW5zaWQ9NTY0NQ&ptn=3&hsh=3&fclid=012b0634-1137-682b-13c9-15b2102d69c1&psq=linkdein&u=a1aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2NvbXBhbnkvbGlua2VkaW4&ntb=1"><i class="fa fa-linkedin"></i><span>linkedin</span></a>
+            <h3>Follow Us On</h3>
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook-square" aria-hidden="true"></i><span>facebook</span</a>
+            <a href="https://www.bing.com/ck/a?!&&p=7143adc61403fd20JmltdHM9MTY5NDQ3NjgwMCZpZ3VpZD0wMTJiMDYzNC0xMTM3LTY4MmItMTNjOS0xNWIyMTAyZDY5YzEmaW5zaWQ9NTY0NA&ptn=3&hsh=3&fclid=012b0634-1137-682b-13c9-15b2102d69c1&psq=twitter&u=a1aHR0cHM6Ly90d2l0dGVyLmNvbS9Ud2l0dGVy&ntb=1"><i class="fab fa-twitter" aria-hidden="true"></i><span>twitter</span></a>
+            <a href="https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1"><i class="fab fa-instagram"></i><span>instagram</span></a>
+            <a href="https://www.bing.com/ck/a?!&&p=30882cec9f068653JmltdHM9MTY5NDQ3NjgwMCZpZ3VpZD0wMTJiMDYzNC0xMTM3LTY4MmItMTNjOS0xNWIyMTAyZDY5YzEmaW5zaWQ9NTY0NQ&ptn=3&hsh=3&fclid=012b0634-1137-682b-13c9-15b2102d69c1&psq=linkdein&u=a1aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2NvbXBhbnkvbGlua2VkaW4&ntb=1"><i class="fab fa-linkedin"></i><span>linkedin</span></a>
         </div>
     </div>
     <div class="credit">Copyright @2023 | Created by CSE Group , MSU | 
@@ -760,6 +758,18 @@
 </section>
 <!-- -------------------------------------------------------------------------- -->
 
-<script src="/js/script.js"></script>
+<script src="/js/script.js">
+ 
+</script>
+<script>
+            $(document).ready(function() {
+    $('[repeat]').each(function() {
+       var toRepeat = $(this).text();
+       var times = parseInt($(this).attr('repeat'));
+       var repeated = Array(times+1).join(toRepeat);
+       $(this).text(repeated).removeAttr('repeat');
+     });
+   });
+</script>
 </body>
 </html>

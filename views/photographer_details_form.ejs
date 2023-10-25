@@ -26,7 +26,7 @@
 
 <body>
     <div class="container form-container">
-        <form action="/register-photographer" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
             <div>
                 <div style="display: flex; align-items: center; justify-content: center;">
                     <img src="/images/logo3-removebg-preview.png" alt="" width="100px" height="100px"
@@ -64,7 +64,7 @@
                             <h6>Name of Organisation:</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="name" id="name" class="form-control" title="name">
+                    <div class="col-sm-9"><input type="text" name="name" id="name" class="form-control" title="name" required>
                     </div>
                 </div>
                 <div class="row rows erow ">
@@ -74,7 +74,7 @@
                         </label>
                     </div>
                     <div class="col-sm-9"><textarea class="form-control" name="address" id="address" placeholder=" "
-                        title="address"></textarea>
+                        title="address" required></textarea>
                     </div>
                 </div>
                 <div class="row rows erow ">
@@ -82,7 +82,7 @@
                         <h6>Location:</h6>
                     </div>
                     <div class="col-sm-9"><input class="form-control" type="text" name="location" id="location" placeholder=" "
-                            title="Location">
+                            title="Location" required>
                     </div>
                 </div>
                 <div class="row rows frow"  style=" background: #a8a8a8; color: rgb(0, 0, 0);">
@@ -97,7 +97,7 @@
                             <h6>Address Map URL</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="address-url" id="address-url" class="form-control"
+                    <div class="col-sm-9"><input type="text" name="addressUrl" id="address-url" class="form-control"
                             cols="83" rows="5">
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                         </label>
                     </div>
                     <div class="col-sm-9"><textarea name="about" id="about" class="form-control" cols="83"
-                            rows="5"></textarea>
+                            rows="5" required></textarea>
                     </div>
                 </div>
                 <div class="row rows hrow">
@@ -117,7 +117,7 @@
                         <h6>Contact:</h6>
                     </div>
                     <div class="col-sm-9"><input type="tel" class="form-control"
-                            name="contact" title="contact">
+                            name="contact" title="contact" required>
                     </div>
                 </div>
                 <div class="row rows hrow">
@@ -127,7 +127,7 @@
                         </label>
                     </div>
                     <div class="col-sm-9"><input type="email" name="email" class="form-control" title="email"
-                            id="email">
+                            id="email" required>
                     </div>
                 </div>
              
@@ -144,7 +144,7 @@
                             <div class="row rows" style="border-radius: 0; width: 100%; justify-content: center;">
 
                                 <div class="col-6"><input type="text" name="services" class="form-control"
-                                        title="Services">
+                                        title="Services" required>
 
                                 </div>
                             </div>
@@ -170,14 +170,14 @@
                         <label for="since">
                             <h6>How long been on Dream Stories:</h6>
                         </label><input type="text" name="since" class="form-control" title="since"
-                            id="since">
+                            id="since" required>
                     </div>
                
                     <div class="col-sm-6 kcolumns" style="border-right: none; display: flex; justify-content: center; align-items: center;">
                         <label for="services_offer">
                             <h6>Service Offered:</h6>
                         </label><input type="text" name="services_offer" class="form-control" title="services_offer"
-                            id="services_for">
+                            id="services_for" required>
                     </div>
                 </div>
 
@@ -194,7 +194,7 @@
                             <h6>Small Function Cost:</h6>
                         </label>
                         <input type="text" name="smallfunc" class="form-control" title="smallfunc" id="smallfunc"
-                            size="40px">
+                            size="40px" required>
                     </div>
                 </div>
 
@@ -252,14 +252,14 @@
                 <div class="row rows rrow">
                     <div class="col-sm-5"><label for="photo">Photo Package</div></label>
                     <div class="col-sm-7"><input type="number" name="photo" class="form-control" title="Photo" id="photo"
-                            size="65px"></div>
+                            size="65px" required></div>
 
                 </div>
 
                 <div class="row rows rrow">
                     <div class="col-sm-5"><label for="photo_video">Photo + Video</div></label>
                     <div class="col-sm-7"><input type="number" name="photo_vdo" class="form-control" title="Photo + Video"
-                            id="photo_video" size="65px">
+                            id="photo_video" size="65px" required>
                     </div>
 
                 </div>
@@ -267,7 +267,7 @@
                 <div class="row rows rrow">
                     <div class="col-sm-5"><label for="albums">Albums (optional)</div></label>
                     <div class="col-sm-7"><input type="number" name="albums" class="form-control" title="Albums"
-                            id="albums" size="65px"></div>
+                            id="albums" size="65px" required></div>
 
                 </div>
 
@@ -305,7 +305,7 @@
                             <h6>Instagram URL</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="insta-url" id="insta-url" class="form-control"
+                    <div class="col-sm-9"><input type="text" name="instaUrl" id="insta-url" class="form-control"
                             cols="83" rows="5">
                     </div>
                 </div>
@@ -315,7 +315,7 @@
                             <h6>Facebook URL</h6>
                         </label>
                     </div>
-                    <div class="col-sm-9"><input type="text" name="fb-url" id="fb-url" class="form-control"
+                    <div class="col-sm-9"><input type="text" name="fbUrl" id="fb-url" class="form-control"
                             cols="83" rows="5">
                     </div>
                 </div>
@@ -331,7 +331,7 @@
                     </div>
                     <div class="col-sm-7">
 
-                        <input type="file" name="image" id="image" class="form-control" accept="image/*">
+                        <input type="file" name="image" id="image" class="form-control" accept="image/*" required>
                         <label for="image" id="drop-area">
 
                             <div class="img-view">
@@ -358,7 +358,6 @@
                         
                     </div>
                 </div>
-                
 
 
                 <div class="row rows urow">

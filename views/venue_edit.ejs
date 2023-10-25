@@ -24,7 +24,7 @@
 
 <body>
     <div class="container form-container">
-        <form action="/venues/edit/<%= venue._id%>" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <div class="container">
                 <div>
                     <div style="display: flex; align-items: center; justify-content: center;">
@@ -59,14 +59,14 @@
                             <h6>Name of Venue:</h6>
                         </div>
                         <div class="col-sm-9"><input value="<%=venue.name%>" type="text" class="form-control"
-                                name="name" id="name" placeholder=" " title="name"></div>
+                                name="name" id="name" placeholder=" " title="name" required></div>
                     </div>
                     <div class="row rows erow ">
                         <div class="col-sm-3">
                             <h6>Address:</h6>
                         </div>
                         <div class="col-sm-9"><textarea class="form-control" name="address" id="address" placeholder=" "
-                                title="address"><%=venue.address%></textarea>
+                                title="address" required><%=venue.address%></textarea>
                         </div>
                     </div>
                     <div class="row rows erow ">
@@ -74,7 +74,7 @@
                             <h6>Location:</h6>
                         </div>
                         <div class="col-sm-9"><input class="form-control" value="<%=venue.location%>" type="text"
-                                name="location" id="location" placeholder=" " title="Location">
+                                name="location" id="location" placeholder=" " title="Location" required>
                         </div>
                     </div>
                     <div class="row rows frow" style=" background: #a8a8a8; color: rgb(0, 0, 0);">
@@ -99,7 +99,7 @@
                             <h6>About:</h6>
                         </div>
                         <div class="col-sm-9"><textarea name="about" class="form-control" id="about" cols="83"
-                                rows="5"><%=venue.about%></textarea>
+                                rows="5" required><%=venue.about%></textarea>
                         </div>
                     </div>
 
@@ -109,7 +109,7 @@
                             <h6>Contact:</h6>
                         </div>
                         <div class="col-sm-9"><input value="<%=venue.contact%>" type="tel" class="form-control"
-                                name="contact" title="contact">
+                                name="contact" title="contact" required>
                         </div>
                     </div>
 
@@ -118,7 +118,7 @@
                             <h6>Email:</h6>
                         </div>
                         <div class="col-sm-9"><input value="<%=venue.email%>" type="email" class="form-control"
-                                name="email" title="email">
+                                name="email" title="email" required>
                         </div>
                     </div>
 
@@ -138,12 +138,12 @@
                                     <%if(venue.services !='' ){%>
                                         <%venue.services.forEach(service=>{%>
                                             <div class="col-10"><input value="<%=service%>" type="text" name="services"
-                                                    class="form-control" title="Services">
+                                                    class="form-control" title="Services" required>
 
                                             </div>
-                                            <div class="col-2">  <a
-                                                href="/venues/del-service/<%=venue._id%>/<%= service%>"><i
-                                                    class="fa fa-close del-button"></i></a>
+                                            <div class="col-2"> <a
+                                                    href="/venues/del-service/<%=userid%>/<%= service%>"><i
+                                                        class="fa fa-close del-button"></i></a>
                                             </div>
                                             <%})%>
                                                 <%}%>
@@ -155,7 +155,7 @@
                     <div class="row rows" style="text-align: center;">
                         <div class="col-12">
 
-                            <a href="/venues/add-services/<%=venue._id%>" class="button add-button">Add more +</a>
+                            <a href="/venues/add-services/<%=userid%>" class="button add-button">Add more +</a>
                         </div>
                     </div>
 
@@ -164,52 +164,57 @@
                             <h4>FEATURES</h4>
                         </div>
                     </div>
-    
+
                     <div class="row rows irow">
                         <div class="col-sm-3">
                             <h6>How long been on Dream Stories:</h6>
                         </div>
-                        <div class="col-sm-9"><input value="<%=venue.since%>" type="text" class="form-control" name="since" title="since">
+                        <div class="col-sm-9"><input value="<%=venue.since%>" type="text" class="form-control"
+                                name="since" title="since" required>
                         </div>
                     </div>
-                             
-                <div class="row rows irow">
-                    <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
-                     
-                            <h6>Venue Type:</h6>
-                      <input value="<%=venue.venue_type%>" type="text" name="venue_type"
-                                class="form-control" title="Venue Type" id="venue_type">
-                       
-                    </div>
-                    <div class="col-sm-6 kcolumns" style="border-right: none; display: flex; justify-content: center; align-items: center;">
-                        
-                            <h6>Events Managed: </h6>
-                        <input value="<%= venue.eventsManaged%>" type="number" name="eventsManaged"
-                                class="form-control" title="Events Managed" id="eventsManaged" size="40px">
-                       
-                    </div>
-                </div>
 
-                
-                <div class="row rows krow">
-                    <div class="col-sm-6 kcolumns" style="display: flex; justify-content: center; align-items: center;">
-                        <h6>Starting plate/hall price:</h6>
-                        <input type="text" value="<%= venue.starting_price%>" class="form-control" name="starting_price" title="Starting food/hall price:"
-                            size="40px">
+                    <div class="row rows irow">
+                        <div class="col-sm-6 kcolumns"
+                            style="display: flex; justify-content: center; align-items: center;">
+
+                            <h6>Venue Type:</h6>
+                            <input value="<%=venue.venue_type%>" type="text" name="venue_type" class="form-control"
+                                title="Venue Type" id="venue_type" required>
+
+                        </div>
+                        <div class="col-sm-6 kcolumns"
+                            style="border-right: none; display: flex; justify-content: center; align-items: center;">
+
+                            <h6>Events Managed: </h6>
+                            <input value="<%= venue.eventsManaged%>" type="number" name="eventsManaged"
+                                class="form-control" title="Events Managed" id="eventsManaged" size="40px" required>
+
+                        </div>
                     </div>
-                    <div class="col-sm-6 kcolumns"
-                        style="border-right: none; display: flex;  justify-content: center; align-items: center;">
-                        <h6>Starting price for rooms</h6>
-                        <input type="text" value="<%= venue.room_start_price%>" class="form-control" name="room_start_price" title="Room Start Price" size="40px">
+
+
+                    <div class="row rows krow">
+                        <div class="col-sm-6 kcolumns"
+                            style="display: flex; justify-content: center; align-items: center;">
+                            <h6>Starting plate/hall price:</h6>
+                            <input type="text" value="<%= venue.starting_price%>" class="form-control"
+                                name="starting_price" title="Starting food/hall price:" size="40px" required>
+                        </div>
+                        <div class="col-sm-6 kcolumns"
+                            style="border-right: none; display: flex;  justify-content: center; align-items: center;">
+                            <h6>Starting price for rooms</h6>
+                            <input type="text" value="<%= venue.room_start_price%>" class="form-control"
+                                name="room_start_price" title="Room Start Price" size="40px" required>
+                        </div>
                     </div>
-                </div>
 
                     <div class="row rows krow">
                         <div class="col-sm-6 kcolumns"
                             style="display: flex; justify-content: center; align-items: center;">
                             <h6>Small Party Venue:</h6>
                             <input value="<%=venue.smallpartyvenue%>" type="text" class="form-control"
-                                name="small_party" title="Small Party Venue" size="40px">
+                                name="small_party" title="Small Party Venue" size="40px" required>
                         </div>
                         <div class="col-sm-6 kcolumns"
                             style="border-right: none; display: flex;  justify-content: center; align-items: center;">
@@ -224,7 +229,7 @@
                             style="display: flex; justify-content: center; align-items: center;">
                             <h6>Maximum Guests Capacity:</h6>
                             <input value="<%=venue.max_guests%>" type="text" class="form-control" name="guests"
-                                title="Maximum Guests" size="40px">
+                                title="Maximum Guests" size="40px" required>
                         </div>
                         <div class="col-sm-6 kcolumns"
                             style="border-right: none; display: flex;  justify-content: center; align-items: center;">
@@ -239,13 +244,13 @@
                             style="display: flex; justify-content: center; align-items: center;">
                             <h6>Space:</h6>
                             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input value="<%=venue.space%>" type="text"
-                                class="form-control" name="space" title="Space">
+                                class="form-control" name="space" title="Space" required>
                         </div>
                         <div class="col-sm-6 kcolumns"
                             style="border-right: none; display: flex;  justify-content: center; align-items: center;">
                             <h6>Room Count:</h6>
                             <input value="<%=venue.room_count%>" type="text" class="form-control" name="room_count"
-                                title="Room Count" size="40px">
+                                title="Room Count" size="40px" required>
                         </div>
                     </div>
                     <div class="row rows krow">
@@ -278,7 +283,7 @@
                         </div>
                     </div>
 
-                    <div class="row rows orow black-white" >
+                    <div class="row rows orow black-white">
                         <div class="col-sm-12">
                             <h4>PER PLATE ESTIMATE</h4>
                         </div>
@@ -294,18 +299,37 @@
                     </div>
 
                     <div class="row rows rrow">
-                        <div class="col-sm-5">VEG</div>
-                        <div class="col-sm-7"><input value="" type="text" class="form-control" name="veg" title="Veg"
-                                size="65px"></div>
-
+                        <div class="add-more-food">
+                            <div class="add-more-food-division">
+                                <div class="row rows rrow">
+                                    <%if(venue.food_price !='' ){%>
+                                        <%venue.food_price.forEach(food=>{%>
+                                            <div class="col-sm-5"><input value="<%=food.food_type%>" type="text"
+                                                    class="form-control" name="food_type" title="Food Type" size="65px">
+                                            </div>
+                                            <div class="col-sm-7 row">
+                                                <div class="col-10">
+                                                    <input value="<%=food.food_price%>" type="number"
+                                                        class="form-control" name="food_price" title="Food Price"
+                                                        size="65px">
+                                                </div>
+                                                <div class="col-sm-2 col-md-2">
+                                                    <a href="/venues/del-food/<%= userid%>/<%=food._id%>"><i
+                                                            class="fa fa-close del-button"></i></a>
+                                                </div>
+                                            </div>
+                                            <%})%>
+                                                <%}%>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                    <div class="row rows" style="text-align: center;">
+                        <div class="col-12">
 
-                    <div class="row rows rrow">
-                        <div class="col-sm-5">Non-Veg</div>
-                        <div class="col-sm-7"><input value="" type="text" class="form-control" name="nonveg"
-                                title="Non-Veg" size="65px"></div>
-
+                            <a href="/venues/add-food/<%= userid%>" class="button add-button">Add more +</a>
+                        </div>
                     </div>
 
                     <div class="row rows orow black-white">
@@ -341,28 +365,30 @@
                                     style="background: #adadadb4; border-radius: 0;">
                                     <%if(venue.halls !='' ){%>
                                         <%venue.halls.forEach(hall=>{%>
-                                            <div class="col-sm-3 col-md-3"><input value="<%=hall.hall_name%>" type="text"
-                                                    class="form-control" name="hall_name" title="Type/Name" size="65px">
-                                            </div>
-                                            <div class="col-sm-2 col-md-2"><input value="<%=hall.hall_space%>" type="text"
-                                                    class="form-control" name="hall_space" title="Space" size="65px">
-                                            </div>
-                                            <div class="col-sm-2 col-md-2"><input value="<%=hall.hall_seating%>" type="text"
-                                                    class="form-control" name="hall_seating" title="Seating"
+                                            <div class="col-sm-3 col-md-3"><input value="<%=hall.hall_name%>"
+                                                    type="text" class="form-control" name="hall_name" title="Type/Name"
                                                     size="65px">
                                             </div>
-                                            <div class="col-sm-2 col-md-2"><input value="<%=hall.hall_floating%>" type="text"
-                                                    class="form-control" name="hall_floating" title="Floating"
+                                            <div class="col-sm-2 col-md-2"><input value="<%=hall.hall_space%>"
+                                                    type="text" class="form-control" name="hall_space" title="Space"
                                                     size="65px">
+                                            </div>
+                                            <div class="col-sm-2 col-md-2"><input value="<%=hall.hall_seating%>"
+                                                    type="number" class="form-control" name="hall_seating" title="Seating"
+                                                    size="65px">
+                                            </div>
+                                            <div class="col-sm-2 col-md-2"><input value="<%=hall.hall_floating%>"
+                                                    type="number" class="form-control" name="hall_floating"
+                                                    title="Floating" size="65px">
                                             </div>
                                             <div class="col-sm-3 col-md-3 row"
                                                 style="justify-content: center; align-items: center; display: flex;">
                                                 <div class="col-sm-10 col-md-10">
-                                                    <input type="text" name="hall_price" value="<%=hall.hall_price%>"
+                                                    <input type="number" name="hall_price" value="<%=hall.hall_price%>"
                                                         class="form-control" title="Type_price">
                                                 </div>
                                                 <div class="col-sm-2 col-md-2">
-                                                    <a href="/venues/del-hall/<%=venue._id%>/<%=hall._id%>"><i
+                                                    <a href="/venues/del-hall/<%= userid%>/<%=hall._id%>"><i
                                                             class="fa fa-close del-button"></i></a>
                                                 </div>
                                             </div>
@@ -375,16 +401,16 @@
                     <div class="row rows" style="text-align: center;">
                         <div class="col-12">
 
-                            <a href="/venues/add-hall/<%=venue._id%>" class="button add-button">Add more +</a>
+                            <a href="/venues/add-hall/<%= userid%>" class="button add-button">Add more +</a>
                         </div>
                     </div>
 
-                    <div class="row rows orow black-white" >
+                    <div class="row rows orow black-white">
                         <div class="col-sm-12">
                             <h4>PRICE FOR ROOMS</h4>
                         </div>
                     </div>
-                    <div class="row rows prow reddish" >
+                    <div class="row rows prow reddish">
                         <div class="col-md-6 col-sm-6 pcolumns">
                             <h6>ROOM TYPE/NAME</h6>
                         </div>
@@ -411,7 +437,7 @@
                                                         class="form-control" title="Type_price" size="25px">
                                                 </div>
                                                 <div class="col-sm-1 col-md-1">
-                                                    <a href="/venues/del-room/<%=venue._id%>/<%=room._id%>"><i
+                                                    <a href="/venues/del-room/<%=userid%>/<%=room._id%>"><i
                                                             class="fa fa-close del-button"></i></a>
                                                 </div>
                                             </div>
@@ -424,11 +450,11 @@
                     <div class="row rows" style="text-align: center;">
                         <div class="col-12">
 
-                            <a href="/venues/add-room/<%=venue._id%>" class="button add-button">Add more +</a>
+                            <a href="/venues/add-room/<%=userid%>" class="button add-button">Add more +</a>
                         </div>
                     </div>
 
-                    <div class="row rows orow black-white" >
+                    <div class="row rows orow black-white">
                         <div class="col-sm-12">
                             <h4>PRICE FOR DECORATIONS</h4>
                         </div>
@@ -459,7 +485,7 @@
                                                         class="form-control" title="Type_price" size="25px">
                                                 </div>
                                                 <div class="col-sm-1 col-md-1">
-                                                    <a href="/venues/del-decor/<%=venue._id%>/<%=decor._id%>"><i
+                                                    <a href="/venues/del-decor/<%=userid%>/<%=decor._id%>"><i
                                                             class="fa fa-close del-button"></i></a>
                                                 </div>
                                             </div>
@@ -472,7 +498,7 @@
                     <div class="row rows" style="text-align: center;">
                         <div class="col-12">
 
-                            <a href="/venues/add-decor/<%=venue._id%>" class="button add-button">Add more +</a>
+                            <a href="/venues/add-decor/<%=userid%>" class="button add-button">Add more +</a>
                         </div>
                     </div>
 
@@ -510,25 +536,16 @@
 
                     <div class="row rows srow">
                         <div class="col-sm-5">
-                            <h6>Product Image</h6>
+                            <h6>Profile Image</h6>
                         </div>
                         <div class="col-sm-7">
-                            <div class="container" style="display: flex; text-align: center; justify-content: center; align-items: center;">
-                                <img src="/uploads/<%= venue.profilePhoto%>" width="200px" height="150px" alt="" style="margin-right: 10px; ">
-                                <p><%= venue.portfolioPhoto%></p>
+                            <div class="container row"
+                                style="display: flex; text-align: center; justify-content: center; align-items: center;">
+                                <div class="col-md-2"> <img src="/uploads/<%= venue.profilePhoto%>" width="100px"
+                                        height="100px" alt="" style="margin-right: 10px; "></div>
+                                <div class="col-md-2 image-view"></div>
                             </div>
                             <input type="file" name="image" id="image" class="form-control" accept="image/*">
-                            <label for="image" id="drop-area">
-
-                                <!--  <input  type="file" name="profile-phot class="form-control"o" id="profile-photo"
-                                accept="image/jpeg, image/jpg, image/png" hidden> <h6 id="profile-photo-filename"></h6> -->
-                                <div class="img-view">
-                                    <img src="/images/508-icon.png" alt="">
-                                    <p>Drag and Drop or click here <br> to upload image</p>
-                                    <span>Upload any image from desktop</span>
-                                </div>
-                            </label>
-
                         </div>
 
 
@@ -536,19 +553,30 @@
 
                     <div class="row rows trow">
                         <div class="col-sm-5">
-                            <p>Photos</p>
+                            <h6>Photos</h6>
                         </div>
                         <div class="col-sm-7">
-
+                            <div class="container row"
+                                style="display: flex; text-align: center; justify-content: center; align-items: center;">
+                                <%if(venue.portfolioPhotos !='' ){%>
+                                    <%venue.portfolioPhotos.forEach(photo=>{%>
+                                        <div class="col-md-2"><img src="/uploads/<%= photo.url%>" width="50px"
+                                                height="50px" alt="" style="margin-right: 10px; "></div>
+                                        <%})%>
+                                            <%}%>
+                            </div>
+                            <input type="file" name="photos" id="photos" class="form-control"
+                                accept="image/jpeg, image/jpg, image/png" required multiple>
                         </div>
                     </div>
 
- 
+
                     <div class="row rows urow">
                         <div class="col-sm-3"></div>
-                        <div class="col-sm-4"> <a href="/delete-venue/<%=venue._id%>" class="button" id="delete"
-                                class="button"><i class="fa fa-close delete"></i>Delete</a></div>
-                        <div class="col-sm-4"> <button type="submit" class="button" id="submit"><i class="fa fa-refresh post"></i>Update</button></div>
+                        <div class="col-sm-4"> <a class="button" href="/back/<%= userid%>"><i
+                            class="fa fa-refresh post"></i>Back</a></div>
+                        <div class="col-sm-4"> <button type="submit" class="button" id="submit"><i
+                                    class="fa fa-refresh post"></i>Update</button></div>
                     </div>
                 </div>
             </div>

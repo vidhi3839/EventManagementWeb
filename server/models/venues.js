@@ -3,6 +3,10 @@ const venueSchema = new mongoose.Schema({
   date: {
     type: Date,
     default: Date.now
+  }, 
+  userid:{
+    type:String,
+   // required : 'This field is required'
   },
   name: {
     type: String,
@@ -166,6 +170,11 @@ const venueSchema = new mongoose.Schema({
     type: String,
   //  required: 'This field is required.'
   },
+  portfolioPhotos: [{
+    url: {
+      type: String
+    }
+  }],
   ratings: [{
     user_id: {
       type: String
@@ -187,7 +196,7 @@ venueSchema.index({ "$**" : 'text' });
 
 
 function contactValidate(value) {
-  var contact = /^(\+\d{1,3}[- ]?)?\d{10}$/;
+  var contact = /^\d{10}$/;
   if (!contact.test(value)) {
     return false;
   }
