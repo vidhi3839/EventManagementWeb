@@ -14,13 +14,19 @@ router.get('/', eventsController.homepage );
 router.get('/signup', eventsController.signup);
 router.post('/signupnew', eventsController.signupnew);
 
+/**User Profile Form and Working */
 router.get('/profile',isAuth , eventsController.openProfile);
+router.post('/editprofile/:id',eventsController.editProfile);
+
 /* Login Form and Function*/
 router.get('/login', eventsController.login);
 router.post('/loginnew',eventsController.loginnew);
 
 /* Logout Function*/
 router.get('/logout',eventsController.logout);
+
+/**Home to Vendor Dashboard */
+router.get('/homevendor',isAuth,eventsController.homeToVendor);
 
 
 // Register venue
@@ -112,8 +118,8 @@ router.get('/back/:id',eventsController.back);
 
 router.get('/packages/edit/:id', eventsController.packagesEdit);
 router.post('/packages/edit/:id', eventsController.packagesEditPost);
-router.get('/packages', eventsController.explorePackages );
-router.get('/packages/:id',eventsController.packageName);
+router.get('/packages',isAuth, eventsController.explorePackages );
+router.get('/packages/:id',isAuth,eventsController.packageName);
 
 router.get('/packages-form/:id', eventsController.submitPackages );
 router.post('/packages-form/:id', eventsController.updateonsubmitPackage );
@@ -225,4 +231,3 @@ router.get('/reviews/:id', eventsController.exploreReviewsById);
 router.post('/index', eventsController.submitReviews );
 
 module.exports = router;
-

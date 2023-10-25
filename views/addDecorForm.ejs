@@ -74,8 +74,10 @@
 </head>
 <body>
     <div class="card">
-        <h2>Add Details for the New Decorator</h2>
-        <p><%= userid %></p>
+        <div style="display: flex;align-items: center;justify-content: center;">
+            <img src="/images/logo3-removebg-preview.png" alt="" width="160px" height="160px"><h2>Add Details for the New Decorator</h2>
+        </div>        
+        <h6>Date: <%= new Date() %>  </h6>
         <form action="/adddecor/<%=userid%>" method="POST" enctype="multipart/form-data">
             <div class="container">
                 <div class="row">

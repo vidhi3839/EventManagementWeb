@@ -500,7 +500,7 @@ background: #b6b6b68f;
     padding-top: 30px;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.774);
     overflow: hidden;
-    margin-top: 5%;
+    margin-top: 0px;
     padding-bottom: 80px;
 }
 .honeycomb {
@@ -669,22 +669,22 @@ background: #b6b6b68f;
 .gallery-container{
     width:100%;
     height:30%;
-    background:#000;
+    background:linear-gradient(20deg,#16001f,#353535,rgb(85, 85, 85),#414141, #16001f);
     background-size: cover;
     display: flex;
     /* align-items: center; */
     justify-content: center;
     overflow: hidden;
-    margin-bottom: 5%;
+    margin-bottom: 0;
 }
 
 #gallery-title{
     color:whitesmoke;
     font-size: 35px;
-    background-color: #000;
+    background:linear-gradient(20deg,#16001f,#353535,rgb(85, 85, 85),#414141, #16001f);
     width: 100%;
     text-align: center;
-    margin-top: 5%;
+    margin-top: 0;
     margin-bottom: 0;
     padding:20px;
     font-family: 'nunito';
@@ -693,7 +693,7 @@ background: #b6b6b68f;
 .gallery-container .gallery-carousel{
 
     width:1200px;
-    height:400px;
+    height:500px;
     margin:80px;
     overflow: hidden;
 }
@@ -716,7 +716,7 @@ background: #b6b6b68f;
 #package{
     background:linear-gradient( #2c003d, #9c00c4);
     text-align: center;
-    margin-top: 50px;
+    margin-top: 0;
   }
   #package-main{
     display: flex;
@@ -875,7 +875,7 @@ background: #b6b6b68f;
 .ratings {
     width: 100%;
     height: auto;
-    margin-top: 50px;
+    margin-top: 0;
     padding: 10px 0px 30px 10px;
     background:linear-gradient(20deg,#16001f,#353535,rgb(85, 85, 85),#414141, #16001f);
     box-shadow: -2px -2px 10px rgba(128, 128, 128, 0.644);
@@ -1147,6 +1147,8 @@ background: #b6b6b68f;
     background: linear-gradient(160deg, #d367fd, #e9c8f1 ,#9e49c0);
     margin:50px 1px;
     padding: 1px;
+    margin-top: 0;
+    margin-bottom: 0;
    }
    .review-heading{
     text-align: center;
@@ -1260,10 +1262,11 @@ background: #b6b6b68f;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(con.jpg);
+    background-image: url(/images/_con.jpg);
     background-size: cover;
     background-position: center;
     position:relative;
+    margin-top: 0;
 }
 .main_call::after{
     content:"";
@@ -1440,7 +1443,7 @@ background: #b6b6b68f;
 
 .footer{
     background-color: black;
-    margin-top:10rem;
+    margin-top:0;
     width:100%;
 }
 
@@ -1669,3 +1672,130 @@ background: #b6b6b68f;
 }
 
 /*-----------------------------------------------------------------------------------------------------*/
+
+
+/*-----------------------------user profile-----------------------------------------------*/
+#userProfile{
+    width: 60%;
+    height: 60%;
+    background:linear-gradient(180deg, darkslategray, lightslategray);
+    border-radius: 5px;
+    display: block;
+    margin: 2px auto;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    box-shadow: 0 0 10px 3px #ccc;
+    font-size: 1.1em;
+    opacity: 1;
+ }
+ .userPContent{
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+ }
+ #userProfile h1{
+     color: white;
+     text-align: center;
+     margin-bottom:10px;
+ }
+ #userProfile .userPInfo{
+    color: white;
+   margin-left: 3%;
+ }
+ #userPUpdate{
+     display: flex;
+     flex-direction: column;
+     margin: 10px ;
+ }
+ #btnprof{
+     /* margin:20px; */
+     border: none;
+     border-radius: 5px;
+     background-color: rgb(205, 198, 198);
+     font-size: 1.3em;
+     margin-top: 16px;
+ }
+ #btnprof a{
+    color:black;
+ }
+ .showuserProfile{
+     opacity: 1;
+     z-index: 1;
+ }
+ .showuserProfileC{
+     top: 50%;
+ }
+ #userProfile label{
+    display: block;
+    margin: 1em 2em;
+    width: max-content;
+    border-bottom: 1px solid grey;
+ }
+ #userProfile input{
+     border: none;
+     padding:2px 20px;
+     margin-left: 10px;
+ }
+ #userProfile span{
+     position: absolute;
+     right: 0px;
+     width: 30px;
+     height: 30px;
+     background-color: transparent;
+     text-align: center;
+     top: 0;
+     color: white;
+     line-height: 30px;
+     cursor: pointer;
+ }
+ #userProfile .passwdCheck{
+     width: 300px;
+     background-color: #fff;
+     padding:30px 20px;
+     position: absolute;
+     left: 50%;
+     top: -50%;
+     transform: translate(-50%,-50%);
+     box-shadow: 0 0 10px 3px #ccc;
+     transition: 2s;
+     z-index: 9;
+ }
+ #userProfile .showpasswdCheck{
+     top: 50%;
+ }
+ #userProfile .passwdCheck span{
+     color: red;
+ }
+/*-----------------------------user profile-----------------------------------------------*/
+
+.vendorlink{
+    background-color: #192655;
+    color: white;
+    font-family: 'Nunito';
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:20px;
+}
+
+.vendorlink a{
+    color:white;
+    text-decoration: none;
+}
+
+.reveal{
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition:all 2s ease;
+}
+
+.reveal.active{
+    transform: translateY(0px);
+    opacity: 1;
+}

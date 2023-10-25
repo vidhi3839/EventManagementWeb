@@ -77,8 +77,8 @@
 <!-- -------------------------------------------------------------------------- -->
 
 <!-- ----------------------------------About Us---------------------------------- -->
-<!-- <div class="main_about"> -->
-    <section class="about" id="about">
+<div class="main_about">
+    <section class="about reveal" id="about">
         <h1>About Us</h1>
         <p style="color:#e9dfdf;font-family: 'Nunito';font-size: 20px;">Our management is our passion...</p>
         <div class="about-info animate">
@@ -101,7 +101,7 @@
 
 
 <!--why choose us-->
-<section class="main_choose">
+<section class="main_choose reveal">
      <h1>Why Choose Us</h1>
      <h6>Our approach is very "hands-on";we will 
         manage all services required to make your 
@@ -173,7 +173,7 @@
 <!-----------------team----------->
 
 
-<section class="team_main">
+<section class="team_main reveal">
     <section class="team">
     <h1>Meet Our Team</h1>
     <div class="team-cards">
@@ -249,13 +249,13 @@
 </div>
 </section>
 </section>
-<!-- </div> -->
+</div>
 
 <!-- -------------------------------------------------------------------------- -->
 
 
 <!-- ----------------------------------Services---------------------------------- -->
-<section class="services" id="services">
+<section class="services reveal" id="services">
     <div class="service-head"
         style="align-items: center; justify-content: center; display: flex; flex-direction: column;">
         <h1
@@ -322,11 +322,14 @@
     </div>
 </section>
 <!-- -------------------------------------------------------------------------- -->
-
+<section class="vendorlink reveal">
+    <h1><a href="/homevendor">Click here to visit Vendor Dashboard</a></h1>
+    <p style="font-size: 15px;">Only Vendors have Access to this Page</p>
+</section>
 
 <!-- ----------------------------------Gallery---------------------------------- -->
 
-<section id="gallery">
+<section id="gallery" class="reveal">
     <h1 id="gallery-title"> Explore the beautiful Dream Stories of our happy clients turning into reality !!</h1>
 
 <div class="gallery-container">
@@ -429,7 +432,7 @@
 
 
 <!-- ----------------------------------Packages---------------------------------- -->
-<section id="package">
+<section id="package" class="reveal">
     <h2 id="package-heading">OUR PACKAGES</h2>
     <div id="package-main">
         <div class="package-wrapper">
@@ -475,7 +478,7 @@
 
 
 <!-- ----------------------------------Ratings---------------------------------- -->
-<section class="ratings" id="ratings">
+<section class="ratings reveal" id="ratings">
     <div class="rating-head"
         style="position: relative; align-items: center; justify-content: center; display: flex; flex-direction: column; margin-bottom: 10px;">
         <h1
@@ -578,7 +581,7 @@
 
 
 <!-- ----------------------------------Reviews---------------------------------- -->
-<section id="review">
+<section id="review" class="reveal">
     <h2 class="review-heading">CUSTOMERS REVIEW</h2>
     <H3 class="review-title">What people says about us</H3>
     <div class="review-box-container">
@@ -625,7 +628,7 @@
                emailjs.init("uNhx_iGsOh1tSUkb0");
              })();
       </script>
-    <section class="main_call" id="contact">
+    <section class="main_call reveal" id="contact">
     <section class="contact">
          <div class="section-header">
             <div class="container_call">
@@ -770,6 +773,30 @@
        $(this).text(repeated).removeAttr('repeat');
      });
    });
+</script>
+
+<script>
+    window.addEventListener('scroll',reveal);
+
+function reveal() {
+    let reveals = document.querySelectorAll('.reveal');
+
+    for(var i=0 ; i < reveals.length ; i++)
+    {
+        var windowheight = window.innerHeight;
+        var revealtop = reveals[i].getBoundingClientRect().top;
+        var revealpoint = 150;
+
+        if(revealtop < windowheight - revealpoint)
+        {
+            reveals[i].classList.add('active');
+        }
+        else
+        {
+            reveals[i].classList.remove('active');
+        }
+    }
+}
 </script>
 </body>
 </html>

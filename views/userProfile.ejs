@@ -41,15 +41,14 @@
         <i class="fa fa-user user-icon" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
 
         <div class="dropdown-menu dropdown_menu text-center" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#" id="signup" data-bs-toggle="modal" data-bs-target="#signupModal"><i
+            <a class="dropdown-item" href="/signup" id="signup" data-bs-toggle="modal" data-bs-target="#signupModal"><i
                     class="fa fa-sign-in"></i>Signup</a>
 
-            <a class="dropdown-item" href="#" data-bs-target="#userProfile" data-bs-toggle="modal" ><i class="fa fa-user"></i> My Profile</a>
-            <a class="dropdown-item" href="#"><i class="fa fa-shopping-bag"></i> Events
-                Booked</a>
+            <a class="dropdown-item" href="/profile" data-bs-target="#userProfile" data-bs-toggle="modal" ><i class="fa fa-user"></i> My Profile</a>
+            <a class="dropdown-item" href="/"><i class="fa fa-home"></i> Home Page </a>
 
-            <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Settings</a>
-            <a class="dropdown-item" href="#" style="border: none;"><i class="fa fa-sign-out"></i> Log out</a>
+            <a class="dropdown-item" href="/login"><i class="fa fa-sign-in"></i> Sign In</a>
+            <a class="dropdown-item" href="/logout" style="border: none;"><i class="fa fa-sign-out"></i> Log out</a>
         </div>
     </div>
 </header>
@@ -59,22 +58,26 @@
             <h1 class="userPHead">User Profile</h1> 
         </div>
         <div class="userPContent">
-            <div id="userPUpdate">
-                <button>Change password</button>
-                <button onclick="editUserProfile()">Edit details</button>
-            </div>
-            <div class="passwdCheck">Enter your password:
+           
+            <!-- <div class="passwdCheck">Enter your password:
                 <span onclick="closePswdCheck()">&times;</span><br>
     
             <input type="password" name="" id="passwdCheck">
-            <button>Enter</button></div>
+            <button>Enter</button></div> -->
             <div class="userPInfo">
-                <label for="userFName">First Name:<input type="text" id="userFName" disabled value="First Name"></label>
-                <label for="userLName">Last Name:<input type="text" id="userLName" disabled value="Last Name"></label>
-                <label for="userEmail">Email:<input type="email" id="userEmail" disabled value="Email"></label>
-                <label for="userMNo">Mobile number:<input type="number" id="userMNo" disabled value="8754693210"></label>
-                <label for="userAddress">Address:<input type="textarea" id="userAddress" disabled value="Address"></label>
+                <form action="/editprofile/<%=userid%>" method="POST">
+                    <label for="userFName">Username : </label>
+                    <input type="text" id="userFName" value="<%=username%>" name="username">
+                <label for="userEmail">Email : </label>
+                    <input type="email" id="userEmail" disabled value="<%=email%>">
+                <label for="userRole">Role : </label>
+                    <input type="text" id="userRole" disabled value="<%=role%>">
+
             </div>
+
+                <!-- <button>Change password</button> -->
+                <button id="btnprof" type="submit"><a href="">Edit details</a></button>
+                </form>
         </div>
     </div>
     <script src="/js/script.js"></script>

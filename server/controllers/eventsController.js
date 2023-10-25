@@ -12,22 +12,7 @@ const Venue = require('../models/venues');
 const User = require('../models/User');
 const Review = require('../models/Review');
 
-exports.openProfile = async(req,res) => {
-  const userid = req.session.uid;
 
-  const user = await User.findOne({_id : userid});
-  const email = user.email;
-  const role = user.role;
-  const username = user.username;
-
-  if(userid)
-  {
-    return res.render('temp25',{userid : userid , role : role , username : username , email : email});
-  }
-  else{
-    return res.redirect('/login') ;
-  }
-}
 /**
  * GET /
  * 
@@ -46,6 +31,59 @@ exports.homepage = async (req, res) => {
   }
 }
 
+/**Open User Prfile Page */
+exports.openProfile = async(req,res) => {
+  const userid = req.session.uid;
+
+  const user = await User.findOne({_id : userid});
+  const email = user.email;
+  const role = user.role;
+  const username = user.username;
+
+  if(userid)
+  {
+    return res.render('userProfile',{userid : userid , role : role , username : username , email : email});
+  }
+  else{
+    return res.redirect('/login') ;
+  }
+}
+
+/**Edit Username */
+exports.editProfile = async(req,res) => {
+  let userid = req.params.id;
+
+  const user = await User.findOne({_id : userid});
+  const newname = req.body.username;
+console.log(newname);
+  user.username = newname;
+
+  await user.save();
+
+  return res.redirect('/profile');
+}
+
+/**Home To Vendor Dashboard */
+exports.homeToVendor = async(req,res) => {
+  const WarningData = req.flash('warndata');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+
+  const userid = req.session.uid;
+
+  const user = await User.findOne({_id : userid});
+
+  const role = user.role;
+
+  if(role === 'vendor')
+  {
+    return res.render('addeditvendor' , {userid : userid  , ErrorData : null , SubmitData : null , WarningData : WarningData});
+  }
+  else
+  {
+    return res.redirect('/');
+  }
+}
 /**----------------------------------------------------------------packages------------------------------------------------------ */
 
 
@@ -1414,7 +1452,7 @@ exports.enquireVenue = async (req, res) => {
       req.flash('infoErrors',[{ message: 'Invalid contact number' }]);
       return res.redirect("/venues/" + `${venueId}`)
     }
-    req.flash('infoSubmit', 'Enquiry sent successfully!')
+    req.flash('infoSubmit', [{message : 'Enquiry sent successfully!'}])
     res.redirect("/venues/" + `${venueId}`);
   }
   catch (error) {
@@ -2642,7 +2680,10 @@ exports.photographersEdit = async (req, res) => {
   try {
     const infoErrorsObj = req.flash('infoErrors');
     const infoSubmitObj = req.flash('infoSubmit');
-
+    const ErrorData = req.flash('errordata');
+    const SubmitData = req.flash('subdata');
+    const WarningData = req.flash('warndata');
+  
    
 
     const photographer = await Photographer.findOne({ userid });
@@ -3375,7 +3416,7 @@ exports.enquireEntertainer = async (req, res) => {const entertainerId = req.para
       req.flash('infoErrors',[{ message: 'Invalid contact number' }]);
       return res.redirect("/entertainers/" + `${entertainerId}`)
     }
-    req.flash('infoSubmit', 'Enquiry sent successfully!')
+    req.flash('infoSubmit',[{message : 'Enquiry sent successfully!'}])
     res.redirect("/entertainers/" + `${entertainerId}`);
   }
   catch (error) {
