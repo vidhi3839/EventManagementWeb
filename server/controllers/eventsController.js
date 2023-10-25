@@ -1075,14 +1075,15 @@ exports.registerVenueOnPost = async (req, res) => {
  * GET /venues/edit/:id
  * photographer-packages
 */
-exports.venuesEdit = async (req, res) => {
+exports.venuesEdit = async (req, res) => { 
+  const userid = req.params.id;
   try {
     const infoErrorsObj = req.flash('infoErrors');
     const infoSubmitObj = req.flash('infoSubmit');
     const ErrorData = req.flash('errordata');
     const SubmitData = req.flash('subdata');
     const WarningData = req.flash('warndata');
-    const userid = req.params.id;
+   
 
     const venue = await Venue.findOne({ userid });
     console.log(venue)
@@ -1093,7 +1094,7 @@ exports.venuesEdit = async (req, res) => {
     res.render('venue_edit', { userid: userid, venue, infoErrorsObj, infoSubmitObj })
 
   }
-  catch (err) {
+  catch (error) {
     req.flash('errordata', 'Error Occured !!');
     return res.render('addeditvendor', { userid: userid, ErrorData: ErrorData, SubmitData: null, WarningData: null });
   }
@@ -1106,7 +1107,6 @@ exports.venuesEdit = async (req, res) => {
 
 exports.venuesEditPost = async (req, res) => {
   const userid = req.params.id;
-
   try {
     
     let imageUploadFile;
@@ -2102,12 +2102,13 @@ exports.registerPhotographerOnPost = async (req, res) => {
  * GET / /photographers/edit/:id
  * photographer-packages
 */
-exports.photographersEdit = async (req, res) => {
+exports.photographersEdit = async (req, res) => { 
+  const userid = req.params.id;
   try {
     const infoErrorsObj = req.flash('infoErrors');
     const infoSubmitObj = req.flash('infoSubmit');
 
-    const userid = req.params.id;
+   
 
     const photographer = await Photographer.findOne({ userid });
 
@@ -2118,7 +2119,7 @@ exports.photographersEdit = async (req, res) => {
     res.render('photographer_edit', { userid: userid, photographer, infoErrorsObj, infoSubmitObj })
 
   }
-  catch (err) {
+  catch (error) {
     req.flash('errordata', 'Error Occured !!');
       return res.render('addeditvendor', { userid: userid, ErrorData: ErrorData, SubmitData: null, WarningData: null });
   }
@@ -3017,7 +3018,7 @@ exports.entertainersEdit = async (req, res) => {
     res.render('entertainer_edit', { userid: userid, entertainer, infoErrorsObj, infoSubmitObj })
 
   }
-  catch (err) {
+  catch (error) {
     req.flash('errordata', 'Error Occured!!');
       return res.render('addeditvendor', { userid: userid, ErrorData: ErrorData, SubmitData: null, WarningData: null });
   }
@@ -3212,7 +3213,7 @@ exports.delEntertainerPrice = async (req, res) => {
     res.redirect('/entertainers/edit/' + `${userid}`);
 
   }
-  catch (err) {
+  catch (error) {
     req.flash('infoErrors',[{ message: `${error}`}]);
     res.redirect('/entertainers/edit/'+ `${userid}`);
   }
