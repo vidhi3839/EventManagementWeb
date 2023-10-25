@@ -21,6 +21,9 @@
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
         <script src="/js/script.js"></script>
+        <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+</script>
 
     <!--------------Icons-------------------->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -32,7 +35,7 @@
 <header class="header">
     <div class="fa fa-bars" id="menu-btn" onclick="navBarToggle()"></div>
 
-    <a href="#" class="navbar-logo"><img src="images/logo.png" alt="" width="100%" height="100%"></a>
+    <a href="/" class="navbar-logo"><img src="images/logo.png" alt="" width="100%" height="100%"></a>
 
     <nav class="navbar navigation-bar">
         <a href="#home">Home</a>
@@ -54,7 +57,7 @@
         <div class="dropdown-menu dropdown_menu text-center" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" href="/signup" id="signup"><i class="fa fa-sign-in"></i>Sign Up</a>
 
-            <a class="dropdown-item" href="#"><i class="fa fa-user"></i> My Profile</a>
+            <a class="dropdown-item" href="/profile"><i class="fa fa-user"></i> My Profile</a>
 
             <a class="dropdown-item" href="/login" id="signin"><i class="fa fa-sign-in"></i> Sign In</a>
     
@@ -73,6 +76,180 @@
 <!-- -------------------------------------------------------------------------- -->
 
 <!-- ----------------------------------About Us---------------------------------- -->
+<!-- <div class="main_about"> -->
+    <section class="about" id="about">
+        <h1>About Us</h1>
+        <p style="color:#e9dfdf;font-family: 'Nunito';font-size: 20px;">Our management is our passion...</p>
+        <div class="about-info animate">
+            <div class="about-img">
+                <img src="/images/event.jpg" alt="pic">
+            </div>
+
+    <div>
+     <p>We provide you all you need for a perfect party whatever
+        the size,theme or location.from the importance of decetable 
+        catering,perfect venue sourcing or beautiful marquees,fabulous 
+        props,creative floral displays,stunning lightening,music anandentertainment.
+     </p><br>
+                  <p>We make it our priority to understand our clients objectives,
+                    and create a unique and memorable event.
+                  </p>
+        </div>
+    </div>
+    </section>
+
+
+<!--why choose us-->
+<section class="main_choose">
+     <h1>Why Choose Us</h1>
+     <h6>Our approach is very "hands-on";we will 
+        manage all services required to make your 
+        event success.we care for all our clients.<br/>
+        achieve your dreams and work within budget.
+     </h6>
+        <div class="row_choose_box">
+
+        <div class="row" id="row_choose">
+            <div class="col-sm-1 col-md-2 col-lg-2" id="col_choose">
+               <span>01.</span>
+               <h3>Innovative</h3>
+               <p>We like to do things differently
+                and we like to leave fantastic lasting impression.</p>
+            </div>
+
+            <div class="col-sm-1 col-md-2 col-lg-2" id="col_choose">
+                <span>02.</span>
+                <h3>Passionate</h3>
+                <p>We love what we do and we are incredibily
+                     driven by satisfying our customerand their guests.</p>
+            </div>
+        </div>
+
+        <div class="row" id="row_choose">
+
+            <div class="col-sm-1 col-md-2 col-lg-2" id="col_choose">
+                <span>03.</span>
+                <h3>Capable</h3>
+                <p>We carry a wealth of experience across many events,
+                    whether that be a luxury birthday party or destination 
+                    wedding overseas.</p>
+            </div>
+
+            <div class="col-sm-1 col-md-2 col-lg-2" id="col_choose">
+                <span>04.</span>
+                <h3>Punctual</h3>
+                <p>We deliever on time and on budget.
+                    We understand how important it is to 
+                    get right,so we ensure.
+                </p>
+            </div>
+        </div>
+
+        <div class="row" id="row_choose">
+
+            <div class="col-sm-1 col-md-2 col-lg-2" id="col_choose">
+                <span>05.</span>
+                <h3>Transparent</h3>
+                <p>We are always clear with pricing and hurdles,
+                    so you will always know what is going on.
+                </p>
+            </div>
+
+            <div class="col-sm-1 col-md-2 col-lg-2" id="col_choose">
+                <span>06.</span>
+                <h3>Experienced Team</h3>
+                <p>We know that plans and ideas can changes
+                    last minutes,so we can accommodate changes
+                    quickly.
+                </p>
+            </div>
+         </div>
+     </div>
+</section>
+
+
+<!-- -------------------------------------------------------------------------- -->
+<!-----------------team----------->
+
+
+<section class="team_main">
+    <section class="team">
+    <h1>Meet Our Team</h1>
+    <div class="team-cards">
+
+<div class="card">
+    <div class="circle">
+        <div class="imgbox">
+            <img src="/images/sakshi.jpg" alt="">
+        </div>
+    </div>
+    <div class="content">
+        <a href="#">
+            <i class="fa fa-brands fa-instagram" style="color: #ec09a4;"></i>
+        </a>
+        <h3>Sakshi Jethwa</h3>
+        <div class="texticon">
+            <h4>Team Lead </h4>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="circle">
+        <div class="imgbox">
+            <img src="/images/dia.jpeg" alt="">
+        </div>
+    </div>
+    <div class="content">
+        <a href="#">
+            <i class="fa fa-brands fa-instagram" style="color: #ec09a4;"></i>
+        </a>
+        <h3>Diya Darji</h3>
+        <div class="texticon">
+            <h4>Event Specialist</h4>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="circle">
+        <div class="imgbox">
+            <img src="/images/shruu.jpg" alt="">
+        </div>
+    </div>
+    <div class="content">
+        <a href="#">
+            <i class="fa fa-brands fa-instagram" style="color: #ec09a4;"></i>
+        </a>
+        <h3>Shruti Patel</h3>
+        <div class="texticon">
+            <h4>Venue Manager</h4>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="circle">
+        <div class="imgbox">
+            <img src="/images/vidhi.jpeg" alt="">
+        </div>
+    </div>
+    <div class="content">
+        <a href="#">
+            <i class="fa fa-brands fa-instagram" style="color: #ec09a4;"></i>
+        </a>
+        <h3>Vidhi Patel</h3>
+        <div class="texticon">
+            <h4>Event Planner</h4>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+</section>
+<!-- </div> -->
+
 <!-- -------------------------------------------------------------------------- -->
 
 
@@ -230,6 +407,8 @@
     <li><img src="images/rpwf6.jpg" class="image"></li>
     <!-- <li><img src="images/rpwf7.jpg" class="image"></li> -->
     <li><img src="images/rpwf8.jpg" class="image"></li>
+    <li><img src="images/manymore.jpg" class="image"></li>
+
 </ul>
     </div>
 </div>
@@ -460,6 +639,125 @@
 
 
 <!-- ----------------------------------Footer---------------------------------- -->
+
+<section class="main_call" id="contact">
+    <section class="contact">
+         <div class="section-header">
+            <div class="container_call">
+                 <h2>Contact Us</h2>
+                <p> Get in touch and let us know how we can help<br/>
+                    if you have any query regarding the booking or you may face 
+                    any difficulties <br/>or else you want to know about company and media resources 
+                    please contact for more information.
+                </p>
+            </div>
+        </div>
+        <div class="container_call">
+            <div class="row_call">
+                <div class="contact-info">
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fa fa-home"></i>
+                        </div>
+
+                    <div class="contact-info-content">
+                        <h4>Address</h4>
+                        <p> kalabhavan,Rajmahal road,Nr.kirtistambh<br/>
+                            Vadodara,Gujarat,<br/>390001</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                         <div class="contact-info-icon">
+                             <i class="fa fa-phone"></i>
+                    </div>
+                    <div class="contact-info-content">
+                        <h4>phone</h4>
+                        <p>564-987-0972</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon">
+                            <i class="fa fa-envelope"></i>
+                   </div>
+                   <div class="contact-info-content">
+                    <h4>Email</h4>
+                    <p>event_spec@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+        <div class="contact-form">
+            <div id="contact-form">
+                <h2>Send Message</h2>
+                <div class="input-box">
+                    <input type="text" id="name" required="true">
+                    <span>Full Name</span>
+                </div>
+                <div class="input-box">
+                    <input type="email" id="mail" required="true">
+                    <span>Email</span>
+                </div>
+                <div class="input-box">
+                    <textarea required="true" id="message" required="true"></textarea>
+                    <span>Type your message....</span>
+                </div>
+                <div class="input-box">
+                    <input type="submit" onclick="sendEmail()" value="Send" id="btn">
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+</section>
+</section>
+<script type="text/javascript">
+    (function(){
+           emailjs.init("uNhx_iGsOh1tSUkb0");
+         })();
+  </script>
+
+
+<section class="footer">
+    <div class="box-container">
+        <div class="box">
+            <h3>branches</h3>
+            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span> Gandhinagar</span></a>
+            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>Surat</span></a>
+            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>Anand</span></a>
+            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>Ahmedabad</span></a>
+            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>Vadodara</span></a>
+        </div>
+        <div class="box">
+            <h3>Quick links</h3>
+            <a href="#home"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Home</span></a>
+            <a href="#services"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Services</span></a>
+            <a href="#about"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>About us</span></a>
+            <a href="#gallery"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Gallery</span></a>
+            <a href="#package"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Packages</span></a>
+            <a href="#review"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Review</span></a>
+            <a href="#contact"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Contact</span></a> 
+            <a href="#ratings"><i class="fa fa-arrow-right" aria-hidden="true"></i><span>Ratings</span></a> 
+
+        </div>
+        <div class="box">
+            <h3>contact info</h3>
+            <a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span>+123-456-7890</span></a>
+            <a href="#"><i class="fa fa-phone" aria-hidden="true"></i><span>+111-222-3333</span></a>
+            <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span>dreamstories@gmail.com</span></a>
+            <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i><span>ds2023@gmail.com</span></a>
+            <a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i><span>vadodara,india - 390001</span></a>
+        </div>
+        <div class="box">
+            <h3>follow us</h3>
+            <a href="https://www.facebook.com/"><i class="fa fa-facebook-square" aria-hidden="true"></i><span>facebook</span</a>
+            <a href="https://www.bing.com/ck/a?!&&p=7143adc61403fd20JmltdHM9MTY5NDQ3NjgwMCZpZ3VpZD0wMTJiMDYzNC0xMTM3LTY4MmItMTNjOS0xNWIyMTAyZDY5YzEmaW5zaWQ9NTY0NA&ptn=3&hsh=3&fclid=012b0634-1137-682b-13c9-15b2102d69c1&psq=twitter&u=a1aHR0cHM6Ly90d2l0dGVyLmNvbS9Ud2l0dGVy&ntb=1"><i class="fa fa-twitter" aria-hidden="true"></i><span>twitter</span></a>
+            <a href="https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1"><i class="fa fa-instagram"></i><span>instagram</span></a>
+            <a href="https://www.bing.com/ck/a?!&&p=30882cec9f068653JmltdHM9MTY5NDQ3NjgwMCZpZ3VpZD0wMTJiMDYzNC0xMTM3LTY4MmItMTNjOS0xNWIyMTAyZDY5YzEmaW5zaWQ9NTY0NQ&ptn=3&hsh=3&fclid=012b0634-1137-682b-13c9-15b2102d69c1&psq=linkdein&u=a1aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2NvbXBhbnkvbGlua2VkaW4&ntb=1"><i class="fa fa-linkedin"></i><span>linkedin</span></a>
+        </div>
+    </div>
+    <div class="credit">Copyright @2023 | Created by CSE Group , MSU | 
+    All Rights Reserved</div>
+</section>
 <!-- -------------------------------------------------------------------------- -->
 
 <script src="/js/script.js"></script>

@@ -11,6 +11,23 @@ const Entertainer = require('../models/entertainer');
 const Venue = require('../models/venues');
 const User = require('../models/User');
 
+
+exports.openProfile = async(req,res) => {
+  const userid = req.session.uid;
+
+  const user = await User.findOne({_id : userid});
+  const email = user.email;
+  const role = user.role;
+  const username = user.username;
+
+  if(userid)
+  {
+    return res.render('temp25',{userid : userid , role : role , username : username , email : email});
+  }
+  else{
+    return res.redirect('/login') ;
+  }
+}
 /**
  * GET /
  * 
@@ -193,6 +210,7 @@ exports.loginnew = async (req, res) => {
       console.log(user);
       const userid = user._id;
       console.log(user._id);
+      req.session.uid = user._id;
      req.session.isAuth = true;
      req.flash('infoSubmitlogin', 'User has been logged in.')
 

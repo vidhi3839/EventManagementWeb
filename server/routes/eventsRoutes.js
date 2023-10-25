@@ -14,6 +14,7 @@ router.get('/', eventsController.homepage );
 router.get('/signup', eventsController.signup);
 router.post('/signupnew', eventsController.signupnew);
 
+router.get('/profile',isAuth , eventsController.openProfile);
 /* Login Form and Function*/
 router.get('/login', eventsController.login);
 router.post('/loginnew',eventsController.loginnew);
