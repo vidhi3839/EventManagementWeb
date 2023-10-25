@@ -41,9 +41,6 @@
 
         </nav>
 
-        <div class="user-btn dropdown" id="user-btn">
-            <a> <i class="fa fa-user user-icon"></i></a>
-        </div>
     </header>
 
     <div class="page-location">
@@ -55,56 +52,64 @@
         </nav>
         <div class="filter-search">
             <div class="input-group">
-                <form id="searchForm" action="/entertainers/search/<%= searchInput %>" method="get" enctype="multipart/form-data">
-                    <input class="form-control me-2 search-input" id="search" name="search" type="search" placeholder="Search" aria-label="Search">
+                <form id="searchForm" action="/entertainers/search/<%= searchInput %>" method="get"
+                    enctype="multipart/form-data">
+                    <input class="form-control me-2 search-input" id="search" name="search" type="search"
+                        placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-secondary search-btn" type="submit">Search</button>
                 </form>
             </div>
             <div class="user-btn" id="user-btn">
-                <button class="button btn login-btn" data-bs-toggle="modal" data-bs-target="#filterModal"><i class="fa fa-sliders"></i> &nbsp;<span>Filter</span></button>
+                <button class="button btn login-btn" data-bs-toggle="modal" data-bs-target="#filterModal"><i
+                        class="fa fa-sliders"></i> &nbsp;<span>Filter</span></button>
 
             </div>
         </div>
     </div>
 
     <form method="get" id="serviceForm">
-    <div class="event-type-container">
-        <div class="wrapper">
-            <div class="carousel owl-carousel">
-                <div class="card card-1"><a href="/entertainers/type/Dj">
-                    <div class="card-img">
-                        <img src="/images/dj.png" alt="DJ">
+        <div class="event-type-container">
+            <div class="wrapper">
+                <div class="carousel owl-carousel">
+                    <div class="card card-1"><a href="/entertainers/type/Dj">
+                            <div class="card-img">
+                                <img src="/images/dj.png" alt="DJ">
+                            </div>
+                            <h6>DJ</h6>
+                        </a>
                     </div>
-                    <h6>DJ</h6></a>
-                </div>
-                <div class="card card-2"><a href="/entertainers/type/Dancers,Choreographer">
-                    <div class="card-img">
-                        <img src="/images/dancer.png" alt="Dancers/Choreographer">
+                    <div class="card card-2"><a href="/entertainers/type/Dancers">
+                            <div class="card-img">
+                                <img src="/images/dancer.png" alt="Dancers/Choreographer">
+                            </div>
+                            <h6>Dancers/Choreographer</h6>
+                        </a>
                     </div>
-                    <h6>Dancers/Choreographer</h6></a>
-                </div>
-                <div class="card card-3"><a href="/entertainers/type/Singer,Musical Band">
-                    <div class="card-img">
-                        <img src="/images/singer.png" alt="Singer/Musical Band">
+                    <div class="card card-3"><a href="/entertainers/type/Musicians">
+                            <div class="card-img">
+                                <img src="/images/singer.png" alt="Singer/Musical Band">
+                            </div>
+                            <h6>Singer/Musical Band</h6>
+                        </a>
                     </div>
-                    <h6>Singer/Musical Band</h6></a>
-                </div>
-                <div class="card card-4"><a href="/entertainers/type/Magician">
-                    <div class="card-img">
-                        <img src="/images/magician.png" alt="Magician" >
+                    <div class="card card-4"><a href="/entertainers/type/Magician">
+                            <div class="card-img">
+                                <img src="/images/magician.png" alt="Magician">
+                            </div>
+                            <h6>Magician</h6>
+                        </a>
                     </div>
-                    <h6>Magician</h6></a>
-                </div>
-                <div class="card card-5"><a href="/entertainers/type/Anchor">
-                    <div class="card-img">
-                        <img src="/images/host.png" alt="Anchor" >
+                    <div class="card card-5"><a href="/entertainers/type/Anchor">
+                            <div class="card-img">
+                                <img src="/images/host.png" alt="Anchor">
+                            </div>
+                            <h6>Anchor</h6>
+                        </a>
                     </div>
-                    <h6>Anchor</h6></a>
                 </div>
             </div>
-        </div>
 
-    </div>
+        </div>
     </form>
 
     <div class=" venue-container">
@@ -112,70 +117,66 @@
         <div class="row box1">
             <% if(entertainerList !='' ) { %>
                 <%entertainerList.forEach(entertainers=>{%>
-            <div class="col-md-4 col-sm-2 column">
-                <div class="service-figure">
-                    <img src="/uploads/<%= entertainers.profilePhoto%>" alt="" class="services-img">
-                    <button onclick="favourite()"><i class="fa fa-heart favourites"></i></button>
-                </div>
-                <div class="service-brief">
-
-                    <div class="venue-description venue-name" id="venue-name">
-                        <div>
-                            <a target="_blank" title="<%= entertainers.name %>" href="/entertainers/<%= entertainers._id%>">
-                                <h5>
-                                    <%= entertainers.name %>
-                                </h5>
-                            </a>
+                    <div class="col-md-4 col-sm-2 column">
+                        <div class="service-figure">
+                            <img src="/uploads/<%= entertainers.profilePhoto%>" alt="" class="services-img">
+                            <button onclick="favourite()"><i class="fa fa-heart favourites"></i></button>
                         </div>
-                        <div><span><i class="fa fa-star"></i>
-                                <%= entertainers.rating %>
-                            </span>
-                        </div>
-                    </div>
+                        <div class="service-brief">
 
-                    <div class="venue-description venue-location" id="venue-location"><a
-                            href="/entertainers/<%= entertainers._id%>">
-                            <div class="location">
-                                <span><img
-                                        src="https://images.wedmegood.com/react-frontend-v4/static/media/location.417064ed.svg"
-                                        alt="Location" width="10.62" height="17"></span>
-                                <p title=" <%= entertainers.address %>"><span>
-                                        <%= entertainers.address %>
-                                    </span> </p>
+                            <div class="venue-description venue-name" id="venue-name">
+                                <div>
+                                    <a target="_blank" title="<%= entertainers.name %>"
+                                        href="/entertainers/<%= entertainers._id%>">
+                                        <h5>
+                                            <%= entertainers.name %>
+                                        </h5>
+                                    </a>
+                                </div>
+                                <div><span><i class="fa fa-star"></i>
+                                        <%= entertainers.averageRating %>
+                                    </span>
+                                </div>
                             </div>
 
-                            <div class="location">
-                                <img src="https://images.wedmegood.com/react-frontend-v4/static/media/ResortIcon.00b02371.svg"
-                                    alt="Venue" width="17" height="20">
-                                <p title="Banquet Halls, Lawns / Farmhouses">
-                                    <%= entertainers.location%></p>
+                            <div class="venue-description venue-location" id="venue-location"><a
+                                    href="/entertainers/<%= entertainers._id%>">
+                                    <div class="location">
+                                        <span><img
+                                                src="https://images.wedmegood.com/react-frontend-v4/static/media/location.417064ed.svg"
+                                                alt="Location" width="10.62" height="17"></span>
+                                        <p title=" <%= entertainers.address %>"><span>
+                                                <%= entertainers.location %>
+                                            </span> </p>
+                                    </div>
+
+                                </a>
+
                             </div>
-                        </a>
 
-                    </div>
+                            <div class="venue-description venue-price" id="venue-price">
+                                <div>
+                                    <span class="veg-food-price">
+                                        Starting at <i class="fa fa-inr"></i><span>
+                                            <%= entertainers.budget %>
+                                        </span></span>
 
-                    <div class="venue-description venue-price" id="venue-price">
-                        <div>
-                            <span class="veg-food-price">
-                                Starting at <i class="fa fa-inr"></i><span>
-                                    <%= entertainers.budget %>
-                                </span></span>
-
+                                </div>
+                                <div>
+                                    <button class="explore"><a href="/entertainers/<%= entertainers._id%>">Explore
+                                            More</a></button>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <button class="explore"><a href="/entertainers/<%= entertainers._id%>">Explore More</a></button>
-                        </div>
                     </div>
-                </div>
-            </div>
-            <%})%>
-            <% } %>
+                    <%})%>
+                        <% } %>
 
-            <% if(entertainerList == '') { %>
-                <div class="row box1" style="margin: 100px 200px 100px 600px;">
-                    <p>Oops! No result found</p>
-                </div>
-                <% } %>   
+                            <% if(entertainerList=='' ) { %>
+                                <div class="row box1" style="margin: 100px 200px 100px 600px;">
+                                    <p>Oops! No result found</p>
+                                </div>
+                                <% } %>
 
         </div>
     </div>
@@ -190,7 +191,7 @@
                 </div>
                 <form id="filterForm" method="get" enctype="multipart/form-data">
                     <div class="modal-body row filter-body">
-                        <div class="filter-topics col-lg-3  col-sm-6">
+                        <div class="filter-topics col-md-6  col-sm-6">
                             <h5>Event Type</h5>
                             <div class="options">
                                 <div class="row filter-rows">
@@ -253,58 +254,65 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="filter-topics col-md-6">
+                        <div class="filter-topics col-md-6   col-sm-6">
                             <h5>Budget</h5>
                             <div class="options">
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="budget" id="lt-50000" value="lte-50000"></div>
+                                    <div class="col-2"><input type="radio" name="budget" id="lt-50000"
+                                            value="lte-50000"></div>
                                     <div class="col-7">&lt= <i class="fa fa-inr"></i> 50000</div>
                                 </div>
-                                <div class="row filter-rows"> 
-                                    <div class="col-2"><input type="radio" name="budget" id="twofive-fifty-thousand" value="50000-100000"></div>
-                                    <div class="col-7"><i class="fa fa-inr"></i>50000-<i class="fa fa-inr"></i>100000</div>
+                                <div class="row filter-rows">
+                                    <div class="col-2"><input type="radio" name="budget" id="twofive-fifty-thousand"
+                                            value="50000-100000"></div>
+                                    <div class="col-7"><i class="fa fa-inr"></i>50000-<i class="fa fa-inr"></i>100000
+                                    </div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="budget" id="fifty-one-lakh" value="100000-150000">
+                                    <div class="col-2"><input type="radio" name="budget" id="fifty-one-lakh"
+                                            value="100000-150000">
                                     </div>
                                     <div class="col-7"><i class="fa fa-inr"></i>100000-<i class="fa fa-inr"></i>150000
                                     </div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="budget" id="one-two-lakh" value="150000-200000">
+                                    <div class="col-2"><input type="radio" name="budget" id="one-two-lakh"
+                                            value="150000-200000">
                                     </div>
                                     <div class="col-7"><i class="fa fa-inr"></i>100000-<i class="fa fa-inr"></i>200000
                                     </div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="budget" id="two-five-lakh" value="200000-500000">
-                                    </div> 
+                                    <div class="col-2"><input type="radio" name="budget" id="two-five-lakh"
+                                            value="200000-500000">
+                                    </div>
                                     <div class="col-7"><i class="fa fa-inr"></i>200000-<i class="fa fa-inr"></i>5000000
                                     </div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-2"><input type="radio" name="budget" id="more-than-five-lakh" value="500000-gte">
+                                    <div class="col-2"><input type="radio" name="budget" id="more-than-five-lakh"
+                                            value="500000-gte">
                                     </div>
-                                    <div class="col-7">&gt  <i class="fa fa-inr"></i>500000</div>
+                                    <div class="col-7">&gt <i class="fa fa-inr"></i>500000</div>
                                 </div>
                             </div>
-                        </div>    
-                        <div class="filter-topics  col-lg-3   col-sm-6">
+                        </div>
+                        <div class="filter-topics  col-md-6   col-sm-6">
                             <h5>Experience</h5>
                             <div class="options">
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience"
-                                            id="lt-3" value="lte-3"></div>
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience" id="lt-3"
+                                            value="lte-3"></div>
                                     <div class="col-5">&lt 3</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience"
-                                            id="gt-3" value="3-gte"></div>
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience" id="gt-3"
+                                            value="3-gte"></div>
                                     <div class="col-5">3+</div>
                                 </div>
                                 <div class="row filter-rows">
-                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience"
-                                            id="five" value="5">
+                                    <div class="col-md-3 col-sm-2 col-2"><input type="radio" name="experience" id="five"
+                                            value="5">
                                     </div>
                                     <div class="col-5">5</div>
                                 </div>
@@ -322,7 +330,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="filter-topics col-md-6">
+                        <div class="filter-topics col-md-6   col-sm-6">
                             <h5>Rating</h5>
                             <div class="options">
                                 <div class="row filter-rows">
@@ -347,7 +355,7 @@
                                     </div>
                                     <div class="col-5">Rated 4.8+</div>
                                 </div>
-    
+
                             </div>
                         </div>
                     </div>
@@ -363,7 +371,7 @@
     <script>
 
 
-let menu = document.querySelector("#menu-btn"),
+        let menu = document.querySelector("#menu-btn"),
             navbar = document.querySelector(".navbar");
         var main = document.querySelector(".main");
 
@@ -374,24 +382,14 @@ let menu = document.querySelector("#menu-btn"),
         }
 
 
-document.getElementById('searchForm').addEventListener('submit', function (event) {
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the form from submitting in the traditional way
 
             const searchInput = document.getElementById('search').value; // Get the input value
 
             // Redirect the user to the URL with the search input as a route parameter
-            window.location.href = `/entertainer/search/${searchInput}`;
-            // const searchForm = document.getElementById('searchForm');
-            // if (currentPath.startsWith('/venues/service-events/')) {
-            //     // If the current route is /photographer/search/:searchInput
-            //     const eventInput = currentPath.substring('/venues/service-events/'.length);
-            //     searchForm.action = null;
-            // }
-            // else {
-            //     // If the current route is /photographer
-            //     const eventInput = currentPath.substring('/venues/search/'.length);
-            //     searchForm.action = `/venues/search/${searchInput}`;
-            // }
+            window.location.href = `/entertainers/search/${searchInput}`;
+
         });
 
 
@@ -403,13 +401,13 @@ document.getElementById('searchForm').addEventListener('submit', function (event
             // Check the current route and update form action accordingly
             if (currentPath.startsWith('/entertainers/search/')) {
                 // If the current route is /photographer/search/:searchInput
-                const searchInput = currentPath.substring('/venues/search/'.length);
+                const searchInput = currentPath.substring('/entertainers/search/'.length);
                 filterForm.action = `/entertainers/search/${searchInput}`;
             }
             if (currentPath.startsWith('/entertainers/type/')) {
                 // If the current route is /photographer/search/:searchInput
                 const eventInput = currentPath.substring('/entertainers/type/'.length);
-                filterForm.action = `/venues/type/${eventInput}`;
+                filterForm.action = `/entertainers/type/${eventInput}`;
             }
             else {
                 // If the current route is /photographer

@@ -37,9 +37,7 @@
 
         </nav>
 
-        <div class="user-btn dropdown" id="user-btn">
-            <a> <i class="fa fa-user user-icon"></i></a>
-        </div>
+       
     </header>
 
     <nav aria-label="breadcrumb" class="page-location">
@@ -107,8 +105,8 @@
                                                     </p>
                                                 </div>
                                             
-                                            <div class="col-md-5 col-sm-5 "><iframe src="<%= venue.addressUrl%>" width="100"
-                                                    height="100" style="border:1px solid gray;" allowfullscreen=""
+                                            <div class="col-md-5 col-sm-5 "><iframe src="<%= venue.addressUrl%>" width="150"
+                                                    height="150" style="border:1px solid gray;" allowfullscreen=""
                                                     loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                             </div>
                                         </div>
@@ -331,14 +329,14 @@
                                                 <% if(infoSubmitObj !='' ) { %>
                                                     <div class="col-sm-6 alert alert-success"
                                                         style="text-align: center;">
-                                                        <%= infoSubmitObj %>
+                                                        <%= infoSubmitObj[0].message %>
                                                     </div>
                                                     <% } %>
                                             </div>
                                             <div class="col-12">
                                                 <% if(infoErrorsObj !='' ) { %>
                                                     <div class="col-12 alert alert-danger" role="alert">
-                                                        <%= infoErrorsObj[0].message %>
+                                                        <%= infoErrorsObj[0].message  %>
                                                     </div>
                                                     <% } %>
                                             </div>
@@ -448,7 +446,7 @@
                                 About <!-- -->
                                 <%= venue.name%>, <!-- -->
                                     <!-- --> <span>&nbsp;<!-- -->
-                                        <%= venue.address%>
+                                        <%= venue.location%>
                                     </span>
                             </h2>
                             <div class="about-body border-t">
@@ -548,13 +546,13 @@
 
                             <div class="TabViews fcol f-space-between">
                                 <div class="Portfolio "> 
-                                    <%if(venue.photos.length > 0){%>
+                                    <%if(venue.porfolioPhotos != ''){%>
                                       
                                     <div class="row">
-                                        <%venue.photos.forEach(photo=>{%>
+                                        <%venue.portfolioPhotos.forEach(photo=>{%>
                                         <div class="col-md-3"><img id="vendor-portfolio-pic-0"
                                                 class="img-thumbnail images-thumbnail"
-                                                src="/uploads/<%= photo%>"
+                                                src="/uploads/<%= photo.url%>"
                                                 alt="portfolio-pic" loading="lazy">
                                         </div>
                                         <%})%>
@@ -610,16 +608,6 @@
                         allStar[i].classList.add('star-solid')
                         allStar[i].classList.add('active')
                         allStar[i].classList.add('rate-5')
-                        if (i == 0)
-                            header1.innerHTML = "I hate it 🤮";
-                        if (i == 1)
-                            header1.innerHTML = "I dont like it 😒";
-                        if (i == 2)
-                            header1.innerHTML = "I just like it 😄";
-                        if (i == 3)
-                            header1.innerHTML = "It is awesome 😎";
-                        if (i == 4)
-                            header1.innerHTML = "I love it 😍";
 
                     } else {
                         allStar[i].style.setProperty('--i', click)

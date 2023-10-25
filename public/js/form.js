@@ -38,10 +38,10 @@ window.addEventListener("load", () => {
         let input = newHalls.getElementsByTagName('input')[0];
         input.value = '';
         addMoreServicesList.appendChild(newHalls);
-    });
+    }); 
 
 
-    //add more input field for halls/packages prices
+    //add more input field for halls/packages/entertainer prices
 
     
     let addMoreButton = document.querySelector("#add-more-button");
@@ -60,50 +60,50 @@ window.addEventListener("load", () => {
     //add more input field for food prices
 
     
-    let addMoreFoodButton = document.querySelector("#add-food-button");
-    let addMoreFood = document.querySelector('.add-more-food');
-    let addMoreFoodDivision = document.querySelectorAll('.add-more-food-division')[0];
+    // let addMoreFoodButton = document.querySelector("#add-food-button");
+    // let addMoreFood = document.querySelector('.add-more-food');
+    // let addMoreFoodDivision = document.querySelectorAll('.add-more-food-division')[0];
 
-    addMoreFoodButton.addEventListener('click', function () {
-        let newItem = addMoreFoodDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input');
-        for(let i=0; i< input.length; i++){
-        input[i].value = '';}
-        addMoreFood.appendChild(newItem);
-    });
+    // addMoreFoodButton.addEventListener('click', function () {
+    //     let newItem = addMoreFoodDivision.cloneNode(true);
+    //     let input = newItem.getElementsByTagName('input');
+    //     for(let i=0; i< input.length; i++){
+    //     input[i].value = '';}
+    //     addMoreFood.appendChild(newItem);
+    // });
 
 
     
     //add more input field for event decor prices
 
     
-    let addMoreDecorButton = document.querySelector("#add-more-decor-button");
-    let addMoreDecor = document.querySelector('.add-more-decor-price');
-    let addMoreDecorDivision = document.querySelectorAll('.add-more-decor-division')[0];
+    // let addMoreDecorButton = document.querySelector("#add-more-decor-button");
+    // let addMoreDecor = document.querySelector('.add-more-decor-price');
+    // let addMoreDecorDivision = document.querySelectorAll('.add-more-decor-division')[0];
 
-    addMoreDecorButton.addEventListener('click', function () {
-        let newItem = addMoreDecorDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input');
-        for(let i=0; i< input.length; i++){
-            input[i].value = '';}
-        addMoreDecor.appendChild(newItem);
-    });
+    // addMoreDecorButton.addEventListener('click', function () {
+    //     let newItem = addMoreDecorDivision.cloneNode(true);
+    //     let input = newItem.getElementsByTagName('input');
+    //     for(let i=0; i< input.length; i++){
+    //         input[i].value = '';}
+    //     addMoreDecor.appendChild(newItem);
+    // });
 
       
     //add more input field for room prices
 
     
-    let addMoreRoomButton = document.querySelector("#add-more-room-button");
-    let addMoreRoom = document.querySelector('.add-more-room-price');
-    let addMoreRoomDivision = document.querySelectorAll('.add-more-room-division')[0];
+    // let addMoreRoomButton = document.querySelector("#add-more-room-button");
+    // let addMoreRoom = document.querySelector('.add-more-room-price');
+    // let addMoreRoomDivision = document.querySelectorAll('.add-more-room-division')[0];
 
-    addMoreRoomButton.addEventListener('click', function () {
-        let newItem = addMoreRoomDivision.cloneNode(true);
-        let input = newItem.getElementsByTagName('input');
-        for(let i=0; i< input.length; i++){
-            input[i].value = '';}
-        addMoreRoom.appendChild(newItem);
-    });
+    // addMoreRoomButton.addEventListener('click', function () {
+    //     let newItem = addMoreRoomDivision.cloneNode(true);
+    //     let input = newItem.getElementsByTagName('input');
+    //     for(let i=0; i< input.length; i++){
+    //         input[i].value = '';}
+    //     addMoreRoom.appendChild(newItem);
+    // });
 
 
 })
