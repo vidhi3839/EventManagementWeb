@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Stories</title>
+    <link rel="icon" type="image-icon" href="images/logo.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
+
+    <!-------------Bootstrap CSS------------->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+    <!-------------jQuery-------------------->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <!-------------Bootstrap js-------------->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
+
+    <!--------------Icons-------------------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<header class="header">
+
+    <div class="fa fa-bars" id="menu-btn" onclick="navBarToggle()"></div>
+
+    <a href="/" class="navbar-logo"><img src="images/logo.png" alt="" width="100%" height="100%"></a>
+
+    
+
+    <div class="user-btn dropdown" id="user-btn">
+        <button class="button login-btn" data-bs-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Login</button>
+        <i class="fa fa-user user-icon" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+
+        <div class="dropdown-menu dropdown_menu text-center" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#" id="signup" data-bs-toggle="modal" data-bs-target="#signupModal"><i
+                    class="fa fa-sign-in"></i>Signup</a>
+
+            <a class="dropdown-item" href="#" data-bs-target="#userProfile" data-bs-toggle="modal" ><i class="fa fa-user"></i> My Profile</a>
+            <a class="dropdown-item" href="#"><i class="fa fa-shopping-bag"></i> Events
+                Booked</a>
+
+            <a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Settings</a>
+            <a class="dropdown-item" href="#" style="border: none;"><i class="fa fa-sign-out"></i> Log out</a>
+        </div>
+    </div>
+</header>
+<body>
+    <div  class="modal" tabindex="-1" aria-labelledby="signupLabel" aria-hidden="true" id="userProfile">
+        <div>
+            <h1 class="userPHead">User Profile</h1> 
+        </div>
+        <div class="userPContent">
+            <div id="userPUpdate">
+                <button>Change password</button>
+                <button onclick="editUserProfile()">Edit details</button>
+            </div>
+            <div class="passwdCheck">Enter your password:
+                <span onclick="closePswdCheck()">&times;</span><br>
+    
+            <input type="password" name="" id="passwdCheck">
+            <button>Enter</button></div>
+            <div class="userPInfo">
+                <label for="userFName">First Name:<input type="text" id="userFName" disabled value="First Name"></label>
+                <label for="userLName">Last Name:<input type="text" id="userLName" disabled value="Last Name"></label>
+                <label for="userEmail">Email:<input type="email" id="userEmail" disabled value="Email"></label>
+                <label for="userMNo">Mobile number:<input type="number" id="userMNo" disabled value="8754693210"></label>
+                <label for="userAddress">Address:<input type="textarea" id="userAddress" disabled value="Address"></label>
+            </div>
+        </div>
+    </div>
+    <script src="/js/script.js"></script>
+</body>

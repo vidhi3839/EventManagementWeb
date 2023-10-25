@@ -10,7 +10,7 @@ const { validationResult } = require('express-validator');
 const Entertainer = require('../models/entertainer');
 const Venue = require('../models/venues');
 const User = require('../models/User');
-
+const Review = require('../models/Review');
 /**
  * GET /
  * 
@@ -18,8 +18,12 @@ const User = require('../models/User');
 exports.homepage = async (req, res) => {
   try {
     const limitNumber = 10;
+    const limitReview = 3;
+    
     const packages = await Packages.find({}).limit(limitNumber);
-    res.render('index', { packages });
+    const reviews = await Review.find({}).limit(limitReview); 
+    
+    res.render('index', { packages,reviews,});
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occured" });
   }
@@ -57,6 +61,518 @@ exports.packageName = async (req, res) => {
     res.status(500).send({ message: error.message || "Error Occured" });
   }
 }
+
+exports.submitPackages = async (req, res) => {
+  const infoErrorsObj = req.flash('infoErrors');
+  const infoSubmitObj = req.flash('infoSubmit');
+  const WarningData = req.flash('warndata');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  const userid = req.params.id;
+  const user = await Packages.findOne({userid});
+if(user)
+  {
+    req.flash('warndata','Package already exists with this account , To add new , create new Account !!');
+    return res.render('addeditvendor' , {userid : userid  , ErrorData : null , SubmitData : null , WarningData : WarningData});
+  }
+  res.render('packages_form', {title: 'Dream Stories - Organisation Registration ', infoErrorsObj, infoSubmitObj, userid: userid });
+}
+
+
+/**
+ * POST /submit-package
+ */
+exports.updateonsubmitPackage = async (req, res) => {
+  const userid = req.params.id;
+  const infoErrorsObj = req.flash('infoErrors');
+  const infoSubmitObj = req.flash('infoSubmit');
+  const WarningData = req.flash('warndata');
+  const ErrorData = req.flash('errordata');
+  const SubmitData = req.flash('subdata');
+  try {
+
+    let pkgImageUploadFile;
+    let pkgUploadPath;
+    let pkgNewImageName;
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+      console.log('No Files where uploaded.');
+    } else {
+
+      pkgImageUploadFile = req.files.apImg;
+      pkgNewImageName = Date.now() + pkgImageUploadFile.name;
+
+      pkgUploadPath = require('path').resolve('./') + '/public/images/' + pkgNewImageName;
+
+      pkgImageUploadFile.mv(pkgUploadPath, function (err) {
+        if (err) return res.status(500).send(err);
+      })
+
+    }
+    const basicItem = Array.isArray(req.body.basicItem) ? req.body.basicItem : [req.body.basicItem];
+    const basicPrice = Array.isArray(req.body.basicPrice) ? req.body.basicPrice : [req.body.basicPrice];
+
+    const bItemList = [];
+
+    for (let i = 0; i < Math.max(basicItem.length, basicPrice.length); i++) {
+      const basic_Item = basicItem[i] || ''; // Use empty string if package name doesn't exist
+      const basic_Price = basicPrice[i] || ''; // Use 0 if package price doesn't exist
+      bItemList.push({ basicItem: basic_Item, basicPrice: basic_Price });
+    }
+
+    const basicDesTitle = Array.isArray(req.body.basicDesTitle) ? req.body.basicDesTitle : [req.body.basicDesTitle];
+    const basicDes = Array.isArray(req.body.basicDes) ? req.body.basicDes : [req.body.basicDes];
+
+    const bDesList = [];
+
+    for (let i = 0; i < Math.max(basicDesTitle.length, basicDes.length); i++) {
+      const basic_DesTitle = basicDesTitle[i] || ''; // Use empty string if package name doesn't exist
+      const basic_Des = basicDes[i] || ''; // Use 0 if package price doesn't exist
+      bDesList.push({ basicDesTitle: basic_DesTitle, basicDes: basic_Des });
+    }
+
+    const premiumItem = Array.isArray(req.body.premiumItem) ? req.body.premiumItem : [req.body.premiumItem];
+    const premiumPrice = Array.isArray(req.body.premiumPrice) ? req.body.premiumPrice : [req.body.premiumPrice];
+
+    const pItemList = [];
+
+    for (let i = 0; i < Math.max(premiumItem.length, premiumPrice.length); i++) {
+      const premium_Item = premiumItem[i] || ''; // Use empty string if package name doesn't exist
+      const premium_Price = premiumPrice[i] || ''; // Use 0 if package price doesn't exist
+      pItemList.push({ premiumItem: premium_Item, premiumPrice: premium_Price });
+    }
+
+    const premiumDesTitle = Array.isArray(req.body.premiumDesTitle) ? req.body.premiumDesTitle : [req.body.premiumDesTitle];
+    const premiumDes = Array.isArray(req.body.premiumDes) ? req.body.premiumDes : [req.body.premiumDes];
+
+    const pDesList = [];
+
+    for (let i = 0; i < Math.max(premiumDesTitle.length, premiumDes.length); i++) {
+      const premium_DesTitle = premiumDesTitle[i] || ''; // Use empty string if package name doesn't exist
+      const premium_Des = premiumDes[i] || ''; // Use 0 if package price doesn't exist
+      pDesList.push({ premiumDesTitle: premium_DesTitle, premiumDes: premium_Des });
+    }
+
+    const ultimateItem = Array.isArray(req.body.ultimateItem) ? req.body.ultimateItem : [req.body.ultimateItem];
+    const ultimatePrice = Array.isArray(req.body.ultimatePrice) ? req.body.ultimatePrice : [req.body.ultimatePrice];
+
+    const uItemList = [];
+
+    for (let i = 0; i < Math.max(ultimateItem.length, ultimatePrice.length); i++) {
+      const ultimate_Item = ultimateItem[i] || ''; // Use empty string if package name doesn't exist
+      const ultimate_Price = ultimatePrice[i] || ''; // Use 0 if package price doesn't exist
+      uItemList.push({ ultimateItem: ultimate_Item, ultimatePrice: ultimate_Price });
+    }
+
+    const ultimateDesTitle = Array.isArray(req.body.ultimateDesTitle) ? req.body.ultimateDesTitle : [req.body.ultimateDesTitle];
+    const ultimateDes = Array.isArray(req.body.ultimateDes) ? req.body.ultimateDes : [req.body.ultimateDes];
+
+    const uDesList = [];
+
+    for (let i = 0; i < Math.max(ultimateDesTitle.length, ultimateDes.length); i++) {
+      const ultimate_DesTitle = ultimateDesTitle[i] || ''; // Use empty string if package name doesn't exist
+      const ultimate_Des = ultimateDes[i] || ''; // Use 0 if package price doesn't exist
+      uDesList.push({ ultimateDesTitle: ultimate_DesTitle, ultimateDes: ultimate_Des });
+    }
+    const newPackage = new Packages({
+      pkgcmpyname: req.body.pkgcmpyname,
+      pkgname: req.body.pkgname,
+      apImg: pkgNewImageName,
+      totalBasicPrice: req.body.totalBasicPrice,
+      totalPremiumPrice: req.body.totalPremiumPrice,
+      totalUltimatePrice: req.body.totalUltimatePrice,
+      userid : req.params.id,
+     });
+
+
+     newPackage.bItemList = bItemList;
+     newPackage.bDesList = bDesList;
+     newPackage.pItemList = pItemList;
+     newPackage.pDesList = pDesList;
+     newPackage.uItemList = uItemList;
+     newPackage.uDesList = uDesList;
+    await newPackage.save();
+
+    req.flash('infoSubmit', 'Package has been added');
+    return res.render('addeditvendor',{userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null});
+  } catch (error) {
+    req.flash('infoErrors', error);
+    console.log(error);
+    res.redirect('/packages_form');
+  }
+}
+
+/**
+ * 
+ * GET /Edit package 
+ */
+exports.packagesEdit = async (req, res) => {
+  try {
+    const infoErrorsObjcatererupd = req.flash('infoErrorscatererupd');
+    const infoSubmitObjcatererupd = req.flash('infoSubmitcatererupd');
+    const ErrorData = req.flash('errordata');
+    const SubmitData = req.flash('subdata');
+    const WarningData = req.flash('warndata');
+   const infoErrorsObj = req.flash('infoErrors');
+    const infoSubmitObj = req.flash('infoSubmit');
+  
+    const userid = req.params.id;
+  
+    const user = await Packages.findOne({userid});
+  
+    if(!user)
+    {
+      req.flash('errordata','No such User Exists for packages !!');
+      return res.render('addeditvendor' , { userid : userid  , ErrorData : ErrorData , SubmitData : null , WarningData : null});
+    }
+   
+    const packagesId = user._id;
+    const packages = await Packages.findById(packagesId)
+    res.render('packages_edit', { packages,user, infoErrorsObj, infoSubmitObj,userid:userid })
+
+  }
+  catch (err) {
+    res.status(500).send(err)
+  }
+} 
+
+/**
+ * POST/ edit package 
+ */
+exports.packagesEditPost = async (req, res) => {
+  try {
+    const userid = req.params.id;
+    const user = await Packages.findOne({userid});
+    const packagesId=user._id;
+    const infoErrorsObjcatererupd = req.flash('infoErrorscatererupd');
+    const infoSubmitObjcatererupd = req.flash('infoSubmitcatererupd');
+    const ErrorData = req.flash('errordata');
+    const SubmitData = req.flash('subdata');
+    const WarningData = req.flash('warndata');
+    let pkgImageUploadFile;
+    let pkgUploadPath;
+    let pkgNewImageName;
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+      console.log('No Files where uploaded.');
+      console.log(req.files)
+    } else {
+
+      pkgImageUploadFile = req.files.apImg;
+      pkgNewImageName = Date.now() + pkgImageUploadFile.name;
+      pkgUploadPath = require('path').resolve('./') + '/public/images/' + pkgNewImageName;
+      pkgImageUploadFile.mv(pkgUploadPath, function (err) {
+        if (err) {
+        console.error(err);
+        return res.status(500).send(err);
+      }
+      console.log('File uploaded successfully!');
+      })
+
+    }
+
+    const basicItem = Array.isArray(req.body.basicItem) ? req.body.basicItem : [req.body.basicItem];
+    const basicPrice = Array.isArray(req.body.basicPrice) ? req.body.basicPrice : [req.body.basicPrice];
+
+    const bItemList = [];
+
+    for (let i = 0; i < Math.max(basicItem.length, basicPrice.length); i++) {
+      const basic_Item = basicItem[i] || ''; // Use empty string if package name doesn't exist
+      const basic_Price = basicPrice[i] || ''; // Use 0 if package price doesn't exist
+      bItemList.push({ basicItem: basic_Item, basicPrice: basic_Price });
+    }
+
+    const basicDesTitle = Array.isArray(req.body.basicDesTitle) ? req.body.basicDesTitle : [req.body.basicDesTitle];
+    const basicDes = Array.isArray(req.body.basicDes) ? req.body.basicDes : [req.body.basicDes];
+
+    const bDesList = [];
+
+    for (let i = 0; i < Math.max(basicDesTitle.length, basicDes.length); i++) {
+      const basic_DesTitle = basicDesTitle[i] || ''; // Use empty string if package name doesn't exist
+      const basic_Des = basicDes[i] || ''; // Use 0 if package price doesn't exist
+      bDesList.push({ basicDesTitle: basic_DesTitle, basicDes: basic_Des });
+    }
+
+    const premiumItem = Array.isArray(req.body.premiumItem) ? req.body.premiumItem : [req.body.premiumItem];
+    const premiumPrice = Array.isArray(req.body.premiumPrice) ? req.body.premiumPrice : [req.body.premiumPrice];
+
+    const pItemList = [];
+
+    for (let i = 0; i < Math.max(premiumItem.length, premiumPrice.length); i++) {
+      const premium_Item = premiumItem[i] || ''; // Use empty string if package name doesn't exist
+      const premium_Price = premiumPrice[i] || ''; // Use 0 if package price doesn't exist
+      pItemList.push({ premiumItem: premium_Item, premiumPrice: premium_Price });
+    }
+
+    const premiumDesTitle = Array.isArray(req.body.premiumDesTitle) ? req.body.premiumDesTitle : [req.body.premiumDesTitle];
+    const premiumDes = Array.isArray(req.body.premiumDes) ? req.body.premiumDes : [req.body.premiumDes];
+
+    const pDesList = [];
+
+    for (let i = 0; i < Math.max(premiumDesTitle.length, premiumDes.length); i++) {
+      const premium_DesTitle = premiumDesTitle[i] || ''; // Use empty string if package name doesn't exist
+      const premium_Des = premiumDes[i] || ''; // Use 0 if package price doesn't exist
+      pDesList.push({ premiumDesTitle: premium_DesTitle, premiumDes: premium_Des });
+    }
+
+    const ultimateItem = Array.isArray(req.body.ultimateItem) ? req.body.ultimateItem : [req.body.ultimateItem];
+    const ultimatePrice = Array.isArray(req.body.ultimatePrice) ? req.body.ultimatePrice : [req.body.ultimatePrice];
+
+    const uItemList = [];
+
+    for (let i = 0; i < Math.max(ultimateItem.length, ultimatePrice.length); i++) {
+      const ultimate_Item = ultimateItem[i] || ''; // Use empty string if package name doesn't exist
+      const ultimate_Price = ultimatePrice[i] || ''; // Use 0 if package price doesn't exist
+      uItemList.push({ ultimateItem: ultimate_Item, ultimatePrice: ultimate_Price });
+    }
+
+    const ultimateDesTitle = Array.isArray(req.body.ultimateDesTitle) ? req.body.ultimateDesTitle : [req.body.ultimateDesTitle];
+    const ultimateDes = Array.isArray(req.body.ultimateDes) ? req.body.ultimateDes : [req.body.ultimateDes];
+
+    const uDesList = [];
+
+    for (let i = 0; i < Math.max(ultimateDesTitle.length, ultimateDes.length); i++) {
+      const ultimate_DesTitle = ultimateDesTitle[i] || ''; // Use empty string if package name doesn't exist
+      const ultimate_Des = ultimateDes[i] || ''; // Use 0 if package price doesn't exist
+      uDesList.push({ ultimateDesTitle: ultimate_DesTitle, ultimateDes: ultimate_Des });
+    }
+
+    const packages = await Packages.findOneAndUpdate({ _id: packagesId }, {
+      $set: {
+        pkgcmpyname: req.body.pkgcmpyname,
+        pkgname: req.body.pkgname,
+        apImg: pkgNewImageName,
+        totalBasicPrice: req.body.totalBasicPrice,
+        totalPremiumPrice: req.body.totalPremiumPrice,
+        totalUltimatePrice: req.body.totalUltimatePrice,
+        bItemList:bItemList,
+        bDesList:bDesList,
+        pItemList:pItemList,
+        pDesList:pDesList,
+        uItemList:uItemList,
+        uDesList:uDesList
+      }
+    },
+      { upsert: true, new: true }
+    )
+
+    packages.save();
+    req.flash('subdata', 'Package updated successfully !!');
+    return res.render('addeditvendor' , {userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null}); // Redirect to a success page or home page
+
+
+  }
+  catch (err) {
+    const userid=res.params.id
+    req.flash('infoErrorsdecorupd', 'Error Occurred !!');
+    return res.redirect('/packages/edit/' +`${userid}`);
+  }
+}
+
+/*      req.flash('subdata', 'Package updated successfully !!');
+      return res.render('addeditvendor' , {userid : userid , ErrorData : null , SubmitData : SubmitData , WarningData : null}); // Redirect to a success page or home page
+    } 
+   
+   catch (error) {
+    const userid = req.params.id;
+    console.log(error);
+    req.flash('infoErrorsdecorupd', 'Error Occurred !!');
+    return res.redirect('/packages/edit/' +`${userid}`); // Redirect to the edit form
+  } */
+
+exports.deletePackages = async (req, res) => {
+  try {
+    const userid = req.params.id;
+    const packages = await Packages.findByIdAndDelete(userid);
+
+     await packages.save();
+
+    res.redirect('/');
+
+  }
+  catch (err) {
+    res.status(500).send(err)
+  }
+}
+//Add more basic items
+//GET
+exports.addPackagesList = async (req, res) => {
+  const userid = req.params.id;
+  const packages = await Packages.findById(userid)
+  res.render('addPackagesList', { packages })
+}
+
+ 
+
+//POST
+exports.addPackagesListOnPost = async (req, res) => {
+  try {
+    const userid = req.params.id;
+    const { basicItem, basicPrice } = req.body;
+    const { basicDesTitle, basicDes } = req.body;
+    const { premiumItem, premiumPrice } = req.body;
+    const { premiumDesTitle, premiumDes } = req.body;
+    const { ultimateItem, ultimatePrice } = req.body;
+    const { ultimateDesTitle, ultimateDes } = req.body;
+
+    const bItemListToAdd = [];
+    const bDesListToAdd = [];
+    const pItemListToAdd = [];
+    const pDesListToAdd = [];
+    const uItemListToAdd = [];
+    const uDesListToAdd = [];
+
+    if(basicItem!='' && basicPrice!=''){
+      if (Array.isArray(basicItem)) {
+        // If basicItem is an array, iterate through each element
+        for (let i = 0; i < basicItem.length; i++) {
+         const name = basicItem[i];
+         const price = basicPrice[i] || 0;
+         bItemListToAdd.push({ basicItem: name, basicPrice: price });
+       }
+     } else{
+      // If basicItem is not an array, convert it into an array
+       bItemListToAdd.push({ basicItem, basicPrice: basicPrice || 0 });
+     }
+    }
+
+    if(basicDes!='' && basicDesTitle!=''){
+      if (Array.isArray(basicDesTitle)) {
+        // If basicDesTitle is an array, iterate through each element
+        for (let i = 0; i < basicDesTitle.length; i++) {
+          const name = basicDesTitle[i];
+          const des = basicDes[i] || 0;
+          bDesListToAdd.push({ basicDesTitle: name, basicDes: des });
+        }
+      } else{
+        // If basicDesTitle is not an array, convert it into an array
+        bDesListToAdd.push({ basicDesTitle, basicDes: basicDes || '' });
+      }
+    }
+
+    if(premiumItem!='' && premiumPrice!=''){
+      if (Array.isArray(premiumItem)) {
+        // If premiumItem is an array, iterate through each element
+        for (let i = 0; i < premiumItem.length; i++) {
+         const name = premiumItem[i];
+         const price = premiumPrice[i] || 0;
+         pItemListToAdd.push({ premiumItem: name, premiumPrice: price });
+       }
+       } else {
+          // If premiumItem is not an array, convert it into an array
+          pItemListToAdd.push({ premiumItem, premiumPrice: premiumPrice || 0 });
+       }
+    }
+
+    if(premiumDesTitle!='' && premiumDes!=''){
+      if (Array.isArray(premiumDesTitle)) {
+        // If premiumDesTitle is an array, iterate through each element
+        for (let i = 0; i < premiumDesTitle.length; i++) {
+          const name = premiumDesTitle[i];
+          const des = premiumDes[i] || '';
+          pDesListToAdd.push({ premiumDesTitle: name, premiumDes: des });
+        }
+      } else{
+        // If basicItem is not an array, convert it into an array
+        pDesListToAdd.push({ premiumDesTitle, premiumDes: premiumDes || '' });
+      }
+    }
+
+    if(ultimateItem!='' && ultimatePrice!=''){
+      if (Array.isArray(ultimateItem)) {
+        // If ultimateItem is an array, iterate through each element
+        for (let i = 0; i < ultimateItem.length; i++) {
+         const name = ultimateItem[i];
+         const price = ultimatePrice[i] || 0;
+         uItemListToAdd.push({ ultimateItem: name, ultimatePrice: price });
+       }
+     } else {
+       // If basicItem is not an array, convert it into an array
+       uItemListToAdd.push({ ultimateItem, ultimatePrice: ultimatePrice || 0 });
+     }
+    }
+
+    if(ultimateDes!='' && ultimateDesTitle!=''){
+      if (Array.isArray(ultimateDesTitle)) {
+        // If ultimateDesTitle is an array, iterate through each element
+        for (let i = 0; i < ultimateDesTitle.length; i++) {
+         const name = ultimateDesTitle[i];
+         const price = ultimateDes[i] || '';
+         uDesListToAdd.push({ ultimateDesTitle: name, ultimateDes: price });
+       }
+     } else {
+       // If basicItem is not an array, convert it into an array
+       uDesListToAdd.push({ ultimateDesTitle, ultimateDes: ultimateDes || 0 });
+     }
+    }
+
+    await Packages.findOneAndUpdate(
+      {userid },
+      {
+        $push: {
+          bItemList: {
+            $each: bItemListToAdd
+          },
+          bDesList: {
+            $each: bDesListToAdd
+          },
+          pItemList: {
+            $each: pItemListToAdd
+          },
+          pDesList: {
+            $each: pDesListToAdd
+          },
+          uItemList: {
+            $each: uItemListToAdd
+          },
+          uDesList: {
+            $each: uDesListToAdd
+          }
+        }
+      }
+    );
+
+    req.flash('infoSubmit', 'List Added!')
+    res.redirect('/packages/edit/' + `${userid}`)
+
+  }
+  catch (error) {
+    req.flash('infoErrors', error);
+    res.status(500).send(error)
+  }
+}
+
+//Delete List
+exports.delPackagesList = async (req, res) => {
+  try {
+    const userid = req.params.id;
+    const bItemListId = req.params.pid;
+    const bDesListId = req.params.pid;
+    const pItemListId = req.params.pid;
+    const pDesListId = req.params.pid;
+    const uItemListId = req.params.pid;
+    const uDesListId = req.params.pid;
+    const packages = await Packages.findById(userid);
+
+    packages.bItemList.pull(bItemListId)
+    packages.bDesList.pull(bDesListId)
+    packages.pItemList.pull(pItemListId)
+    packages.pDesList.pull(pDesListId)
+    packages.uItemList.pull(uItemListId)
+    packages.uDesList.pull(uDesListId)
+
+    await packages.save();
+
+    req.flash('infoSubmit', 'List deleted successfully!')
+    res.redirect('/packages/edit/' + `${userid}`);
+
+  }
+  catch (err) {
+    req.flash('infoErrors', err);
+    res.status(500).send(err)
+  }
+}
+
 /**--------------------------------------------------------user-signup------------------------------------------------------ */
 
 /**
@@ -202,6 +718,7 @@ exports.loginnew = async (req, res) => {
     else {
       return res.redirect('/');
     }
+
 
   } catch (err) {
     console.error(err.message);
@@ -3942,12 +4459,12 @@ exports.addCaterer = async (req, res) => {
     const ErrorData = req.flash('errordata');
     const SubmitData = req.flash('subdata');
     const WarningData = req.flash('warndata');
+  
+    if(isNaN(req.body.cvegprice))
+    {
+      req.flash('infoErrorscaterer' , 'Starting Price must contain only numeric value !!');
+      return res.redirect('/addcatererform/'+userid) ;
 
-
-
-    if (isNaN(req.body.cvegprice)) {
-      req.flash('infoErrorscaterer', 'Starting Price must contain only numeric value !!');
-      return res.redirect('/addcatererform/' + userid);
     }
     let imageUploadFile;
     let uploadPath;
@@ -4585,6 +5102,50 @@ exports.delInvite = async (req, res) => {
 
 
 
+//Reviews
+
+exports.exploreReviews = async (req, res) => {
+  try {
+    const limitReview = 25;
+    const reviews = await Review.find({}).limit(limitReview);
+    res.render('reviews', { reviews });
+
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured" });
+  }
+}
+exports.exploreReviewsById = async (req, res) => {
+  try {
+    let reviewId = req.params.id;
+    const limitNumber = 20;
+    const reviewById = await Review.find({ 'review': reviewId }).limit(limitNumber);
+    res.render('reviews', { reviewById });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured" });
+  }
+}
+
+
+exports.submitReviews = async (req, res) => {
+  try {
+    let date = new Date();
+    let dt = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+    
+    {
+    const newReview = new Review({
+      username:req.body.usernameR,
+      userRating: req.body.rating,
+      userRatingDes: req.body.describe,
+      reviewDate: dt,
+      
+    });
+    await newReview.save();
+    req.flash('infoSubmit', 'Review has been added');
+    res.redirect('/');}
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error Occured " });
+  }
+}
 
 // data=[{
 //     name:"The Wedding Scenerio",

@@ -22,12 +22,19 @@
 
   <!--------------Icons-------------------->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/package-pricing.css">
   <script src="/js/script.js">
-     let pkgTotalPrice= new Array();
-     pkgTotalPrice=document.getElementById('pkg-basic-price').nodeValue;
-     console.log(pkgTotalPrice)
+     
   </script>
+   <script type="text/javascript">
+    (function(){
+        emailjs.init("uNhx_iGsOh1tSUkb0");
+      })();
+    </script>
+      <script type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+    </script>
+  
 </head>
 
 <body>
@@ -46,10 +53,11 @@
 
     <div id="pkg-body-main">
       <div class="pkg-price-heading">
-        <h2>
-          <%=packages.pkgname %>
-        </h2>
-
+        
+        <h1><%=packages.pkgname %></h1>
+        <h4>
+          <%=packages.pkgcmpyname %>
+        </h4>
       </div>
       <div class="pkg-price-main">
         <div class="pkg-wrapper">
@@ -64,62 +72,33 @@
                 </div>
               </div>
               <div class="pkg-package-name"></div>
-              <span style="display: block; margin: -22px 0 22px 0; text-align: center;">(Only wedding ceremony
-                cover)</span>
+              
 
               <ul class="pkg-features">
                 <li>
                   <div>
-                    <% packages.bItemList.basicItem.forEach(function(basicItem, index){ %>
+                    <%if(packages.bItemList !='' ){%>
+                      <%packages.bItemList.forEach(bItemList=>{%>
                       <span class="pkg-list">
-                        <%= basicItem %>
+                        <%=bItemList.basicItem%>
                       </span>
-                      <% }) %>
+                      <%})%>
+                      <%}%>
                   </div>
                   <div>
-                    <% packages.bItemList.basicPrice.forEach(function(basicPrice, index){ %>
+                    <%if(packages.bItemList !='' ){%>
+                      <%packages.bItemList.forEach(bItemList=>{%>
                       <span class="pkg-list-price" id="pkg-basic-price">
-                        &#8377 <%= basicPrice %>
+                        &#8377 <%=bItemList.basicPrice%>
                       </span>
-                      <% }) %>
+                      <%})%>
+                      <%}%>
                   </div>
 
                 </li>
-                <!--<li>
-                            <span class="pkg-list">Venue</span>
-                            <span class="pkg-list-price">&#8377 20K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Decoration</span>
-                            <span class="pkg-list-price">&#8377 10K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Catering</span>
-                            <span class="pkg-list-price">&#8377 600/plate</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Bridal/Groom Makeup</span>
-                            <span class="pkg-list-price">&#8377 15K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">e-invitation card</span>
-                            <span class="pkg-list-price">&#8377 100/card</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Photography</span>
-                            <span class="pkg-list-price">&#8377 30K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Accomodation</span>
-                            <span class="pkg-list-price">&#8377 1K/room</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Theme</span>
-                            <span class="pkg-list-price">&#8377 10K</span>
-                        </li>
-                       -->
+
               </ul>
-              <div class="pkg-btn"><button>Purchase</button></div>
+             
             </div>
           </a>
 
@@ -135,63 +114,35 @@
                 </div>
               </div>
               <div class="pkg-package-name"></div>
-              <span style="display: block; margin: -22px 0 22px 0; text-align: center;">(All ceremony of wedding
-                cover)</span>
+             
 
               <ul class="pkg-features">
                 <li>
 
 
                   <div>
-                    <% packages.pItemList.premiumItem.forEach(function(premiumItem, index){ %>
+                    <%if(packages.pItemList !='' ){%>
+                      <%packages.pItemList.forEach(pItemList=>{%>
                       <span class="pkg-list">
-                        <%= premiumItem %>
+                        <%=pItemList.premiumItem%>
                       </span>
-                      <% }) %>
+                      <%})%>
+                      <%}%>
                   </div>
                   <div>
-                    <% packages.pItemList.premiumPrice.forEach(function(premiumPrice, index){ %>
+                    <%if(packages.pItemList !='' ){%>
+                      <%packages.pItemList.forEach(pItemList=>{%>
                       <span class="pkg-list-price">
-                        &#8377 <%= premiumPrice %>
+                        &#8377 <%=pItemList.premiumPrice%>
                       </span>
-                      <% }) %>
+                      <%})%>
+                      <%}%>
                   </div>
 
                 </li>
-                <!--<li>
-                            <span class="pkg-list">Venue</span>
-                            <span class="pkg-list-price">&#8377 50K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Decoration</span>
-                            <span class="pkg-list-price">&#8377 20K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Catering</span>
-                            <span class="pkg-list-price">&#8377 800/plate</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Bridal/Groom Makeup</span>
-                            <span class="pkg-list-price">&#8377 25K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">e-invitation card</span>
-                            <span class="pkg-list-price">&#8377 150/card</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Photography</span>
-                            <span class="pkg-list-price">&#8377 40K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Accomodation</span>
-                            <span class="pkg-list-price">&#8377 2K/room</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Theme</span>
-                            <span class="pkg-list-price">&#8377 20K</span>
-                        </li>-->
+
               </ul>
-              <div class="pkg-btn"><button>Purchase</button></div>
+             
             </div>
           </a>
           <a href="#pkg-section3">
@@ -205,64 +156,36 @@
                 </div>
               </div>
               <div class="pkg-package-name"></div>
-              <span style="display: block; margin: -22px 0 22px 0; text-align: center;">(Destination
-                wedding)</span>
+            
 
               <ul class="pkg-features">
                 <li>
 
 
                   <div>
-                    <% packages.uItemList.ultimateItem.forEach(function(ultimateItem, index){ %>
+                    <%if(packages.uItemList !='' ){%>
+                      <%packages.uItemList.forEach(uItemList=>{%>
                       <span class="pkg-list">
-                        <%= ultimateItem %>
+                        <%=uItemList.ultimateItem%>
                       </span>
-                      <% }) %>
+                      <%})%>
+                      <%}%>
                   </div>
                   <div>
-                    <% packages.uItemList.ultimatePrice.forEach(function(ultimatePrice, index){ %>
+                    <%if(packages.uItemList !='' ){%>
+                      <%packages.uItemList.forEach(uItemList=>{%>
                       <span class="pkg-list-price">
-                        &#8377 <%= ultimatePrice %>
+                        &#8377 <%=uItemList.ultimatePrice%>
                       </span>
-                      <% }) %>
+                      <%})%>
+                      <%}%>
                   </div>
 
                 </li>
 
-                <!--<li>
-                            <span class="pkg-list">Venue </span>
-                            <span class="pkg-list-price">&#8377 70K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Decoration</span>
-                            <span class="pkg-list-price">&#8377 30K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Catering</span>
-                            <span class="pkg-list-price">&#8377 1000/plate</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Bridal/Groom Makeup</span>
-                            <span class="pkg-list-price">&#8377 40K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">e-invitation card</span>
-                            <span class="pkg-list-price">&#8377 200/card</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Photography</span>
-                            <span class="pkg-list-price">&#8377 50K</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Accomodation</span>
-                            <span class="pkg-list-price">&#8377 3K/room</span>
-                        </li>
-                        <li>
-                            <span class="pkg-list">Theme</span>
-                            <span class="pkg-list-price">&#8377 30K</span>
-                        </li>-->
+
               </ul>
-              <div class="pkg-btn"><button>Purchase</button></div>
+            
             </div>
           </a>
         </div>
@@ -271,130 +194,60 @@
         <section id="pkg-section1">
           <h1>Basic</h1>
           <div class="item1">
-            <% packages.bDesList.basicDesTitle.forEach(function(basicDesTitle, index){ %>
+            <%if(packages.bDesList !='' ){%>
+              <%packages.bDesList.forEach(bDesList=>{%>
               <div>
                 <h2>
-                  <%= basicDesTitle %>
+                  <%=bDesList.basicDesTitle%>
                 </h2>
               </div>
-              <% }) %>
+              <%})%>
+              <%}%>
           </div>
           <div class="item1">
-            <% packages.bDesList.basicDes.forEach(function(basicDes, index){ %>
+            <%if(packages.bDesList !='' ){%>
+              <%packages.bDesList.forEach(bDesList=>{%>
               <div>
                 <ul>
                   <li>
-                    <%= basicDes %>
+                    <%=bDesList.basicDes%>
                   </li>
                 </ul>
               </div>
-              <% }) %>
+              <%})%>
+              <%}%>
           </div>
 
-
-
-          <!--<div class="grid-container"><div class="item1">
-              <h2>Decoration</h2>
-              <ul>
-                <li>Starlight Backdrop</li>
-                <li>Cylinder Vase, Orchids and Floating Candles in centrepiece</li>
-                <li>Napkin with ribbon for tables</li>
-                <li>Fitted chair cover and Sash</li>
-                <li>White Carpet Aisle Runner</li>
-                <li>Lanterns</li>
-              </ul>
-            </div>
-            <div class="item2">
-              <h2>Food</h2>
-              <ul>
-                <li>1 soup</li>
-                <li>3 Rotis</li>
-                <li>2 Sabji</li>
-                <li>1 Rice</li>
-                <li>1 Dal</li>
-              </ul>
-            </div>
-            <div class="item3">
-              <h2>Theame</h2>
-              <ul>
-                <li>Casual or<br>Art Deco wedding theme</li>
-              </ul>
-            </div>
-    
-            <div class="item5">
-              <h2>Food</h2>
-              <ul>
-                <li>1 soup</li>
-                <li>3 Rotis</li>
-                <li>2 Sabji</li>
-                <li>1 Rice</li>
-                <li>1 Dal</li>
-              </ul>
-            </div>-->
 
         </section>
         <!----------------sec 2-------------->
         <section id="pkg-section2">
           <h1>Premium</h1>
           <div class="item1">
-            <% packages.pDesList.premiumDesTitle.forEach(function(premiumDesTitle, index){ %>
+            <%if(packages.pDesList !='' ){%>
+              <%packages.pDesList.forEach(pDesList=>{%>
               <div>
                 <h2>
-                  <%=premiumDesTitle %>
+                  <%=pDesList.premiumDesTitle%>
                 </h2>
               </div>
-              <% }) %>
+              <%})%>
+                            <%}%>
           </div>
           <div class="item1">
-            <% packages.pDesList.premiumDes.forEach(function(premiumDes, index){ %>
+            <%if(packages.pDesList !='' ){%>
+              <%packages.pDesList.forEach(pDesList=>{%>
               <div>
                 <ul>
                   <li>
-                    <%= premiumDes %>
+                    <%=pDesList.premiumDes%>
                   </li>
                 </ul>
               </div>
-              <% }) %>
+              <%})%>
+              <%}%>
           </div>
-          <!--<div class="grid-container">
-            <div class="item1">
-              <h2>Decoration</h2>
-              <ul>
-    
-                <li>Floral Garland Backdrop</li>
-                <li>Flower Ball on Vase or stand</li>
-                <li>Napkin with ribbon for tables</li>
-                <li>Fitted chair cover and Ruffle Hood</li>
-                <li>White Carpet Aisle Runner</li>
-                <li>Floral Arches</li>
-                <li>Lanterns and mirror Pillars</li>
-    
-              </ul>
-            </div>
-            <div class="item2">
-              <h2>Food</h2>
-              <ul>
-                <li>1 soup</li>
-                <li>3 Rotis</li>
-                <li>2 Sabji</li>
-                <li>1 Rice</li>
-                <li>1 Dal</li>
-              </ul>
-            </div>
-            <div class="item3">
-              <h2>Theame</h2>
-              <ul>
-                <li>Vintage or <br>Celestial</li>
-              </ul>
-            </div>
-            <div class="item5">
-              <h2>Food</h2>
-              <ul>
-                <li>550/- per plate<br>( Hotel : Surya Palace)</li>
-              </ul>
-            </div>
-    
-          </div>-->
+
         </section>
 
         <!----------------sec 3-------------->
@@ -402,68 +255,105 @@
         <section id="pkg-section3">
           <h1>Ultimate</h1>
           <div class="item1">
-            <% packages.uDesList.ultimateDesTitle.forEach(function(ultimateDesTitle, index){ %>
+            <%if(packages.uDesList !='' ){%>
+              <%packages.uDesList.forEach(uDesList=>{%>
               <div>
                 <h2>
-                  <%= ultimateDesTitle %>
+                  <%=uDesList.ultimateDesTitle%>
                 </h2>
               </div>
-              <% }) %>
+              <%})%>
+                            <%}%>
           </div>
           <div class="item1">
-            <% packages.uDesList.ultimateDes.forEach(function(ultimateDes, index){ %>
+            <%if(packages.uDesList !='' ){%>
+              <%packages.uDesList.forEach(uDesList=>{%>
               <div>
                 <ul>
                   <li>
-                    <%= ultimateDes %>
+                    <%=uDesList.ultimateDes%>
                   </li>
                 </ul>
               </div>
-              <% }) %>
+              <%})%>
+              <%}%>
           </div>
-          <!--<div class="grid-container">
-            <div class="item1">
-              <h2>Decoration</h2>
-              <ul>
-                <li>Giant Cherry Blossom Tress/Arch as Backdrop</li>
-                <li>Floral Hoop Centrepiece</li>
-                <li>Sequin Table Covers</li>
-                <li>Chiavari Chairs</li>
-                <li>White Carpet Aisle Runner</li>
-                <li>Floral Arches</li>
-                <li>Lanterns and Wishing Well</li>
-              </ul>
-            </div>
-            <div class="item2">
-              <h2>Food</h2>
-              <ul>
-                <li>1 soup</li>
-                <li>3 Rotis</li>
-                <li>2 Sabji</li>
-                <li>1 Rice</li>
-                <li>1 Dal</li>
-              </ul>
-            </div>
-            <div class="item3">
-              <h2>Theame</h2>
-              <ul>
-                <li>According to the destination </li>
-              </ul>
-            </div>
-    
-            <div class="item4">
-              <h2>Food</h2>
-              <ul>
-                <li>550/- per plate<br>(Hotel : Waves club)</li>
-              </ul>
-            </div>
-    
-          </div>-->
+
         </section>
       </section>
     </div>
-
+ </div>
+    <div class="contact-form">
+      <div id="contact-form">
+          <h2>Send Message</h2>
+          <div class="input-box">
+            <input type="text" id="sname" value="<%=packages.pkgcmpyname %>" disabled>
+            <span>Sponsorer Name</span>
+        </div>
+          <div class="input-box">
+              <input type="text" id="name" required="true">
+              <span>Full Name</span>
+          </div>
+          <div class="input-box">
+            <input type="number" id="mno" required="true">
+            <span>Mobile number</span>
+        </div>
+          <div class="input-box">
+              <input type="email" id="mail" required="true">
+              <span>Email</span>
+          </div>
+          <div class="input-box">
+            <input type="text" id="pname" required="true" placeholder="Basic/Premium/Ultimate">
+            <span>Package Name</span>
+        </div>
+          <div class="input-box">
+              <textarea  id="message" ></textarea>
+              <span>Type your message....</span>
+          </div>
+          <div class="input-box">
+              <input type="submit" value="Send" onclick="sendEmail()" style="font-weight:bold">
+          </div>
+        </div>
   </div>
+ 
+  <script>   
+  (function(){
+        emailjs.init("uNhx_iGsOh1tSUkb0");
+      })();  
+    function sendEmail(){
+       
+    try {
+      var fname=document.getElementById("name").value;
+      var sname=document.getElementById("sname").value;
+      var mno=document.getElementById("mno").value;
+      var mail=document.getElementById("mail").value;
+      var pname=document.getElementById("pname").value;
+      var message=document.getElementById("message").value;
+
+      if(fname=='' || mno=='' || mail=='' || pname=='' ||message==''){
+        alert("Fill all the details");
+      }
+      else{
+        var params={
+          from_name : fname,
+       mno : mno,
+       mail: mail,
+       pname: pname,
+       message:message
+        };
+        emailjs.send("service_ns4ekvp","template_gdvjcu8",params).then(function (res){
+       
+       alert("Successfully sent! A call will come within an hour!!");
+      });
+      }
+    }
+    catch(err){
+      console.log(err);
+      alert(err);
+    }
+  }
+
+      </script>  
 </body>
 
 </html>
